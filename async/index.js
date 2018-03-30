@@ -1,4 +1,4 @@
-import _keys from 'lodash/keys'
+const _keys = require('lodash/keys')
 
 module.exports.objectToQueryString = function objectToQueryString(obj) {
   const query = _keys(obj)
