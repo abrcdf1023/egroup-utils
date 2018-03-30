@@ -4,6 +4,10 @@
   "repository": "https://github.com/abrcdf1023/penguin-uikit.git",
   "author": "jerry_p <abrcdf1023@gmail.com>",
   "license": "MIT",
+  "files": [
+    "async/",
+    "date/"
+  ],
   "peerDependencies": {
     "lodash": "^4.17.5"
   },

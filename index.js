@@ -1,3 +1,3 @@
-module.exports.async = require('./async')
+module.exports = require('./async')
 
-module.exports.date = require('./date')
+module.exports = require('./date')
