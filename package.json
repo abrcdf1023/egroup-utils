@@ -4,6 +4,9 @@
   "repository": "https://github.com/abrcdf1023/penguin-uikit.git",
   "author": "jerry_p <abrcdf1023@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "files": [
     "async/",
     "date/"
@@ -13,6 +16,7 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-plugin-import": "^2.9.0"
+    "eslint-plugin-import": "^2.9.0",
+    "jest": "^22.4.3"
   }
 }

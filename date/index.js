@@ -1,9 +1,11 @@
 module.exports.formater = function formater(date, format) {
+  if (Object.prototype.toString.call(date) !== '[object Date]') {return ''}
+  const str = format || 'yyyy/mm/dd'
   let dd = date.getDate()
   let mm = date.getMonth() + 1
 
   const yyyy = date.getFullYear()
   if (dd < 10) {dd = `0${dd}`}
   if (mm < 10) {mm = `0${mm}`}
-  return format.replace(/yyyy/g, yyyy).replace(/mm/g, mm).replace(/dd/g, dd)
+  return str.replace(/yyyy/g, yyyy).replace(/mm/g, mm).replace(/dd/g, dd)
 }
