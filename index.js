@@ -1,3 +1,3 @@
 module.exports = require('./async')
 
-module.exports = require('./time')
+module.exports = require('./date')

@@ -6,7 +6,7 @@ function _dateValid(date) {
   return true
 }
 
-function _parseDate(date) {
+function parseDate(date) {
   if (!date) {return false}
   let dateEl = date
   if (_isString(dateEl)) {dateEl = new Date(dateEl)}
@@ -14,8 +14,10 @@ function _parseDate(date) {
   return false
 }
 
-module.exports.dateFormater = function dateFormater(date, str) {
-  const dateEl = _parseDate(date)
+module.exports.parseDate = parseDate
+
+module.exports.formater = function formater(date, str) {
+  const dateEl = parseDate(date)
   if (!dateEl) {return 'date is invalid'}
 
   const format = str || 'YYYY/MM/DD HH:mm:ss'
@@ -38,23 +40,4 @@ module.exports.dateFormater = function dateFormater(date, str) {
   }
 
   return format.replace(regex, (matched) => mapObj[matched])
-}
-
-function _secondsToHm(d) {
-  const h = Math.floor(d / 3600)
-  const m = Math.floor(d % 3600 / 60)
-  const s = Math.floor(d % 3600 % 60)
-
-  if (h > 0) {return h + (h === 1 ? ' hour' : ' hours')}
-  if (m > 0) {return m + (m === 1 ? ' min' : ' mins')}
-  if (s > 0) {return s + (s === 1 ? ' second' : ' seconds')}
-}
-
-module.exports.timeCompare = function timeCompare(date, date2) {
-  const dateEl = _parseDate(date)
-  const dateEl2 = _parseDate(date2)
-  if (!dateEl || !dateEl2) {return 'date is invalid'}
-  const seconds = Math.abs((dateEl.getTime() - dateEl2.getTime()) / 1000)
-  if (seconds > 86400) {return 'yesterday'}
-  return _secondsToHm(seconds)
 }

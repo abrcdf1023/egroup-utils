@@ -9,7 +9,7 @@
   },
   "files": [
     "async/",
-    "time/"
+    "date/"
   ],
   "peerDependencies": {
     "lodash": "^4.17.5"
