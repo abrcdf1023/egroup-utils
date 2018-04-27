@@ -3,7 +3,7 @@
  * @param {string} name
  * @param {string} value
  */
-export default function setCookie(name, value) {
+module.exports.setCookie = function setCookie(name, value) {
   const now = new Date()
   let time = now.getTime()
   time += 3600 * 1000 * 24 * 365 * 10 // 10 years
