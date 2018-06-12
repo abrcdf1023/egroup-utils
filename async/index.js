@@ -7,5 +7,5 @@ module.exports.objectToQueryString = function objectToQueryString(obj) {
     .filter((key) => obj[key] !== '' && obj[key] !== null)
     .map((key) => `${key}=${obj[key]}`)
     .join('&')
-  return query.length > 0 ? `?${query}` : null
+  return query.length > 0 ? `?${query}` : ''
 }

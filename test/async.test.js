@@ -1,12 +1,10 @@
 const { objectToQueryString } = require('../async')
 
-test('Object To QueryString', () => {
+test('Object To QueryString Exception', () => {
   expect(objectToQueryString({
     foo: 'foo',
     bar: 'bar'
   })).toBe('?foo=foo&bar=bar')
-})
-
-test('Object To QueryString Exception', () => {
   expect(objectToQueryString()).toBe('')
+  expect(objectToQueryString({})).toBe('')
 })
