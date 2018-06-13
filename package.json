@@ -1,7 +1,10 @@
 {
   "name": "@e-group/frontend-utils",
   "version": "1.0.13",
-  "repository": "https://github.com/eGroupTeam/frontend-utils.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eGroupTeam/frontend-utils.git"
+  },
   "author": "JerryP <egroup.jerrylee@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -12,12 +15,21 @@
     "date/",
     "cookie/"
   ],
-  "peerDependencies": {
-    "lodash": "^4.17.5"
-  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.9.0",
     "jest": "^22.4.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "description": "eGroup team's frontend utils",
+  "bugs": {
+    "url": "https://github.com/eGroupTeam/frontend-utils/issues"
+  },
+  "homepage": "https://github.com/eGroupTeam/frontend-utils#readme",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }
