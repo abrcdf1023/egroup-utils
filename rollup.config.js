@@ -12,7 +12,6 @@ const config = {
 
 if (env === 'es' || env === 'cjs') {
   config.output = { format: env, indent: false }
-  config.external = ['symbol-observable']
   config.plugins.push(
     babel({
       plugins: ['external-helpers'],
@@ -21,7 +20,7 @@ if (env === 'es' || env === 'cjs') {
 }
 
 if (env === 'development' || env === 'production') {
-  config.output = { format: 'umd', name: 'Redux', indent: false }
+  config.output = { format: 'umd', name: 'frontendUtils', indent: false }
   config.plugins.push(
     nodeResolve({
       jsnext: true

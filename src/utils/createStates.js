@@ -2,6 +2,13 @@ import { merge, mergeDeep, set } from 'immutable'
 import _isEmpty from 'lodash/isEmpty'
 import _isArray from 'lodash/isArray'
 
+/**
+ * Parse success with config and then return reducer action
+ * 
+ * @private
+ * @param {Array} success Customized create reducer get success scheme
+ * @returns {Object}
+ */
 function successIsArray(success) {
   const type = success[0]
   const options = success[1]
@@ -28,12 +35,26 @@ function successIsArray(success) {
   }
 }
 
+/**
+ * To check is vailded schema
+ * 
+ * @private
+ * @param {String} method 
+ * @param {Object} arg Customized create reducer methods(get,post,patch,delete) scheme
+ */
 function checkRequestArg(method, { request, success, failure }) {
   if (!request) throw new Error(`${method} request type undefined.`)
   if (!success) throw new Error(`${method} success type undefined.`)
   if (!failure) throw new Error(`${method} failure type undefined.`)
 }
 
+/**
+ * Create process to handle fetch get actions
+ * 
+ * @private
+ * @param {Object} arg
+ * @return {Object}
+ */
 function createGetState({ get }) {
   checkRequestArg('GET', get)
   const {
@@ -65,6 +86,13 @@ function createGetState({ get }) {
   }
 }
 
+/**
+ * Create process to handle fetch post actions
+ * 
+ * @private
+ * @param {Object} arg
+ * @return {Object}
+ */
 function createPostState({ post }) {
   checkRequestArg('POST', post)
   const {
@@ -88,6 +116,13 @@ function createPostState({ post }) {
   }
 }
 
+/**
+ * Create process to handle fetch patch actions
+ * 
+ * @private
+ * @param {Object} arg
+ * @return {Object}
+ */
 function createPatchState({ patch }) {
   checkRequestArg('PATCH', patch)
   const {
@@ -111,6 +146,13 @@ function createPatchState({ patch }) {
   }
 }
 
+/**
+ * Create process to handle fetch delete actions
+ * 
+ * @private
+ * @param {Object} arg
+ * @return {Object}
+ */
 function createDeleteState({ del }) {
   checkRequestArg('DELETE', del)
   const {
@@ -134,6 +176,13 @@ function createDeleteState({ del }) {
   }
 }
 
+/**
+ * Create process to handle all fetch actions
+ * 
+ * @private
+ * @param {Object} arg
+ * @return {Object}
+ */
 export default function createStates(arg) {
   let states = {}
   if (arg.get) {

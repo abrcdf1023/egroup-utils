@@ -8,6 +8,7 @@ import createInitialState from './utils/createInitialState'
  * First arg is the reducer scheme
  * Second arg can replace the action function you need
  * Third arg can replace the initialState you need
+ * 
  * @param {Object} arg
  * @param {Object} cusState
  * @param {Object} cusInitialState

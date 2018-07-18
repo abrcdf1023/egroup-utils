@@ -1,5 +1,5 @@
-import createFetchReducer  from './createFetchReducer'
-import createObservableApi  from './createObservableApi'
+import createFetchReducer from './createFetchReducer'
+import createObservableApi from './createObservableApi'
 
 export {
   createFetchReducer,
