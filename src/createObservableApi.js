@@ -6,7 +6,7 @@ import { Observable } from 'rxjs'
  * @param {string} apiName
  */
 const createObservableApi = (payload, api) => new Observable(async (observer) => {
-  const response = await api(payload).catch(err => observer.error(err))
+  const response = await api(payload).catch(error => observer.error(error))
   observer.next(response)
   observer.complete()
 })
