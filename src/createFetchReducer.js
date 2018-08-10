@@ -1,21 +1,20 @@
 import { fromJS } from 'immutable'
 import { handleActions } from 'redux-actions'
-import createActions from './utils/createActions'
-import createInitialState from './utils/createInitialState'
+import { createActions, createInitialState } from './utils/index.js'
 
 /**
  * create default fetch reducer,
- * First arg is the reducer scheme
+ * First arg is the config
  * Second arg can replace the action function you need
  * Third arg can replace the initialState you need
  * 
- * @param {Object} arg
+ * @param {Object} config
  * @param {Object} cusActions
  * @param {Object} cusInitialState
  */
-const createFetchReducer = (arg, cusActions, cusInitialState) => {
-  const actions = createActions(arg)
-  const initialState = createInitialState(arg)
+const createFetchReducer = (config, cusActions, cusInitialState) => {
+  const actions = createActions(config)
+  const initialState = createInitialState(config)
   return handleActions({
     ...actions,
     ...cusActions,
