@@ -86,6 +86,20 @@ function makeCancelAction(cancel) {
 }
 
 /**
+ * Make a failure action
+ * @param {String} failure 
+ */
+function makeFailureAction(failure) {
+  return {
+    [failure]: (state, action) => merge(state, {
+      isLoading: false,
+      isError: action.error,
+      error: action.payload,
+    }),
+  }
+}
+
+/**
  * To check is vailded config
  * 
  * @private
@@ -114,11 +128,7 @@ function createGetAction(config) {
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
-    [failure]: (state, action) => merge(state, {
-      isLoading: false,
-      isError: action.error,
-      error: action.payload,
-    }),
+    ...makeFailureAction(failure),
   }
 }
 
@@ -138,11 +148,7 @@ function createPostAction(config) {
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
-    [failure]: (state, action) => merge(state, {
-      isLoading: false,
-      isError: action.error,
-      error: action.payload,
-    }),
+    ...makeFailureAction(failure),
   }
 }
 
@@ -162,11 +168,7 @@ function createPatchAction(config) {
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
-    [failure]: (state, action) => merge(state, {
-      isLoading: false,
-      isError: action.error,
-      error: action.payload,
-    }),
+    ...makeFailureAction(failure),
   }
 }
 
@@ -186,11 +188,7 @@ function createDeleteAction(config) {
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
-    [failure]: (state, action) => merge(state, {
-      isLoading: false,
-      isError: action.error,
-      error: action.payload,
-    }),
+    ...makeFailureAction(failure),
   }
 }
 
