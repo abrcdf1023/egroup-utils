@@ -9,26 +9,20 @@ import _isArray from 'lodash/isArray'
  * @param {Array} success Customized create reducer get success scheme
  * @returns {Object}
  */
-function successIsArray(success) {
+function successWithConfig(success) {
   const type = success[0]
   const options = success[1]
   return {
     [type]: (state, action) => {
-      if (options.data) {
-        let data = action.payload
-        if (options.mergeData) {
-          data = merge(state.get('data'), action.payload)
-        } else if (options.mergeDeepData) {
-          data = mergeDeep(state.get('data'), action.payload)
-        }
-        return merge(state, {
-          isGetting: false,
-          data,
-          isEmpty: _isEmpty(action.payload),
-        })
+      let data = action.payload
+      if (options.mergeData) {
+        data = merge(state.get('data'), action.payload)
+      } else if (options.mergeDeepData) {
+        data = mergeDeep(state.get('data'), action.payload)
       }
       return merge(state, {
         isGetting: false,
+        data,
         isEmpty: _isEmpty(action.payload),
       })
     },
@@ -63,7 +57,10 @@ function createGetState({ get }) {
   const cancelState = !cancel ? {} : {
     [cancel]: state => set(state, 'isGetting', false),
   }
-  const successState = _isArray(success) ? successIsArray(success) : {
+  // If without config it replaces data when get success
+  // or you can config with mergeData or mergeDeepData
+  // to merge success data
+  const successState = _isArray(success) ? successWithConfig(success) : {
     [success]: (state, action) => merge(state, {
       isGetting: false,
       data: action.payload,
