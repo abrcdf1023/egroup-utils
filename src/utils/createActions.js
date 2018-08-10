@@ -106,23 +106,24 @@ function makeFailureAction(failure) {
  * @param {String} method 
  * @param {Object} arg Customized create reducer methods(get,post,patch,delete) scheme
  */
-function checkConfig(method, { request, success, failure }) {
+function checkConfig({ take, request, success, failure }, method) {
+  if (!take) throw new Error(`${method} take type undefined.`)
   if (!request) throw new Error(`${method} request type undefined.`)
   if (!success) throw new Error(`${method} success type undefined.`)
   if (!failure) throw new Error(`${method} failure type undefined.`)
 }
 
 /**
- * Create process to handle fetch get actions
+ * Create process to handle process of fetch actions
  * 
  * @private
  * @param {Object|null} arg
  * @return {Object}
  */
-function createGetAction(config) {
+function makeFetchActions(config, method) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
-  checkConfig('GET', { request, success, failure })
+  checkConfig(config, method)
   return {
     ...makeTakeAction(take),
     ...makeRequestAction(request),
@@ -133,67 +134,7 @@ function createGetAction(config) {
 }
 
 /**
- * Create process to handle fetch post actions
- * 
- * @private
- * @param {Object} arg
- * @return {Object}
- */
-function createPostAction(config) {
-  if (!config) return {}
-  const { take, request, success, cancel, failure } = config
-  checkConfig('POST', { request, success, failure })
-  return {
-    ...makeTakeAction(take),
-    ...makeRequestAction(request),
-    ...makeSuccessAction(success),
-    ...makeCancelAction(cancel),
-    ...makeFailureAction(failure),
-  }
-}
-
-/**
- * Create process to handle fetch patch actions
- * 
- * @private
- * @param {Object} arg
- * @return {Object}
- */
-function createPatchAction(config) {
-  if (!config) return {}
-  const { take, request, success, cancel, failure } = config
-  checkConfig('PATCH', { request, success, failure })
-  return {
-    ...makeTakeAction(take),
-    ...makeRequestAction(request),
-    ...makeSuccessAction(success),
-    ...makeCancelAction(cancel),
-    ...makeFailureAction(failure),
-  }
-}
-
-/**
- * Create process to handle fetch delete actions
- * 
- * @private
- * @param {Object} arg
- * @return {Object}
- */
-function createDeleteAction(config) {
-  if (!config) return {}
-  const { take, request, success, cancel, failure } = config
-  checkConfig('DELETE', { request, success, failure })
-  return {
-    ...makeTakeAction(take),
-    ...makeRequestAction(request),
-    ...makeSuccessAction(success),
-    ...makeCancelAction(cancel),
-    ...makeFailureAction(failure),
-  }
-}
-
-/**
- * Create process to handle all fetch actions
+ * Create process to handle all type of fetch actions
  * 
  * @private
  * @param {Object} arg
@@ -201,9 +142,9 @@ function createDeleteAction(config) {
  */
 export default function createActions(arg) {
   return {
-    get: createGetAction(arg.get),
-    post: createPostAction(arg.post),
-    patch: createPatchAction(arg.patch),
-    delete: createDeleteAction(arg.delete),
+    get: makeFetchActions(arg.get, 'GET'),
+    post: makeFetchActions(arg.post, 'POST'),
+    patch: makeFetchActions(arg.patch, 'PATCH'),
+    delete: makeFetchActions(arg.delete, 'DELETE'),
   }
 }
