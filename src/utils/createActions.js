@@ -2,7 +2,7 @@ import { merge, mergeDeep, set } from 'immutable'
 import _isArray from 'lodash/isArray'
 
 /**
- * Make a success state
+ * Make a success action
  * 
  * If without config it replaces data when get success
  * or you can config with mergeData or mergeDeepData
@@ -11,7 +11,7 @@ import _isArray from 'lodash/isArray'
  * @param {String|Array} success
  * @returns {Object}
  */
-function makeSuccessState(success) {
+function makeSuccessAction(success) {
   // get date function to prevent undefined error and make sure all state will have data state
   const getData = action => action.payload || {}
   // success is array means it with customize behavior
@@ -53,22 +53,22 @@ function makeSuccessState(success) {
 }
 
 /**
- * Make a request state
+ * Make a request action
  * @param {String} request 
  */
-function makeRequestState(request) {
+function makeRequestAction(request) {
   return {
     [request]: state => set(state, 'isLoading', true),
   }
 }
 
 /**
- * Make a cancel state
- * Cancel state is not required in createFetchReducer so if the value is null
+ * Make a cancel action
+ * Cancel action is not required in createFetchReducer so if the value is null
  * it'll return empty object.
  * @param {String|null} cancel
  */
-function makeCancelState(cancel) {
+function makeCancelAction(cancel) {
   const cancelState = !cancel ? {} : {
     [cancel]: state => set(state, 'isLoading', false),
   }
@@ -95,7 +95,7 @@ function checkConfig(method, { request, success, failure }) {
  * @param {Object|null} arg
  * @return {Object}
  */
-function createGetState(config) {
+function createGetAction(config) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
   checkConfig('GET', { request, success, failure })
@@ -103,9 +103,9 @@ function createGetState(config) {
     [take]: state => merge(state, {
       error: false,
     }),
-    ...makeRequestState(request),
-    ...makeSuccessState(success),
-    ...makeCancelState(cancel),
+    ...makeRequestAction(request),
+    ...makeSuccessAction(success),
+    ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
       error: action.error,
@@ -121,7 +121,7 @@ function createGetState(config) {
  * @param {Object} arg
  * @return {Object}
  */
-function createPostState(config) {
+function createPostAction(config) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
   checkConfig('POST', { request, success, failure })
@@ -129,9 +129,9 @@ function createPostState(config) {
     [take]: state => merge(state, {
       error: false,
     }),
-    ...makeRequestState(request),
-    ...makeSuccessState(success),
-    ...makeCancelState(cancel),
+    ...makeRequestAction(request),
+    ...makeSuccessAction(success),
+    ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
       error: action.error,
@@ -147,7 +147,7 @@ function createPostState(config) {
  * @param {Object} arg
  * @return {Object}
  */
-function createPatchState(config) {
+function createPatchAction(config) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
   checkConfig('PATCH', { request, success, failure })
@@ -155,9 +155,9 @@ function createPatchState(config) {
     [take]: state => merge(state, {
       error: false,
     }),
-    ...makeRequestState(request),
-    ...makeSuccessState(success),
-    ...makeCancelState(cancel),
+    ...makeRequestAction(request),
+    ...makeSuccessAction(success),
+    ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
       error: action.error,
@@ -173,7 +173,7 @@ function createPatchState(config) {
  * @param {Object} arg
  * @return {Object}
  */
-function createDeleteState(config) {
+function createDeleteAction(config) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
   checkConfig('DELETE', { request, success, failure })
@@ -181,9 +181,9 @@ function createDeleteState(config) {
     [take]: state => merge(state, {
       error: false,
     }),
-    ...makeRequestState(request),
-    ...makeSuccessState(success),
-    ...makeCancelState(cancel),
+    ...makeRequestAction(request),
+    ...makeSuccessAction(success),
+    ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
       error: action.error,
@@ -201,9 +201,9 @@ function createDeleteState(config) {
  */
 export default function createActions(arg) {
   return {
-    get: createGetState(arg.get),
-    post: createPostState(arg.post),
-    patch: createPatchState(arg.patch),
-    delete: createDeleteState(arg.delete),
+    get: createGetAction(arg.get),
+    post: createPostAction(arg.post),
+    patch: createPatchAction(arg.patch),
+    delete: createDeleteAction(arg.delete),
   }
 }
