@@ -53,6 +53,16 @@ function makeSuccessAction(success) {
 }
 
 /**
+ * Make a take action
+ * @param {String} take 
+ */
+function makeTakeAction(take) {
+  return {
+    [take]: state => set(state, 'error', false),
+  }
+}
+
+/**
  * Make a request action
  * @param {String} request 
  */
@@ -100,9 +110,7 @@ function createGetAction(config) {
   const { take, request, success, cancel, failure } = config
   checkConfig('GET', { request, success, failure })
   return {
-    [take]: state => merge(state, {
-      error: false,
-    }),
+    ...makeTakeAction(take),
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
@@ -126,9 +134,7 @@ function createPostAction(config) {
   const { take, request, success, cancel, failure } = config
   checkConfig('POST', { request, success, failure })
   return {
-    [take]: state => merge(state, {
-      error: false,
-    }),
+    ...makeTakeAction(take),
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
@@ -152,9 +158,7 @@ function createPatchAction(config) {
   const { take, request, success, cancel, failure } = config
   checkConfig('PATCH', { request, success, failure })
   return {
-    [take]: state => merge(state, {
-      error: false,
-    }),
+    ...makeTakeAction(take),
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
@@ -178,9 +182,7 @@ function createDeleteAction(config) {
   const { take, request, success, cancel, failure } = config
   checkConfig('DELETE', { request, success, failure })
   return {
-    [take]: state => merge(state, {
-      error: false,
-    }),
+    ...makeTakeAction(take),
     ...makeRequestAction(request),
     ...makeSuccessAction(success),
     ...makeCancelAction(cancel),
