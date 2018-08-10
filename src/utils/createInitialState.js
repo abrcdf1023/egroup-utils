@@ -8,22 +8,22 @@ export default function createInitialState() {
   return {
     get: {
       isLoading: false,
-      error: false,
+      isError: false,
       data: {},
     },
     post: {
       isLoading: false,
-      error: false,
+      isError: false,
       data: {},
     },
     patch: {
       isLoading: false,
-      error: false,
+      isError: false,
       data: {},
     },
     delete: {
       isLoading: false,
-      error: false,
+      isError: false,
       data: {},
     }
   }

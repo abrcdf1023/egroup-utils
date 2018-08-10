@@ -12,7 +12,7 @@ import _isArray from 'lodash/isArray'
  * @returns {Object}
  */
 function makeSuccessAction(success) {
-  // get date function to prevent undefined error and make sure all state will have data state
+  // get date function to prevent undefined and make sure all state will have data state
   const getData = action => action.payload || {}
   // success is array means it with customize behavior
   if(_isArray(success)) {
@@ -58,7 +58,7 @@ function makeSuccessAction(success) {
  */
 function makeTakeAction(take) {
   return {
-    [take]: state => set(state, 'error', false),
+    [take]: state => set(state, 'isError', false),
   }
 }
 
@@ -116,8 +116,8 @@ function createGetAction(config) {
     ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
-      error: action.error,
-      errorMsg: action.payload.message,
+      isError: action.error,
+      error: action.payload,
     }),
   }
 }
@@ -140,8 +140,8 @@ function createPostAction(config) {
     ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
-      error: action.error,
-      errorMsg: action.payload.message,
+      isError: action.error,
+      error: action.payload,
     }),
   }
 }
@@ -164,8 +164,8 @@ function createPatchAction(config) {
     ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
-      error: action.error,
-      errorMsg: action.payload.message,
+      isError: action.error,
+      error: action.payload,
     }),
   }
 }
@@ -188,8 +188,8 @@ function createDeleteAction(config) {
     ...makeCancelAction(cancel),
     [failure]: (state, action) => merge(state, {
       isLoading: false,
-      error: action.error,
-      errorMsg: action.payload.message,
+      isError: action.error,
+      error: action.payload,
     }),
   }
 }
