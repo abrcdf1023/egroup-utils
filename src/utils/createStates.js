@@ -3,40 +3,82 @@ import _isEmpty from 'lodash/isEmpty'
 import _isArray from 'lodash/isArray'
 
 /**
- * Parse success with config and then return reducer action
+ * Make a success state
  * 
+ * If without config it replaces data when get success
+ * or you can config with mergeData or mergeDeepData
+ * to merge success data
  * @private
- * @param {Array} success Customized create reducer get success scheme
+ * @param {String|Array} success
+ * @param {Object} otherState append other states to so we can reuse this function
  * @returns {Object}
  */
-function successWithConfig(success) {
-  const type = success[0]
-  const options = success[1]
-  return {
-    [type]: (state, action) => {
-      let data = action.payload
-      if (options.mergeData) {
-        data = merge(state.get('data'), action.payload)
-      } else if (options.mergeDeepData) {
-        data = mergeDeep(state.get('data'), action.payload)
+function makeSuccessState(success, otherState) {
+  // get date function to prevent undefined error and make sure all state will have data state
+  const getData = action => action.payload || {}
+  // success is array means it with customize behavior
+  if(_isArray(success)) {
+    const actionType = success[0]
+    const options = success[1]
+    // If mergeData is true default is null
+    if (options.mergeData) {
+      return {
+        [actionType]: (state, action) => {
+          return merge(state, {
+            ...otherState,
+            data: merge(state.get('data'), getData(action)),
+            isEmpty: _isEmpty(getData(action)),
+          })
+        },
       }
+    }
+    // If mergeDeepData is true default is null
+    else if (options.mergeDeepData) {
+      return {
+        [actionType]: (state, action) => {
+          return merge(state, {
+            ...otherState,
+            data: mergeDeep(state.get('data'), getData(action)),
+            isEmpty: _isEmpty(getData(action)),
+          })
+        },
+      }
+    }
+  }
+  // without config is default behavior
+  return {
+    [success]: (state, action) => {
       return merge(state, {
-        isGetting: false,
-        data,
-        isEmpty: _isEmpty(action.payload),
+        ...otherState,
+        data: getData(action),
+        isEmpty: _isEmpty(getData(action)),
       })
     },
   }
 }
 
 /**
- * To check is vailded schema
+ * Make a cancel state
+ * Cancel state is not required in createFetchReducer so if the value is null
+ * it'll return empty object.
+ * @param {String|null} cancel 
+ * @param {String} isLoading 
+ */
+function makeCancelState(cancel, isLoading) {
+  const cancelState = !cancel ? {} : {
+    [cancel]: state => set(state, isLoading, false),
+  }
+  return cancelState
+}
+
+/**
+ * To check is vailded config
  * 
  * @private
  * @param {String} method 
  * @param {Object} arg Customized create reducer methods(get,post,patch,delete) scheme
  */
-function checkRequestArg(method, { request, success, failure }) {
+function checkConfig(method, { request, success, failure }) {
   if (!request) throw new Error(`${method} request type undefined.`)
   if (!success) throw new Error(`${method} success type undefined.`)
   if (!failure) throw new Error(`${method} failure type undefined.`)
@@ -50,23 +92,14 @@ function checkRequestArg(method, { request, success, failure }) {
  * @return {Object}
  */
 function createGetState({ get }) {
-  checkRequestArg('GET', get)
+  checkConfig('GET', get)
   const {
     request, success, cancel, failure,
   } = get
-  const cancelState = !cancel ? {} : {
-    [cancel]: state => set(state, 'isGetting', false),
-  }
-  // If without config it replaces data when get success
-  // or you can config with mergeData or mergeDeepData
-  // to merge success data
-  const successState = _isArray(success) ? successWithConfig(success) : {
-    [success]: (state, action) => merge(state, {
-      isGetting: false,
-      data: action.payload,
-      isEmpty: _isEmpty(action.payload),
-    }),
-  }
+  const successState = makeSuccessState(success, {
+    isGetting: false,
+  })
+  const cancelState = makeCancelState(cancel, 'isGetting')
   return {
     [request]: state => merge(state, {
       isGetting: true,
@@ -91,19 +124,20 @@ function createGetState({ get }) {
  * @return {Object}
  */
 function createPostState({ post }) {
-  checkRequestArg('POST', post)
+  checkConfig('POST', post)
   const {
     request, success, cancel, failure,
   } = post
-  const cancelState = !cancel ? {} : {
-    [cancel]: state => set(state, 'isPosting', false),
-  }
+  const successState = makeSuccessState(success, {
+    isPosting: false,
+  })
+  const cancelState = makeCancelState(cancel, 'isPosting')
   return {
     [request]: state => merge(state, {
       isPosting: true,
       postError: false,
     }),
-    [success]: state => set(state, 'isPosting', false),
+    ...successState,
     ...cancelState,
     [failure]: (state, action) => merge(state, {
       isPosting: false,
@@ -121,19 +155,20 @@ function createPostState({ post }) {
  * @return {Object}
  */
 function createPatchState({ patch }) {
-  checkRequestArg('PATCH', patch)
+  checkConfig('PATCH', patch)
   const {
     request, success, cancel, failure,
   } = patch
-  const cancelState = !cancel ? {} : {
-    [cancel]: state => set(state, 'isPatching', false),
-  }
+  const successState = makeSuccessState(success, {
+    isPatching: false,
+  })
+  const cancelState = makeCancelState(cancel, 'isPatching')
   return {
     [request]: state => merge(state, {
       isPatching: true,
       patchError: false,
     }),
-    [success]: state => set(state, 'isPatching', false),
+    ...successState,
     ...cancelState,
     [failure]: (state, action) => merge(state, {
       isPatching: false,
@@ -151,19 +186,20 @@ function createPatchState({ patch }) {
  * @return {Object}
  */
 function createDeleteState({ del }) {
-  checkRequestArg('DELETE', del)
+  checkConfig('DELETE', del)
   const {
     request, success, cancel, failure,
   } = del
-  const cancelState = !cancel ? {} : {
-    [cancel]: state => set(state, 'isDeleting', false),
-  }
+  const successState = makeSuccessState(success, {
+    isDeleting: false,
+  })
+  const cancelState = makeCancelState(cancel, 'isDeleting')
   return {
     [request]: state => merge(state, {
       isDeleting: true,
       deleteError: false,
     }),
-    [success]: state => set(state, 'isDeleting', false),
+    ...successState,
     ...cancelState,
     [failure]: (state, action) => merge(state, {
       isDeleting: false,
