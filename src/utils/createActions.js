@@ -199,7 +199,7 @@ function createDeleteState(config) {
  * @param {Object} arg
  * @return {Object}
  */
-export default function createStates(arg) {
+export default function createActions(arg) {
   return {
     get: createGetState(arg.get),
     post: createPostState(arg.post),

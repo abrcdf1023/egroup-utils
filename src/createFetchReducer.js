@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable'
 import { handleActions } from 'redux-actions'
-import createStates from './utils/createStates'
+import createActions from './utils/createActions'
 import createInitialState from './utils/createInitialState'
 
 /**
@@ -14,7 +14,7 @@ import createInitialState from './utils/createInitialState'
  * @param {Object} cusInitialState
  */
 const createFetchReducer = (arg, cusState, cusInitialState) => {
-  const states = createStates(arg)
+  const states = createActions(arg)
   const initialState = createInitialState(arg)
   return handleActions({
     ...states,
