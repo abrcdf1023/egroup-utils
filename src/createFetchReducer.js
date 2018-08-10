@@ -10,15 +10,15 @@ import createInitialState from './utils/createInitialState'
  * Third arg can replace the initialState you need
  * 
  * @param {Object} arg
- * @param {Object} cusState
+ * @param {Object} cusActions
  * @param {Object} cusInitialState
  */
-const createFetchReducer = (arg, cusState, cusInitialState) => {
-  const states = createActions(arg)
+const createFetchReducer = (arg, cusActions, cusInitialState) => {
+  const actions = createActions(arg)
   const initialState = createInitialState(arg)
   return handleActions({
-    ...states,
-    ...cusState,
+    ...actions,
+    ...cusActions,
   }, fromJS({
     ...initialState,
     ...cusInitialState,
