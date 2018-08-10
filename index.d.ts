@@ -1,2 +1,5 @@
-export { createFetchReducer } from './src/createFetchReducer'
+export { createFetchGetReducer } from './src/createFetchGetReducer'
+export { createFetchPostReducer } from './src/createFetchPostReducer'
+export { createFetchPatchReducer } from './src/createFetchPatchReducer'
+export { createFetchDeleteReducer } from './src/createFetchDeleteReducer'
 export { createObservableApi } from './src/createObservableApi'

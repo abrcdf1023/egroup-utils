@@ -1,2 +1,5 @@
-export { default as createFetchReducer } from './createFetchReducer'
+export { default as createFetchGetReducer } from './createFetchGetReducer'
+export { default as createFetchPostReducer } from './createFetchPostReducer'
+export { default as createFetchPatchReducer } from './createFetchPatchReducer'
+export { default as createFetchDeleteReducer } from './createFetchDeleteReducer'
 export { default as createObservableApi } from './createObservableApi'
