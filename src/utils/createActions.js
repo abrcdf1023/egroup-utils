@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable'
 import { handleActions } from 'redux-actions'
 
-import createInitialState from './createInitialState'
+import initialState from '../initialState'
 import makeFetchActions from './makeFetchActions'
 
 /**
@@ -17,7 +17,6 @@ import makeFetchActions from './makeFetchActions'
  */
 export default function createActions(config, cusActions, cusInitialState, method) {
   const actions = makeFetchActions(config, method)
-  const initialState = createInitialState()
   return handleActions({
     ...actions,
     ...cusActions,
