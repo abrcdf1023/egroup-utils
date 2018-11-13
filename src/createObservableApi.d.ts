@@ -1,4 +1,4 @@
 export function createObservableApi(
-  payload: object,
   api: Function,
+  payload: object,
 ): void;

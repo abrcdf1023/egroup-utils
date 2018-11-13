@@ -2,10 +2,10 @@ import { Observable } from 'rxjs'
 
 /**
  * Create observable api
+ * @param {Function} api the api function you want observable
  * @param {any} payload
- * @param {Function} api observable api function
  */
-const createObservableApi = (payload, api) => new Observable((observer) => {
+const createObservableApi = (api, payload) => new Observable((observer) => {
   api(payload).then((response) => {
     observer.next(response)
     observer.complete()
