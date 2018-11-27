@@ -8,7 +8,7 @@ export default function makeFailureAction(failure) {
   return {
     [failure]: (state, action) => merge(state, {
       isLoading: false,
-      isError: action.error,
+      isError: true,
       error: action.payload,
     }),
   }

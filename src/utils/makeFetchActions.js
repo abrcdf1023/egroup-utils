@@ -6,7 +6,7 @@ import makeCancelAction from './makeCancelAction'
 import makeFailureAction from './makeFailureAction'
 
 /**
- * Create process to handle process of fetch actions
+ * To handle process of fetch actions
  * 
  * @private
  * @param {Object|null} arg
