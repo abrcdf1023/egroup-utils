@@ -7,11 +7,11 @@ import { createActions } from './utils/index.js'
  * Third arg can replace the initialState you need
  * 
  * @param {Object} config
- * @param {Object} cusActions
  * @param {Object} cusInitialState
+ * @param {Object} cusActions
  */
-const createFetchPostReducer = (config, cusActions, cusInitialState) => {
-  return createActions(config, cusActions, cusInitialState, 'POST')
+const createFetchPostReducer = (config, cusInitialState, cusActions) => {
+  return createActions(config, cusInitialState, cusActions, 'POST')
 }
 
 export default createFetchPostReducer

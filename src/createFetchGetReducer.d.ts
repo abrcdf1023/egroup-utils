@@ -19,6 +19,6 @@ export interface Config {
 
 export function createFetchGetReducer(
   config: Config,
-  cusActions?: object,
   cusInitialState?: object,
+  cusActions?: object,
 ): void;

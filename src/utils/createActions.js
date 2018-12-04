@@ -11,11 +11,11 @@ import makeFetchActions from './makeFetchActions'
  * Third arg can replace the initialState you need
  * Fourth arg is private method to create different type reducer
  * @param {Object} config
- * @param {Object} cusActions
  * @param {Object} cusInitialState
+ * @param {Object} cusActions
  * @param {String} method
  */
-export default function createActions(config, cusActions, cusInitialState, method) {
+export default function createActions(config, cusInitialState, cusActions, method) {
   const actions = makeFetchActions(config, method)
   return handleActions({
     ...actions,
