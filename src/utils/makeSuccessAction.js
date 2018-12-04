@@ -11,8 +11,6 @@ import { merge, mergeDeep } from 'immutable'
  * @returns {Object}
  */
 export default function makeSuccessAction(success) {
-  // get date function to prevent undefined and make sure all state will have data state
-  const getData = action => action.payload || {}
   // success is array means it with customize behavior
   if(Array.isArray(success)) {
     const actionType = success[0]
@@ -23,7 +21,7 @@ export default function makeSuccessAction(success) {
         [actionType]: (state, action) => {
           return merge(state, {
             isLoading: false,
-            data: merge(state.get('data'), getData(action)),
+            data: merge(state.get('data'), action.payload),
           })
         },
       }
@@ -34,7 +32,7 @@ export default function makeSuccessAction(success) {
         [actionType]: (state, action) => {
           return merge(state, {
             isLoading: false,
-            data: mergeDeep(state.get('data'), getData(action)),
+            data: mergeDeep(state.get('data'), action.payload),
           })
         },
       }
@@ -45,7 +43,7 @@ export default function makeSuccessAction(success) {
     [success]: (state, action) => {
       return merge(state, {
         isLoading: false,
-        data: getData(action),
+        data: action.payload,
       })
     },
   }
