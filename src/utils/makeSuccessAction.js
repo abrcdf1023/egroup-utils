@@ -9,7 +9,7 @@ export default function makeSuccessAction(success) {
     [success]: (state, action) => {
       let newState = state.set('isLoading', false)
       if (action.payload) {
-        newState.set('data', action.payload)
+        newState = newState.set('data', action.payload)
       }
       return newState
     },
