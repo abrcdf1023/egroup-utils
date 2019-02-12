@@ -4,6 +4,7 @@
  * it'll return empty object.
  * @private
  * @param {String|null} cancel
+ * @returns {Object}
  */
 export default function makeCancelAction(cancel) {
   const cancelState = !cancel ?

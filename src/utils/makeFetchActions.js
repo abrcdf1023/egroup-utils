@@ -7,7 +7,6 @@ import makeFailureAction from './makeFailureAction'
 
 /**
  * To handle process of fetch actions
- * 
  * @private
  * @param {Object|null} arg
  * @return {Object}

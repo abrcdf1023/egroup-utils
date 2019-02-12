@@ -1,6 +1,8 @@
 /**
  * Make a take action
+ * @private
  * @param {String} take 
+ * @returns {Object}
  */
 export default function makeTakeAction(take) {
   return {

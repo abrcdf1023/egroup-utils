@@ -1,7 +1,8 @@
 /**
  * Make a request action
  * @private
- * @param {String} request 
+ * @param {String} request
+ * @returns {Object}
  */
 export default function makeRequestAction(request) {
   return {

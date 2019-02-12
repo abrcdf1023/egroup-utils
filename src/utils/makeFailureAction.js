@@ -1,7 +1,8 @@
 /**
  * Make a failure action
  * @private
- * @param {String} failure 
+ * @param {String} failure
+ * @returns {Object}
  */
 export default function makeFailureAction(failure) {
   return {
