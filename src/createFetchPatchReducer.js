@@ -11,7 +11,7 @@ import { createActions } from './utils/index.js'
  * @param {Object} cusActions
  */
 const createFetchPatchReducer = (config, cusInitialState, cusActions) => {
-  return createActions(config, cusInitialState, cusActions, 'PATCH')
+  return createActions(config, 'PATCH', cusInitialState, cusActions)
 }
 
 export default createFetchPatchReducer

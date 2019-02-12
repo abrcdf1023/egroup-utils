@@ -11,7 +11,7 @@ import { createActions } from './utils/index.js'
  * @param {Object} cusActions
  */
 const createFetchDeleteReducer = (config, cusInitialState, cusActions) => {
-  return createActions(config, cusInitialState, cusActions, 'DELETE')
+  return createActions(config, 'DELETE', cusInitialState, cusActions)
 }
 
 export default createFetchDeleteReducer

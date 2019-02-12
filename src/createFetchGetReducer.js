@@ -11,7 +11,7 @@ import { createActions } from './utils/index.js'
  * @param {Object} cusActions
  */
 const createFetchGetReducer = (config, cusInitialState, cusActions) => {
-  return createActions(config, cusInitialState, cusActions, 'GET')
+  return createActions(config, 'GET', cusInitialState, cusActions)
 }
 
 export default createFetchGetReducer

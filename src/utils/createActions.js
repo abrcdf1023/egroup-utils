@@ -11,11 +11,11 @@ import makeFetchActions from './makeFetchActions'
  * Fourth arg is private method to create different type reducer
  * @private
  * @param {Object} config
- * @param {Object} cusInitialState
- * @param {Object} cusActions
  * @param {String} method
+ * @param {Object|null} cusInitialState
+ * @param {Object|null} cusActions
  */
-export default function createActions(config, cusInitialState, cusActions, method) {
+export default function createActions(config, method, cusInitialState, cusActions) {
   const actions = makeFetchActions(config, method)
   return handleActions({
     ...actions,

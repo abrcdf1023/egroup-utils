@@ -11,7 +11,7 @@ import { createActions } from './utils/index.js'
  * @param {Object} cusActions
  */
 const createFetchPostReducer = (config, cusInitialState, cusActions) => {
-  return createActions(config, cusInitialState, cusActions, 'POST')
+  return createActions(config, 'POST', cusInitialState, cusActions)
 }
 
 export default createFetchPostReducer
