@@ -1,4 +1,6 @@
-import createActions from './utils/createActions'
+import { handleActions } from 'redux-actions'
+
+import initialState from '../initialState'
 
 export interface Config {
   take: string;
@@ -8,8 +10,9 @@ export interface Config {
   failure: string;
 }
 
-export function createFetchPatchReducer(
+export default function createActions(
   config: Config,
+  method: String,
   cusInitialState?: object,
   cusActions?: object,
-): void;
+)

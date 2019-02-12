@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions'
+import createActions from './utils/createActions'
 
 export interface Config {
   take: string;

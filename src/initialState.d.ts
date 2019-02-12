@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 
-export interface initialState {
+export default interface initialState {
   isLoading: Boolean,
   isError: Boolean,
 }
