@@ -7,13 +7,11 @@
 export default function makeSuccessAction(success) {
   return {
     [success]: (state, action) => {
+      let newState = state.set('isLoading', false)
       if (action.payload) {
-        return state.merge({
-          isLoading: false,
-          data: action.payload,
-        })
+        newState.set('data', action.payload)
       }
-      return state.set('isLoading', false)
+      return newState
     },
   }
 }
