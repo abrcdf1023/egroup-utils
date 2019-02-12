@@ -1,11 +1,10 @@
-import { set } from 'immutable'
-
 /**
  * Make a request action
+ * @private
  * @param {String} request 
  */
 export default function makeRequestAction(request) {
   return {
-    [request]: state => set(state, 'isLoading', true),
+    [request]: state => state.set('isLoading', true),
   }
 }

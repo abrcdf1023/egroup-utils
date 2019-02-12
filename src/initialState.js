@@ -1,7 +1,9 @@
+import { Map } from 'immutable'
+
 /**
  * export initialState let user customize their actions
  */
-export default {
+export default Map({
   isLoading: false,
   isError: false,
-}
+})

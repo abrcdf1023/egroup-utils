@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import initialState from '../initialState'
@@ -21,8 +20,5 @@ export default function createActions(config, cusInitialState, cusActions, metho
   return handleActions({
     ...actions,
     ...cusActions,
-  }, fromJS({
-    ...initialState,
-    ...cusInitialState,
-  }))
+  }, initialState.merge(cusInitialState))
 }
