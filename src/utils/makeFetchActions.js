@@ -8,13 +8,13 @@ import makeFailureAction from './makeFailureAction'
 /**
  * To handle process of fetch actions
  * @private
- * @param {Object|null} arg
+ * @param {Object|null} config
  * @return {Object}
  */
-export default function makeFetchActions(config, method) {
+export default function makeFetchActions(config) {
   if (!config) return {}
   const { take, request, success, cancel, failure } = config
-  checkConfig(config, method)
+  checkConfig(config)
   return {
     ...makeTakeAction(take),
     ...makeRequestAction(request),

@@ -12,7 +12,6 @@ export interface Config {
 
 export default function createActions(
   config: Config,
-  method: String,
   cusInitialState?: object,
   cusActions?: object,
 )
