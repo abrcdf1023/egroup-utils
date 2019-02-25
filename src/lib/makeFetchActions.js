@@ -1,10 +1,3 @@
-function checkConfig({ take, request, success, failure }) {
-  if (!take) throw new Error('take type undefined.')
-  if (!request) throw new Error('request type undefined.')
-  if (!success) throw new Error('success type undefined.')
-  if (!failure) throw new Error('failure type undefined.')
-}
-
 function makeCancelAction(cancel) {
   const cancelState = !cancel ?
     {} :
@@ -20,10 +13,7 @@ function makeCancelAction(cancel) {
  * @param {Object|null} config
  * @return {Object}
  */
-export default function makeFetchActions(config) {
-  if (!config) return {}
-  const { take, request, success, cancel, failure } = config
-  checkConfig(config)
+export default function makeFetchActions({ take, request, success, cancel, failure }) {
   return {
     [take]: state => state.set('isError', false),
     [request]: state => state.set('isLoading', true),
