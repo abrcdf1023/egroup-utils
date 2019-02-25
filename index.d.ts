@@ -1,6 +1,3 @@
-export { createFetchGetReducer } from './src/createFetchGetReducer'
-export { createFetchPostReducer } from './src/createFetchPostReducer'
-export { createFetchPatchReducer } from './src/createFetchPatchReducer'
-export { createFetchDeleteReducer } from './src/createFetchDeleteReducer'
-export { createObservableApi } from './src/createObservableApi'
+export { default as createFetchReducer } from './src/createFetchReducer'
+export { default as createObservableApi } from './src/createObservableApi'
 export { default as initialState } from './src/initialState'

@@ -1,7 +1,7 @@
 import { createActions } from './utils/index.js'
 
 /**
- * create fetch delete reducer,
+ * create fetch get reducer,
  * First arg is the config
  * Second arg can replace the action function you need
  * Third arg can replace the initialState you need
@@ -10,8 +10,8 @@ import { createActions } from './utils/index.js'
  * @param {Object} cusInitialState
  * @param {Object} cusActions
  */
-const createFetchDeleteReducer = (config, cusInitialState, cusActions) => {
-  return createActions(config, 'DELETE', cusInitialState, cusActions)
+const createFetchReducer = (config, cusInitialState, cusActions) => {
+  return createActions(config, 'GET', cusInitialState, cusActions)
 }
 
-export default createFetchDeleteReducer
+export default createFetchReducer

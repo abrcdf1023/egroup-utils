@@ -8,7 +8,7 @@ export interface Config {
   failure: string;
 }
 
-export function createFetchPatchReducer(
+export default function createFetchReducer(
   config: Config,
   cusInitialState?: object,
   cusActions?: object,
