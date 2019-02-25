@@ -1,8 +1,8 @@
 .DS_Store
 *.log
-node_modules
-dist
-lib
-es
+/node_modules/
+/dist/
+/lib/
+/es/
 coverage
 .rpt2_cache
