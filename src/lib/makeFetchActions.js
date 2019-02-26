@@ -19,7 +19,7 @@ export default function makeFetchActions({ take, request, success, cancel, failu
     [request]: state => state.set('isLoading', true),
     [success]: (state, action) => {
       let newState = state.set('isLoading', false)
-      newState = state.set('latestUpdated', new Date().getTime())
+      newState = newState.set('latestUpdated', new Date().getTime())
       if (action.payload) {
         newState = newState.set('data', action.payload)
       }
