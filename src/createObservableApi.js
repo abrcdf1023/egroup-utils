@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs'
+import { Observable } from "rxjs";
 
 /**
  * Create observable api
@@ -7,17 +7,17 @@ import { Observable } from 'rxjs'
  */
 const createObservableApi = (api, payload) => {
   if (api) {
-    return new Observable((observer) => {
-      api(payload).then((response) => {
-        observer.next(response)
-        observer.complete()
-      }).catch(error => observer.error(error))
-    })
+    return new Observable(observer => {
+      api(payload)
+        .then(response => {
+          observer.next(response);
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
   } else {
-    throw new Error(
-      `Undefined api in createObservableApi.`
-    );
+    throw new Error(`Undefined api in createObservableApi.`);
   }
-}
+};
 
-export default createObservableApi
+export default createObservableApi;

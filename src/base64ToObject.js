@@ -1,8 +1,8 @@
-const { Base64 } = require('js-base64')
+const { Base64 } = require("js-base64");
 
 /**
  * A function parse base64 string to javascript object.
- * @param {*} b64String 
+ * @param {*} b64String
  */
 export default function base64ToObject(b64String) {
   let value = {};

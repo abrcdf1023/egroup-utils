@@ -1,10 +1,10 @@
 function makeCancelAction(cancel) {
-  const cancelState = !cancel ?
-    {} :
-    {
-      [cancel]: state => state.set('isLoading', false),
-    }
-  return cancelState
+  const cancelState = !cancel
+    ? {}
+    : {
+        [cancel]: state => state.set("isLoading", false)
+      };
+  return cancelState;
 }
 
 /**
@@ -13,26 +13,32 @@ function makeCancelAction(cancel) {
  * @param {Object|null} config
  * @return {Object}
  */
-export default function makeFetchActions({ take, request, success, cancel, failure }) {
+export default function makeFetchActions({
+  take,
+  request,
+  success,
+  cancel,
+  failure
+}) {
   return {
-    [take]: state => state.set('isError', false),
-    [request]: state => state.set('isLoading', true),
+    [take]: state => state.set("isError", false),
+    [request]: state => state.set("isLoading", true),
     [success]: (state, action) => {
-      let newState = state.set('isLoading', false)
-      newState = newState.set('latestUpdated', new Date().getTime())
+      let newState = state.set("isLoading", false);
+      newState = newState.set("latestUpdated", new Date().getTime());
       if (action.payload) {
-        newState = newState.set('data', action.payload)
+        newState = newState.set("data", action.payload);
       }
-      return newState
+      return newState;
     },
     ...makeCancelAction(cancel),
     [failure]: (state, action) => {
-      let newState = state.set('isLoading', false)
-      newState = newState.set('isError', true)
+      let newState = state.set("isLoading", false);
+      newState = newState.set("isError", true);
       if (action.payload) {
-        newState = newState.set('error', action.payload)
+        newState = newState.set("error", action.payload);
       }
-      return newState
-    },
-  }
+      return newState;
+    }
+  };
 }

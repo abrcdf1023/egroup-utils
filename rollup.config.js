@@ -3,52 +3,124 @@ import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import typescript from 'rollup-plugin-typescript2'
 import replace from 'rollup-plugin-replace'
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
 
-const env = process.env.NODE_ENV
-const config = {
-  input: 'src/index.js',
-  plugins: [
-    typescript({
-      tsconfig: "tsconfig.json",
-    })
-  ]
-}
+import pkg from './package.json'
 
-if (env === 'es' || env === 'cjs') {
-  config.output = { format: env, indent: false }
-  config.plugins.push(
-    babel()
-  )
-}
+export default [
+  // CommonJS
+  {
+    input: 'src/index.js',
+    output: { file: 'lib/index.js', format: 'cjs', indent: false },
+    external: [
+      ...Object.keys(pkg.dependencies || {})
+    ],
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.json",
+      }),
+      babel()
+    ]
+  },
 
-if (env === 'development' || env === 'production') {
-  config.output = { format: 'umd', name: 'frontendUtils', indent: false }
-  config.plugins.push(
-    nodeResolve({
-      jsnext: true
-    }),
-    commonjs(),
-    babel({
-      exclude: 'node_modules/**',
-    }),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(env)
-    })
-  )
-}
+  // ES
+  {
+    input: 'src/index.js',
+    output: { file: 'es/index.js', format: 'es', indent: false },
+    external: [
+      ...Object.keys(pkg.dependencies || {})
+    ],
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.json",
+      }),
+      babel()
+    ]
+  },
 
-if (env === 'production') {
-  config.plugins.push(
-    uglify({
-      compress: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        warnings: false
-      }
-    })
-  )
-}
+  // ES for Browsers
+  {
+    input: 'src/index.js',
+    output: { file: 'es/index.mjs', format: 'es', indent: false },
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.json",
+      }),
+      nodeResolve({
+        jsnext: true
+      }),
+      commonjs(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }),
+      terser({
+        compress: {
+          pure_getters: true,
+          unsafe: true,
+          unsafe_comps: true,
+          warnings: false
+        }
+      })
+    ]
+  },
 
-export default config
+  // UMD Development
+  {
+    input: 'src/index.js',
+    output: {
+      file: 'dist/index.js',
+      format: 'umd',
+      name: 'EGFEUtils',
+      indent: false
+    },
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.json",
+      }),
+      nodeResolve({
+        jsnext: true
+      }),
+      commonjs(),
+      babel({
+        exclude: 'node_modules/**'
+      }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('development')
+      })
+    ]
+  },
+
+  // UMD Production
+  {
+    input: 'src/index.js',
+    output: {
+      file: 'dist/index.min.js',
+      format: 'umd',
+      name: 'EGFEUtils',
+      indent: false
+    },
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.json",
+      }),
+      nodeResolve({
+        jsnext: true
+      }),
+      commonjs(),
+      babel({
+        exclude: 'node_modules/**'
+      }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }),
+      terser({
+        compress: {
+          pure_getters: true,
+          unsafe: true,
+          unsafe_comps: true,
+          warnings: false
+        }
+      })
+    ]
+  }
+]
