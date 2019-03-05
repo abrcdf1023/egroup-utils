@@ -19,10 +19,17 @@ export default [
       ...Object.keys(pkg.dependencies || {})
     ],
     plugins: [
-      babel({
-        exclude: 'node_modules/**',
-        runtimeHelpers: true
-      })
+      babel()
+    ]
+  },
+  {
+    input: 'src/index.js',
+    output: { file: 'lib/index.js', format: 'cjs', indent: false },
+    external: [
+      ...Object.keys(pkg.dependencies || {})
+    ],
+    plugins: [
+      babel()
     ]
   },
 
@@ -38,10 +45,17 @@ export default [
       ...Object.keys(pkg.dependencies || {})
     ],
     plugins: [
-      babel({
-        exclude: 'node_modules/**',
-        runtimeHelpers: true
-      })
+      babel()
+    ]
+  },
+  {
+    input: 'src/index.js',
+    output: { file: 'es/index.js', format: 'es', indent: false },
+    external: [
+      ...Object.keys(pkg.dependencies || {})
+    ],
+    plugins: [
+      babel()
     ]
   },
 
