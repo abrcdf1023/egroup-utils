@@ -15,8 +15,7 @@
     "dist",
     "lib",
     "es",
-    "src",
-    "index.d.ts"
+    "src"
   ],
   "scripts": {
     "clean": "rimraf dist",
@@ -58,6 +57,7 @@
   },
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
+    "js-base64": "^2.5.1",
     "redux-actions": "^2.6.4",
     "rxjs": "^6.4.0"
   },
