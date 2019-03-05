@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
  * @param {Function} api the api function you want observable
  * @param {any} payload
  */
-const createObservableApi = (api, payload) => {
+export default function createObservableApi(api, payload) {
   if (api) {
     return new Observable(observer => {
       api(payload)
@@ -18,6 +18,4 @@ const createObservableApi = (api, payload) => {
   } else {
     throw new Error(`Undefined api in createObservableApi.`);
   }
-};
-
-export default createObservableApi;
+}
