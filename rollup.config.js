@@ -25,14 +25,20 @@ export default [
       typescript({
         tsconfig: "tsconfig.json",
       }),
-      babel()
+      babel({ runtimeHelpers: true })
     ]
   },
 
   // ES
   {
-    input: 'src/index.js',
-    output: { file: 'es/index.js', format: 'es', indent: false },
+    input: [
+      'src/index.js',
+      'src/initialState.js',
+      'src/createObservableApi.js',
+      'src/createFetchReducer.js',
+      'src/base64ToObject.js'
+    ],
+    output: { dir: 'es', format: 'es', indent: false },
     external: [
       ...Object.keys(pkg.dependencies || {})
     ],
@@ -40,7 +46,7 @@ export default [
       typescript({
         tsconfig: "tsconfig.json",
       }),
-      babel()
+      babel({ runtimeHelpers: true })
     ]
   },
 
