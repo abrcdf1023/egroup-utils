@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import typescript from 'rollup-plugin-typescript2'
 import replace from 'rollup-plugin-replace'
-import uglify from 'rollup-plugin-uglify'
+import { uglify } from 'rollup-plugin-uglify'
 
 const env = process.env.NODE_ENV
 const config = {
@@ -18,9 +18,7 @@ const config = {
 if (env === 'es' || env === 'cjs') {
   config.output = { format: env, indent: false }
   config.plugins.push(
-    babel({
-      plugins: ['external-helpers'],
-    })
+    babel()
   )
 }
 
@@ -33,7 +31,6 @@ if (env === 'development' || env === 'production') {
     commonjs(),
     babel({
       exclude: 'node_modules/**',
-      plugins: ['external-helpers'],
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
