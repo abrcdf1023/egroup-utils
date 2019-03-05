@@ -1,7 +1,7 @@
-import { handleActions } from "redux-actions";
-
 import initialState from "./initialState";
 import makeFetchActions from "./lib/makeFetchActions";
+
+const { handleActions } = require("redux-actions");
 
 function checkConfig(config) {
   if (!config) {

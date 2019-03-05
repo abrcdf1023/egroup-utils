@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+const { Map } = require("immutable");
 
 /**
  * export initialState let user customize their actions

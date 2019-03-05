@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+const Observable = require("rxjs");
 
 /**
  * Create observable api
