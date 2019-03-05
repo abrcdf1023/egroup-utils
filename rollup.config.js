@@ -10,8 +10,14 @@ import pkg from './package.json'
 export default [
   // CommonJS
   {
-    input: 'src/index.js',
-    output: { file: 'lib/index.js', format: 'cjs', indent: false },
+    input: [
+      'src/index.js',
+      'src/initialState.js',
+      'src/createObservableApi.js',
+      'src/createFetchReducer.js',
+      'src/base64ToObject.js'
+    ],
+    output: { dir: 'lib', format: 'cjs', indent: false },
     external: [
       ...Object.keys(pkg.dependencies || {})
     ],
