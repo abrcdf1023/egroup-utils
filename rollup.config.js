@@ -1,7 +1,6 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
-import typescript from 'rollup-plugin-typescript2'
 import replace from 'rollup-plugin-replace'
 import { terser } from 'rollup-plugin-terser'
 
@@ -11,8 +10,6 @@ export default [
   // CommonJS
   {
     input: [
-      'src/index.js',
-      'src/initialState.js',
       'src/createObservableApi.js',
       'src/createFetchReducer.js',
       'src/base64ToObject.js'
@@ -22,18 +19,16 @@ export default [
       ...Object.keys(pkg.dependencies || {})
     ],
     plugins: [
-      typescript({
-        tsconfig: "tsconfig.json",
-      }),
-      babel({ runtimeHelpers: true })
+      babel({
+        exclude: 'node_modules/**',
+        runtimeHelpers: true
+      })
     ]
   },
 
   // ES
   {
     input: [
-      'src/index.js',
-      'src/initialState.js',
       'src/createObservableApi.js',
       'src/createFetchReducer.js',
       'src/base64ToObject.js'
@@ -43,10 +38,10 @@ export default [
       ...Object.keys(pkg.dependencies || {})
     ],
     plugins: [
-      typescript({
-        tsconfig: "tsconfig.json",
-      }),
-      babel({ runtimeHelpers: true })
+      babel({
+        exclude: 'node_modules/**',
+        runtimeHelpers: true
+      })
     ]
   },
 
@@ -55,9 +50,6 @@ export default [
     input: 'src/index.js',
     output: { file: 'es/index.mjs', format: 'es', indent: false },
     plugins: [
-      typescript({
-        tsconfig: "tsconfig.json",
-      }),
       nodeResolve({
         jsnext: true
       }),
@@ -86,9 +78,6 @@ export default [
       indent: false
     },
     plugins: [
-      typescript({
-        tsconfig: "tsconfig.json",
-      }),
       nodeResolve({
         jsnext: true
       }),
@@ -112,9 +101,6 @@ export default [
       indent: false
     },
     plugins: [
-      typescript({
-        tsconfig: "tsconfig.json",
-      }),
       nodeResolve({
         jsnext: true
       }),

@@ -1,7 +1,6 @@
-import initialState from "./initialState";
+import { handleActions } from "redux-actions";
+import { Map } from "immutable";
 import makeFetchActions from "./lib/makeFetchActions";
-
-const { handleActions } = require("redux-actions");
 
 function checkConfig(config) {
   if (!config) {
@@ -35,6 +34,10 @@ export default function createFetchReducer(
 ) {
   checkConfig(config);
   const actions = makeFetchActions(config);
+  const initialState = Map({
+    isLoading: false,
+    isError: false
+  });
   return handleActions(
     {
       ...actions,

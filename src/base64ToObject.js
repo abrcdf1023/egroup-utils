@@ -1,4 +1,4 @@
-const { Base64 } = require("js-base64");
+import { Base64 } from "js-base64";
 
 /**
  * A function parse base64 string to javascript object.
