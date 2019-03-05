@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { Map } from "immutable";
 
 import initialState from "./initialState";
 
@@ -11,7 +10,7 @@ export interface Config {
   failure: string;
 }
 
-export default function createActions(
+export default function createFetchReducer(
   config: Config,
   cusInitialState?: object | Map<string, any>,
   cusActions?: object
