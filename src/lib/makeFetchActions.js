@@ -26,7 +26,7 @@ export default function makeFetchActions({
     [success]: (state, action) => {
       let newState = state.set("isLoading", false);
       newState = newState.set("latestUpdated", new Date().getTime());
-      if (action.payload) {
+      if (typeof action.payload !== 'undefined') {
         newState = newState.set("data", action.payload);
       }
       return newState;
