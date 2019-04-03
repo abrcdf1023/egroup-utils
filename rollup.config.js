@@ -4,7 +4,7 @@ import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
 import { terser } from 'rollup-plugin-terser'
 
-import pkg from './package.json'
+import { dependencies } from './package.json'
 
 export default [
   // CommonJS
@@ -16,7 +16,7 @@ export default [
     ],
     output: { dir: 'lib', format: 'cjs', indent: false },
     external: [
-      ...Object.keys(pkg.dependencies || {})
+      ...Object.keys(dependencies || {})
     ],
     plugins: [
       babel()
@@ -26,7 +26,7 @@ export default [
     input: 'src/index.js',
     output: { file: 'lib/index.js', format: 'cjs', indent: false },
     external: [
-      ...Object.keys(pkg.dependencies || {})
+      ...Object.keys(dependencies || {})
     ],
     plugins: [
       babel()
@@ -42,7 +42,7 @@ export default [
     ],
     output: { dir: 'es', format: 'es', indent: false },
     external: [
-      ...Object.keys(pkg.dependencies || {})
+      ...Object.keys(dependencies || {})
     ],
     plugins: [
       babel()
@@ -52,7 +52,7 @@ export default [
     input: 'src/index.js',
     output: { file: 'es/index.js', format: 'es', indent: false },
     external: [
-      ...Object.keys(pkg.dependencies || {})
+      ...Object.keys(dependencies || {})
     ],
     plugins: [
       babel()
