@@ -4,5 +4,6 @@
 /dist/
 /lib/
 /es/
+createGulpTasks.js
 coverage
 .rpt2_cache

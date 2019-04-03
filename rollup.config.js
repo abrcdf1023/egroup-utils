@@ -7,6 +7,19 @@ import { terser } from 'rollup-plugin-terser'
 import { dependencies } from './package.json'
 
 export default [
+  // build gulp script
+  {
+    input: [
+      'src/gulp/createGulpTasks.js'
+    ],
+    output: { dir: './', format: 'cjs', indent: false },
+    external: [
+      ...Object.keys(dependencies || {})
+    ],
+    plugins: [
+      babel()
+    ]
+  },
   // CommonJS
   {
     input: [

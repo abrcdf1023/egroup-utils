@@ -15,7 +15,8 @@
     "dist",
     "lib",
     "es",
-    "index.d.ts"
+    "index.d.ts",
+    "createGulpTasks.js"
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
