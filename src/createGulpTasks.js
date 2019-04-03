@@ -1,11 +1,11 @@
-export default function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
-  const path = require("path");
-  const gulp = require("gulp");
-  const plumber = require("gulp-plumber");
-  const bom = require("gulp-bom");
-  const rename = require("gulp-rename");
-  const clean = require("gulp-clean");
+import path from "path";
+import gulp from "gulp";
+import plumber from "gulp-plumber";
+import bom from "gulp-bom";
+import rename from "gulp-rename";
+import clean from "gulp-clean";
 
+export default function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
   const jspName = path.basename(buildJsp);
   const jspDir = path.dirname(buildJsp);
 
