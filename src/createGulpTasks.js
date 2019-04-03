@@ -1,4 +1,4 @@
-function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
+export default function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
   const path = require("path");
   const gulp = require("gulp");
   const plumber = require("gulp-plumber");
@@ -61,5 +61,3 @@ function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
    */
   gulp.task("production", gulp.series(["toJSP", "cleanBuild", "copyBuild"]));
 }
-
-module.exports = createGulpTasks;
