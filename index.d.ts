@@ -2,7 +2,7 @@ import { Base64 } from "js-base64";
 import { handleActions } from "redux-actions";
 import { Map } from "immutable";
 
-interface Config {
+interface CreateFetchReducerConfig {
   take: string;
   request: string;
   cancel?: string;
@@ -11,7 +11,7 @@ interface Config {
 }
 
 export function createFetchReducer(
-  config: Config,
+  config: CreateFetchReducerConfig,
   cusInitialState?: object | Map<string, any>,
   cusActions?: object
 );
@@ -19,3 +19,11 @@ export function createFetchReducer(
 export function createObservableApi(api: Function, payload: object): void;
 
 export function base64ToObject(b64String: String): void;
+
+interface CreateGulpTasksConfig {
+  serverDir: string;
+  buildJsp: string;
+  buildFolder: string;
+}
+
+export function createGulpTasks(config: CreateGulpTasksConfig): void;
