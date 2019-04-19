@@ -1,8 +1,8 @@
 function makeSuccessAction(success) {
-  const hasConfig = Array.isArray(success)
-  const type = hasConfig ? success[0] : success
-  const config = hasConfig ? success[1] : {}
-  const { setData } = config
+  const hasConfig = Array.isArray(success);
+  const type = hasConfig ? success[0] : success;
+  const config = hasConfig ? success[1] : {};
+  const { setData } = config;
   return {
     [type]: (state, action) => {
       let newState = state.set("isLoading", false);
@@ -11,13 +11,13 @@ function makeSuccessAction(success) {
         return newState;
       }
       if (setData) {
-        newState = setData(newState, action)
+        newState = setData(newState, action);
       } else {
         newState = newState.set("data", action.payload);
       }
       return newState;
-    },
-  }
+    }
+  };
 }
 
 function makeCancelAction(cancel) {
