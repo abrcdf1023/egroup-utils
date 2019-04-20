@@ -6,16 +6,15 @@ import { Observable } from "rxjs";
  * @param {any} payload
  */
 export default function createObservableApi(api, payload) {
-  if (api) {
-    return new Observable(observer => {
-      api(payload)
-        .then(response => {
-          observer.next(response);
-          observer.complete();
-        })
-        .catch(error => observer.error(error));
-    });
-  } else {
-    throw new Error(`Undefined api in createObservableApi.`);
+  if (typeof api === 'undefined') {
+    throw new TypeError('Undefined api in createObservableApi.')
   }
+  return new Observable(observer => {
+    api(payload)
+      .then(response => {
+        observer.next(response);
+        observer.complete();
+      })
+      .catch(error => observer.error(error));
+  });
 }
