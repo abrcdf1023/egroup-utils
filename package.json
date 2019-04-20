@@ -34,6 +34,8 @@
     "@babel/preset-env": "^7.4.3",
     "@types/immutable": "^3.8.7",
     "@types/redux-actions": "^2.3.2",
+    "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.16.0",
     "babel-cli": "^6.26.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
