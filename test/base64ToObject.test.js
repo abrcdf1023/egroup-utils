@@ -4,11 +4,11 @@ import { base64ToObject } from "../src";
 const source = { foo: "bar" };
 const base64 = Base64.encode(JSON.stringify(source));
 
-test("it should parse object in base64 string format to javascript object", () => {
+it("should parse object in base64 string format to javascript object", () => {
   expect(base64ToObject(base64)).toEqual(source);
 });
 
-test("it should cause syntax error", () => {
+it("should cause syntax error", () => {
   const t = () => {
     base64ToObject(123)
   };
