@@ -9,7 +9,7 @@ export default function base64ToObject(b64String) {
   try {
     value = JSON.parse(Base64.decode(b64String));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
   return value;
 }
