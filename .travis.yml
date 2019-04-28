@@ -3,6 +3,8 @@ language:
   node_js
 node_js:
   - "lts/*"
+env:
+  - CODECOV_TOKEN="963e67b7-bc01-476b-9a90-4bf55ea96365"
 install:
   - npm install -g codecov
 script:
