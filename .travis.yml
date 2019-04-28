@@ -3,4 +3,5 @@ language:
 install:
   - npm install -g codecov
 script:
-  - jest && codecov
+  - yarn
+  - yarn test && codecov
