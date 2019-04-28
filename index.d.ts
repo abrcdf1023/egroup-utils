@@ -5,8 +5,8 @@ import { Collection } from "immutable";
 interface SuccessConfig {
   [0]: String;
   [1]: {
-    setData(newState: Collection<any, any>, action: any) : Collection<any, any>
-  }
+    setData(newState: Collection<any, any>, action: any): Collection<any, any>;
+  };
 }
 
 interface CreateFetchReducerConfig {

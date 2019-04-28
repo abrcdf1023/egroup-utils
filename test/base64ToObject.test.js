@@ -10,7 +10,7 @@ it("should parse object in base64 string format to javascript object", () => {
 
 it("should cause syntax error", () => {
   const t = () => {
-    base64ToObject(123)
+    base64ToObject(123);
   };
   expect(t).toThrow(SyntaxError);
 });
