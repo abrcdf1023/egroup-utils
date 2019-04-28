@@ -3,17 +3,14 @@ import { handleActions } from "redux-actions";
 import { Collection } from "immutable";
 
 interface SuccessConfig {
-  [0]: String;
-  [1]: {
-    setData(newState: Collection<any, any>, action: any): Collection<any, any>;
-  };
+  setData(newState: Collection<any, any>, action: any): Collection<any, any>;
 }
 
 interface CreateFetchReducerConfig {
   take: string;
   request: string;
   cancel?: string;
-  success: string | Array<SuccessConfig>;
+  success: string | [string, SuccessConfig];
   failure: string;
 }
 
