@@ -1,24 +1,31 @@
 import { Base64 } from "js-base64";
 import { handleActions } from "redux-actions";
-import { Map } from "immutable";
+import { Collection } from "immutable";
+
+interface SuccessConfig {
+  [0]: String;
+  [1]: {
+    setData(newState: Collection<any, any>, action: any) : Collection<any, any>
+  }
+}
 
 interface CreateFetchReducerConfig {
   take: string;
   request: string;
   cancel?: string;
-  success: string;
+  success: string | Array<SuccessConfig>;
   failure: string;
 }
 
 export function createFetchReducer(
   config: CreateFetchReducerConfig,
-  cusInitialState?: object | Map<string, any>,
+  cusInitialState?: Collection<string, any>,
   cusActions?: object
 );
 
-export function createObservableApi(api: Function, payload: object): void;
+export function createObservableApi(api: Function, payload: any): Function;
 
-export function base64ToObject(b64String: String): void;
+export function base64ToObject(b64String: String): object;
 
 interface CreateGulpTasksConfig {
   serverDir: string;
