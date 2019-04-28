@@ -1,7 +1,11 @@
 import { handleActions } from "redux-actions";
 import { Map } from "immutable";
-import makeFetchActions from "./lib/makeFetchActions";
+import makeFetchActions from "./makeFetchActions";
 
+/**
+ * @private
+ * @param {*} config 
+ */
 function checkConfig(config) {
   if (!config) {
     throw new Error("Config is required but it's undefined.");
@@ -22,7 +26,6 @@ function checkConfig(config) {
  * First arg is the config
  * Second arg can replace the initialState you need
  * Third arg can replace the action function you need
- * @private
  * @param {Object} config
  * @param {Object|null} cusInitialState
  * @param {Object|null} cusActions
