@@ -4,7 +4,7 @@ import makeFetchActions from "./makeFetchActions";
 
 /**
  * @private
- * @param {*} config 
+ * @param {*} config
  */
 function checkConfig(config) {
   if (!config) {

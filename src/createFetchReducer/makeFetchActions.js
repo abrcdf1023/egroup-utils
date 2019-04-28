@@ -1,6 +1,6 @@
 /**
  * @private
- * @param {*} success 
+ * @param {*} success
  */
 function makeSuccessAction(success) {
   const hasConfig = Array.isArray(success);
@@ -26,7 +26,7 @@ function makeSuccessAction(success) {
 
 /**
  * @private
- * @param {*} cancel 
+ * @param {*} cancel
  */
 function makeCancelAction(cancel) {
   const cancelState = !cancel
