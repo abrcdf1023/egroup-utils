@@ -1,5 +1,5 @@
 import { Map } from "immutable";
-import { createFetchReducer } from "../src";
+import createFetchReducer from "./createFetchReducer";
 
 const FETCH_GET_MEMBER = "FETCH_GET_MEMBER";
 const FETCH_GET_MEMBER_REQUEST = "FETCH_GET_MEMBER_REQUEST";

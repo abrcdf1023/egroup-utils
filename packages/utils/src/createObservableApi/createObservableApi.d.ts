@@ -1,0 +1,1 @@
+export default function createObservableApi(api: Function, payload: any): Function;

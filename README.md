@@ -1,4 +1,4 @@
-# @e-group/frontend-utils
+# @e-group frontend utils root
 
 [![Build Status](https://travis-ci.com/abrcdf1023/frontend-utils.svg?branch=master)](https://travis-ci.com/abrcdf1023/frontend-utils)
 [![codecov](https://codecov.io/gh/abrcdf1023/frontend-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/abrcdf1023/frontend-utils)
