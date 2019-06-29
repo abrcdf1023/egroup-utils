@@ -5,7 +5,7 @@ const bom = require("gulp-bom");
 const rename = require("gulp-rename");
 const clean = require("gulp-clean");
 
-export default function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
+function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
   const jspName = path.basename(buildJsp);
   const jspDir = path.dirname(buildJsp);
 
@@ -61,3 +61,5 @@ export default function createGulpTasks({ serverDir, buildJsp, buildFolder }) {
    */
   gulp.task("production", gulp.series(["toJSP", "cleanBuild", "copyBuild"]));
 }
+
+module.exports = createGulpTasks;

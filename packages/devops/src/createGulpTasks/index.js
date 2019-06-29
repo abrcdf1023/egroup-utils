@@ -1,1 +1,1 @@
-export { default } from './createGulpTasks'
+module.exports = require('./createGulpTasks')
