@@ -20,7 +20,7 @@
     "test": "jest",
     "build": "lerna run build",
     "release": "lerna publish --contents build",
-    "generate-changelog": "github_changelog_generator -u abrcdf1023 -p react-material-components"
+    "generate-changelog": "github_changelog_generator -u abrcdf1023 -p egroup-utils"
   },
   "browserslist": [
     ">0.2%",
