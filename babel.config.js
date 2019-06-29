@@ -1,31 +1,35 @@
 module.exports = function (api) {
-  const isTest = api.env(["test"])
-  const presets = [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          browsers: ["ie >= 11"],
-          node: 'current',
-        },
-        exclude: ["transform-async-to-generator", "transform-regenerator"],
-        // use ES6 module
-        modules: isTest ? undefined : false,
-        // loose模式說明 https://www.w3ctech.com/topic/1708
-        loose: true
-      },
-    ],
-  ]
-  
-  const plugins = [
-    "@babel/plugin-proposal-object-rest-spread"
-  ]
+  if (api.env(["test"])) {
+    return {
+      presets: ['@babel/preset-env'],
+      plugins: ['@babel/plugin-transform-runtime']
+    }
+  }
 
   return {
-    presets,
-    plugins,
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          // for browserslist in package.json
+          useBuiltIns: 'entry',
+          // use ES6 module
+          modules: false
+        },
+      ],
+    ],
+    plugins: [
+      // A plugin that enables the re-use of Babel's injected helper code to save on codesize.
+      // https://babeljs.io/docs/en/babel-plugin-transform-runtime
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          useESModules: true
+        }
+      ]
+    ],
     ignore: [
       "**/*.test.js"
     ]
-  };
+  }
 }
