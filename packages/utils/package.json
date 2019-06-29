@@ -1,6 +1,6 @@
 {
   "name": "@e-group/utils",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "private": false,
   "dependencies": {
     "draft-js": "^0.10.5",
