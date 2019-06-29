@@ -1,6 +1,6 @@
 {
   "name": "@e-group/hooks",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "private": false,
   "dependencies": {
     "query-string": "^6.7.0",
