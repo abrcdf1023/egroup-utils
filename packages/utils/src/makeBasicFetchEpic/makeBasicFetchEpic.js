@@ -7,7 +7,7 @@ import {
   debounceTime,
   tap
 } from 'rxjs/operators';
-import createObservableApi from '@e-group/frontend-utils/es/createObservableApi';
+import createObservableApi from '../createObservableApi';
 
 export default function makeBasicFetchEpic({
   actionType,
