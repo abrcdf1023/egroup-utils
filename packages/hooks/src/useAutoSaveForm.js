@@ -5,9 +5,9 @@ export default function useAutoSaveForm({ fetchGet, fetchPatch }) {
     fetchGet();
   }, [fetchGet]);
 
-  const handleFormSubmit = values => {
+  const handleFormSubmit = (...args) => {
     if (fetchPatch) {
-      fetchPatch(values.toJS());
+      fetchPatch(...args);
     }
   };
 
