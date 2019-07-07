@@ -1,6 +1,6 @@
 import { ContentState, EditorState, convertFromRaw } from 'draft-js';
 
-export default function getEditorState({ raw, text }) {
+export default function getEditorState(raw, text) {
   if (raw) {
     return EditorState.createWithContent(convertFromRaw(raw));
   }
