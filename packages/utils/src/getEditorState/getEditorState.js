@@ -1,14 +1,11 @@
 import { ContentState, EditorState, convertFromRaw } from 'draft-js';
 
-export default function getEditorState(rawEditorState, plainText) {
-  let contentState;
-  if (!rawEditorState && plainText) {
-    contentState = ContentState.createFromText(plainText);
-  } else if (rawEditorState) {
-    contentState = convertFromRaw(JSON.parse(rawEditorState));
+export default function getEditorState({ raw, text }) {
+  if (raw) {
+    return EditorState.createWithContent(convertFromRaw(raw));
   }
-  if (contentState) {
-    return EditorState.createWithContent(contentState);
+  if (text) {
+    return EditorState.createWithContent(ContentState.createFromText(text));
   }
   return EditorState.createEmpty();
 }
