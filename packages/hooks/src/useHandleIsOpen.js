@@ -13,6 +13,7 @@ export default function useHandleIsOpen(value) {
 
   return {
     isOpen,
+    setIsOpen,
     handleOpen,
     handleClose
   };

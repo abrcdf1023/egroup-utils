@@ -17,5 +17,5 @@ export default function useScrollShowShadow(value) {
     };
   }, []);
 
-  return isShowShadow;
+  return [isShowShadow, setIsShowShadow];
 }
