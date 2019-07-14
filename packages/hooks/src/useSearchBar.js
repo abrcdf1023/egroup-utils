@@ -1,15 +1,10 @@
 import React from 'react';
 import queryString from 'query-string';
 
-export default function useSearchBar({
-  fetchGet,
-  history,
-  location,
-  defaultFilterValues = {}
-}) {
-  const search = queryString.parse(location.search);
-  const [query, setQuery] = React.useState(search.query);
-  const [filterValues, setFilterValues] = React.useState(defaultFilterValues);
+export default function useSearchBar({ fetchGet, history, location }) {
+  const search = React.useMemo(() => queryString.parse(location.search), [
+    location.search
+  ]);
   const [payload, setPayload] = React.useState({
     from: '0',
     size: '10',
@@ -17,51 +12,59 @@ export default function useSearchBar({
   });
 
   React.useEffect(() => {
-    if (location.search === '') {
-      setPayload({
-        from: '0',
-        size: '10'
-      });
-    }
-  }, [location.search]);
-
-  React.useEffect(() => {
-    history.push({
-      search: queryString.stringify(payload)
+    fetchGet({
+      from: '0',
+      size: '10',
+      ...search
     });
-  }, [history, payload]);
-
-  React.useEffect(() => {
-    fetchGet(payload);
-  }, [fetchGet, payload]);
+    setPayload(value => ({
+      from: '0',
+      size: '10',
+      ...search
+    }));
+  }, [fetchGet, search]);
 
   const handleSearchChange = e => {
-    setQuery(e.target.value);
+    const query = e.target.value;
+    setPayload(value => ({
+      ...value,
+      query
+    }));
   };
 
   const handleSearchSubmit = e => {
     e.preventDefault();
-    setPayload(state => ({
-      ...state,
-      from: '0',
-      query,
-      ...filterValues
-    }));
+    const newPayload = {
+      ...payload,
+      from: '0'
+    };
+    setPayload(newPayload);
+    history.push({
+      search: queryString.stringify(newPayload)
+    });
   };
 
   const handleChangePage = (event, { page, rowsPerPage }) => {
-    setPayload(state => ({
-      ...state,
+    const newPayload = {
+      ...payload,
       from: page * rowsPerPage
-    }));
+    };
+    setPayload(newPayload);
+    history.push({
+      search: queryString.stringify(newPayload)
+    });
   };
 
   const handleChangeRowsPerPage = (event, { page, rowsPerPage }) => {
-    setPayload(state => ({
-      ...state,
+    const newPayload = {
+      ...payload,
       from: '0',
       size: rowsPerPage
-    }));
+    };
+    setPayload(newPayload);
+    history.push({
+      search: queryString.stringify(newPayload)
+    });
   };
 
   return {
@@ -70,7 +73,6 @@ export default function useSearchBar({
     handleChangePage,
     handleChangeRowsPerPage,
     payload,
-    filterValues,
-    setFilterValues
+    setPayload
   };
 }
