@@ -1,33 +1,28 @@
 import React from 'react';
 import queryString from 'query-string';
 
-export default function useSearchDataList({
-  history,
-  location,
-  fetchGet,
-  defaultValue = {
-    from: '0',
-    size: '10'
-  }
-}) {
+export default function useSearchDataList({ history, location, fetchGet }) {
   const search = React.useMemo(() => queryString.parse(location.search), [
     location.search
   ]);
   const [payload, setPayload] = React.useState({
-    ...defaultValue,
+    from: '0',
+    size: '10',
     ...search
   });
 
   React.useEffect(() => {
     fetchGet({
-      ...defaultValue,
+      from: '0',
+      size: '10',
       ...search
     });
     setPayload(value => ({
-      ...defaultValue,
+      from: '0',
+      size: '10',
       ...search
     }));
-  }, [defaultValue, fetchGet, search]);
+  }, [fetchGet, search]);
 
   const handleSearchChange = e => {
     const query = e.target.value;
