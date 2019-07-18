@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function useScrollShowShadow(value) {
-  const [isShowShadow, setIsShowShadow] = React.useState(value);
+export default function useScrollShowShadow(defaultValue = false) {
+  const [isShowShadow, setIsShowShadow] = React.useState(defaultValue);
 
   React.useEffect(() => {
     const handleScroll = () => {
