@@ -52,7 +52,9 @@ export default function makeBasicFetchEpic({
               handleSuccess(response, { state$, action, ...dependencies })
             ),
             cancelRequest,
-            catchError(error => handleFailure(error, { state$, action }))
+            catchError(error =>
+              handleFailure(error, { state$, action, ...dependencies })
+            )
           ),
           afterFetch
         );
