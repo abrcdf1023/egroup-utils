@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { of, concat } from 'rxjs';
+import { throwError, of, concat } from 'rxjs';
 import {
   switchMap,
   flatMap,
@@ -22,28 +22,34 @@ export default function makeBasicFetchEpic({
   handleAfterFetch
 }) {
   const observableMap = customized$Map || switchMap;
-  return (action$, state$, { apis, schema }) =>
+  return (action$, state$, dependencies) =>
     action$.pipe(
       ofType(actionType),
       debounceTime(time || 0),
       observableMap(action => {
         const beforeFetch = handleBeforeFetch
-          ? handleBeforeFetch(action, { apis, schema })
+          ? handleBeforeFetch(action, dependencies)
           : of();
         const afterFetch = handleAfterFetch
-          ? handleAfterFetch(action, { apis, schema })
+          ? handleAfterFetch(action, dependencies)
           : of();
         const cancelRequest = handleTakeUntil
           ? handleTakeUntil(action$)
           : tap(val => {});
         // we can concat observable actions
         // see this comment https://github.com/redux-observable/redux-observable/issues/62#issuecomment-266337873
+        const { apis } = dependencies;
+        if (!apis) {
+          return throwError(
+            'Error: MakeBasicFetchEpic need setup apis dependencies.'
+          );
+        }
         return concat(
           beforeFetch,
           of(fetchRequest()),
           createObservableApi(apis[apiName], action.payload).pipe(
             flatMap(response =>
-              handleSuccess(response, { state$, action, apis, schema })
+              handleSuccess(response, { state$, action, ...dependencies })
             ),
             cancelRequest,
             catchError(error => handleFailure(error, { state$, action }))
