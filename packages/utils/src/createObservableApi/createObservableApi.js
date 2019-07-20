@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, isObservable } from 'rxjs';
 
 /**
  * Create observable api
@@ -6,8 +6,11 @@ import { Observable } from "rxjs";
  * @param {any} payload
  */
 export default function createObservableApi(api, payload) {
-  if (typeof api === "undefined") {
-    throw new TypeError("Undefined api in createObservableApi.");
+  if (typeof api === 'undefined') {
+    throw new TypeError('Undefined api in createObservableApi.');
+  }
+  if (isObservable(api(payload))) {
+    return api(payload);
   }
   return new Observable(observer => {
     api(payload)
