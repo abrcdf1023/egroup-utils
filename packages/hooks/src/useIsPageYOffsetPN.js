@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default function useScrollShowShadow(value) {
-  const [isShowShadow, setIsShowShadow] = React.useState(value);
+export default function useIsPageYOffsetPN(defaultValue = false) {
+  const [isPageYOffsetPN, setIsPageYOffsetPN] = React.useState(defaultValue);
 
   React.useEffect(() => {
     const handleScroll = () => {
       if (window.pageYOffset > 0) {
-        setIsShowShadow(true);
+        setIsPageYOffsetPN(true);
       } else {
-        setIsShowShadow(false);
+        setIsPageYOffsetPN(false);
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -17,5 +17,5 @@ export default function useScrollShowShadow(value) {
     };
   }, []);
 
-  return isShowShadow;
+  return [isPageYOffsetPN, setIsPageYOffsetPN];
 }

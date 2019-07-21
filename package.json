@@ -26,6 +26,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:dev": "jest --watch",
     "build": "lerna run build",
     "release": "lerna publish --contents build",
     "generate-changelog": "github_changelog_generator -u abrcdf1023 -p egroup-utils"
