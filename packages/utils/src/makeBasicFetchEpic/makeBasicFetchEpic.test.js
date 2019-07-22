@@ -5,7 +5,6 @@ import { createAction } from 'redux-actions';
 import makeBasicFetchEpic from './makeBasicFetchEpic';
 
 const testScheduler = new TestScheduler((actual, expected) => {
-  // console.log(actual[1].notification.value)
   expect(actual).toEqual(expected);
 });
 /**

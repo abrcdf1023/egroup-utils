@@ -47,7 +47,7 @@ export default function makeBasicFetchEpic({
         return concat(
           beforeFetch,
           of(fetchRequest()),
-          createObservableApi(apis[apiName], action.payload).pipe(
+          createObservableApi(apis[apiName](action.payload)).pipe(
             flatMap(response =>
               handleSuccess(response, { state$, action, ...dependencies })
             ),
