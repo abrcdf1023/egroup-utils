@@ -3,7 +3,7 @@
   "version": "6.2.6",
   "private": false,
   "dependencies": {
-    "draft-js": "^0.10.5",
+    "draft-js": "^0.11.0",
     "immutable": "^4.0.0-rc.12",
     "js-base64": "^2.5.1",
     "redux-actions": "^2.6.5",
