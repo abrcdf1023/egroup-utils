@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * Get if page Y offset is over 0.
+ * @param {*} defaultValue
+ */
 export default function useIsPageYOffsetPN(defaultValue = false) {
   const [isPageYOffsetPN, setIsPageYOffsetPN] = React.useState(defaultValue);
 
