@@ -1,6 +1,9 @@
 import React from 'react';
 import queryString from 'query-string';
 
+console.warn(
+  'Warning: useSearchDataList is depreciated and it will be removed in next major release.'
+);
 export default function useSearchDataList({ history, location, fetchGet }) {
   const search = React.useMemo(() => queryString.parse(location.search), [
     location.search
