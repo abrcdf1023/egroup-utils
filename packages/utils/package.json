@@ -1,6 +1,6 @@
 {
   "name": "@e-group/utils",
-  "version": "6.4.1",
+  "version": "6.5.1",
   "private": false,
   "dependencies": {
     "js-base64": "^2.5.1"
@@ -22,10 +22,10 @@
     "rimraf": "^2.6.3"
   },
   "peerDependencies": {
-    "rxjs": "^6.4.0",
+    "draft-js": "^0.11.0",
+    "immutable": "^4.0.0-rc.12",
     "redux-actions": "^2.6.5",
     "redux-observable": "^1.1.0",
-    "draft-js": "^0.11.0",
-    "immutable": "^4.0.0-rc.12"
+    "rxjs": "^6.4.0"
   }
 }
