@@ -22,10 +22,11 @@ export default function makeBasicFetchEpic({
   handleAfterFetch
 }) {
   const observableMap = customized$Map || switchMap;
+  const getDebounceTime = time ? debounceTime(time) : tap(val => {});
   return (action$, state$, dependencies) =>
     action$.pipe(
       ofType(actionType),
-      debounceTime(time || 0),
+      getDebounceTime,
       observableMap(action => {
         const beforeFetch = handleBeforeFetch
           ? handleBeforeFetch(action, dependencies)
@@ -47,7 +48,7 @@ export default function makeBasicFetchEpic({
         return concat(
           beforeFetch,
           of(fetchRequest()),
-          createObservableApi(apis[apiName], action.payload).pipe(
+          createObservableApi(apis[apiName](action.payload)).pipe(
             flatMap(response =>
               handleSuccess(response, { state$, action, ...dependencies })
             ),

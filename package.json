@@ -7,9 +7,11 @@
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/runtime": "^7.4.5",
+    "@typescript-eslint/eslint-plugin": "1.x",
+    "@typescript-eslint/parser": "1.x",
     "axios": "^0.19.0",
     "axios-mock-adapter": "^1.16.0",
-    "babel-eslint": "9.x",
+    "babel-eslint": "10.x",
     "babel-loader": "^8.0.6",
     "eslint": "5.x",
     "eslint-config-react-app": "^4.0.1",
@@ -22,7 +24,8 @@
     "jest": "^24.8.0",
     "lerna": "^3.15.0",
     "lint-staged": "^8.2.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "test": "jest",
@@ -53,5 +56,15 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "draft-js": "^0.11.0",
+    "immutable": "^4.0.0-rc.12",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-observable": "^1.1.0",
+    "rxjs": "^6.4.0"
+  }
 }
