@@ -12,21 +12,14 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           // for browserslist in package.json
-          useBuiltIns: 'entry',
-          // use ES6 module
-          modules: false
+          useBuiltIns: 'entry'
         },
       ],
     ],
     plugins: [
       // A plugin that enables the re-use of Babel's injected helper code to save on codesize.
       // https://babeljs.io/docs/en/babel-plugin-transform-runtime
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          useESModules: true
-        }
-      ]
+      '@babel/plugin-transform-runtime'
     ],
     ignore: [
       "**/*.test.js"
