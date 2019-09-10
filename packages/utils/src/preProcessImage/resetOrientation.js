@@ -1,46 +1,46 @@
 /**
  * To reset orientation of image.
  * @param {Node} canvas Canvas element
- * @param {Object} canvas Canvas ctx
- * @param {Number} width image width
- * @param {Number} height image height
+ * @param {Object} ctx Canvas ctx
+ * @param {Number} imgWidth image width
+ * @param {Number} imgHeight image height
  * @param {Number} orientation the orientation of image file
  */
 export default function resetOrientation(
   canvas,
   ctx,
-  width,
-  height,
+  imgWidth,
+  imgHeight,
   orientation
 ) {
   // set proper canvas dimensions before transform & export
   if (4 < orientation && orientation < 9) {
-    canvas.width = height;
-    canvas.height = width;
+    canvas.width = imgHeight;
+    canvas.height = imgWidth;
   }
 
   // transform context before drawing image
   switch (orientation) {
     case 2:
-      ctx.transform(-1, 0, 0, 1, width, 0);
+      ctx.transform(-1, 0, 0, 1, imgWidth, 0);
       break;
     case 3:
-      ctx.transform(-1, 0, 0, -1, width, height);
+      ctx.transform(-1, 0, 0, -1, imgWidth, imgHeight);
       break;
     case 4:
-      ctx.transform(1, 0, 0, -1, 0, height);
+      ctx.transform(1, 0, 0, -1, 0, imgHeight);
       break;
     case 5:
       ctx.transform(0, 1, 1, 0, 0, 0);
       break;
     case 6:
-      ctx.transform(0, 1, -1, 0, height, 0);
+      ctx.transform(0, 1, -1, 0, imgHeight, 0);
       break;
     case 7:
-      ctx.transform(0, -1, -1, 0, height, width);
+      ctx.transform(0, -1, -1, 0, imgHeight, imgWidth);
       break;
     case 8:
-      ctx.transform(0, -1, 1, 0, 0, width);
+      ctx.transform(0, -1, 1, 0, 0, imgWidth);
       break;
     default:
       break;
