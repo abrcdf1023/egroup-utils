@@ -3,10 +3,13 @@
  *
  * @param {number} orientation the orientation of image file
  */
-export default function resetOrientation(canvas, ctx, img, orientation) {
-  const width = img.width;
-  const height = img.height;
-
+export default function resetOrientation(
+  canvas,
+  ctx,
+  width,
+  height,
+  orientation
+) {
   // set proper canvas dimensions before transform & export
   if (4 < orientation && orientation < 9) {
     canvas.width = height;

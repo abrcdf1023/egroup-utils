@@ -36,7 +36,7 @@ const preProcessImage = (canvas, img, options) => {
       canvas.height = height;
 
       if (orientation) {
-        resetOrientation(canvas, ctx, img, orientation);
+        resetOrientation(canvas, ctx, width, height, orientation);
       }
 
       // Draw canvas.
