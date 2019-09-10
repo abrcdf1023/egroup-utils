@@ -1,18 +1,5 @@
-/**
- * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
- * images to fit into a certain area.
- *
- * @param {Number} srcWidth width of source image
- * @param {Number} srcHeight height of source image
- * @param {Number} maxWidth maximum available width
- * @param {Number} maxHeight maximum available height
- * @return {Object} { width, height }
- */
-function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-  var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-
-  return { width: srcWidth * ratio, height: srcHeight * ratio };
-}
+import calculateAspectRatioFit from './calculateAspectRatioFit';
+import resetOrientation from './resetOrientation';
 
 /**
  * Compress and resize image and keep aspect ratio.
@@ -24,13 +11,15 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
  * @param {string} options.quality [1] compressed image quality
  * @param {string} options.maxWidth [1920] compressed image max width
  * @param {string} options.maxHeight [1920] compressed image max height
+ * @param {Boolean} options.orientation provide image orientation to reset it
  */
-const resizeImageFile = (canvas, img, options) => {
+const preProcessImage = (canvas, img, options) => {
   const {
     type = 'image/jpeg',
     quality = 1,
     maxWidth = 1920,
-    maxHeight = 1920
+    maxHeight = 1920,
+    orientation
   } = options || {};
   return new Promise((resolve, reject) => {
     try {
@@ -45,6 +34,11 @@ const resizeImageFile = (canvas, img, options) => {
       // Set canvas width and height.
       canvas.width = width;
       canvas.height = height;
+
+      if (orientation) {
+        resetOrientation(canvas, ctx, img, orientation);
+      }
+
       // Draw canvas.
       ctx.drawImage(img, 0, 0, width, height);
       // Convert back to blob.
@@ -55,4 +49,4 @@ const resizeImageFile = (canvas, img, options) => {
   });
 };
 
-export default resizeImageFile;
+export default preProcessImage;
