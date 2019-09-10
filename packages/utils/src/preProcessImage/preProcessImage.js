@@ -1,4 +1,4 @@
-import calculateAspectRatioFit from './calculateAspectRatioFit';
+import shrinkingImage from './shrinkingImage';
 import resetOrientation from './resetOrientation';
 
 /**
@@ -14,33 +14,45 @@ import resetOrientation from './resetOrientation';
  * @param {Boolean} options.orientation provide image orientation to reset it
  */
 const preProcessImage = (canvas, img, options) => {
-  const {
-    type = 'image/jpeg',
-    quality = 1,
-    maxWidth = 1920,
-    maxHeight = 1920,
-    orientation
-  } = options || {};
+  const { type = 'image/jpeg', quality = 1, maxWidth, maxHeight, orientation } =
+    options || {};
+  if (!canvas || !img) {
+    throw TypeError('Canvas or Img element is required.');
+  }
+
+  const isCompressImage = quality < 1;
+  const isShrinkingImage =
+    typeof maxWidth !== 'undefined' && typeof maxHeight !== 'undefined';
+  const isResetOrientation = typeof orientation !== 'undefined';
+
+  if (!isCompressImage && !isShrinkingImage && !isResetOrientation) {
+    throw TypeError('At least need one option to handle image.');
+  }
+
   return new Promise((resolve, reject) => {
     try {
       const ctx = canvas.getContext('2d');
-      // Shrinking image
-      const { width, height } = calculateAspectRatioFit(
-        img.width,
-        img.height,
-        maxWidth,
-        maxHeight
-      );
-      // Set canvas width and height.
-      canvas.width = width;
-      canvas.height = height;
+      let imgWidth = img.width;
+      let imgHeight = img.height;
 
-      if (orientation) {
-        resetOrientation(canvas, ctx, width, height, orientation);
+      if (isShrinkingImage) {
+        const [width, height] = shrinkingImage(
+          canvas,
+          imgWidth,
+          imgHeight,
+          maxWidth,
+          maxHeight
+        );
+        imgWidth = width;
+        imgHeight = height;
+      }
+
+      if (isResetOrientation) {
+        resetOrientation(canvas, ctx, imgWidth, imgHeight, orientation);
       }
 
       // Draw canvas.
-      ctx.drawImage(img, 0, 0, width, height);
+      ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
       // Convert back to blob.
       canvas.toBlob(resolve, type, quality);
     } catch (error) {

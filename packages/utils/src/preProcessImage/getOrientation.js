@@ -4,7 +4,7 @@
  *
  * @param {File} file image file prepare for uplaod
  */
-export default function getImgOrientation(file) {
+export default function getOrientation(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = function(e) {

@@ -1,5 +1,5 @@
 /**
- * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
+ * Conserve aspect ratio of the original region. Useful when shrinking
  * images to fit into a certain area.
  *
  * @param {Number} srcWidth width of source image
@@ -15,6 +15,11 @@ export default function calculateAspectRatioFit(
   maxHeight
 ) {
   var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+
+  // If source width and height both smaller than max just return source.
+  if (srcWidth <= maxWidth && srcHeight <= maxHeight) {
+    return { width: srcWidth, height: srcHeight };
+  }
 
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 }
