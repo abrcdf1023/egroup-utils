@@ -4,13 +4,13 @@ import resetOrientation from './resetOrientation';
 /**
  * Compress and resize image and keep aspect ratio.
  *
- * @param {Canvas} canvas Canvas element
- * @param {Image} img Image element
- * @param {object} options
- * @param {string} options.type ['image/jpeg'] compressed image type
- * @param {string} options.quality [1] compressed image quality
- * @param {string} options.maxWidth [1920] compressed image max width
- * @param {string} options.maxHeight [1920] compressed image max height
+ * @param {Node} canvas Canvas element
+ * @param {Node} img Image element
+ * @param {Object} options
+ * @param {String} options.type ['image/jpeg'] compressed image type
+ * @param {Number} options.quality [1] compressed image quality
+ * @param {Number} options.maxWidth [1920] compressed image max width
+ * @param {Number} options.maxHeight [1920] compressed image max height
  * @param {Boolean} options.orientation provide image orientation to reset it
  */
 const preProcessImage = (canvas, img, options) => {

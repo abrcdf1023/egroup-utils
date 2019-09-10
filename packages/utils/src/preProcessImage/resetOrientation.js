@@ -1,7 +1,10 @@
 /**
  * To reset orientation of image.
- *
- * @param {number} orientation the orientation of image file
+ * @param {Node} canvas Canvas element
+ * @param {Object} canvas Canvas ctx
+ * @param {Number} width image width
+ * @param {Number} height image height
+ * @param {Number} orientation the orientation of image file
  */
 export default function resetOrientation(
   canvas,
