@@ -3,6 +3,8 @@
   "version": "6.5.2",
   "private": false,
   "dependencies": {
+    "ismobilejs": "^1.0.2",
+    "mobile-detect": "^1.4.3",
     "query-string": "^6.8.2"
   },
   "scripts": {
