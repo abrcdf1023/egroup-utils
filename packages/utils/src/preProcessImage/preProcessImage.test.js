@@ -49,7 +49,6 @@ describe('preProcessImage', () => {
     console.log('resize image success!');
     const resizedImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
-    expect(getBytes(blob)).toBeLessThan(getBytes(file));
     expect(image.width).toBeGreaterThanOrEqual(1920);
     expect(image.height).toBeGreaterThanOrEqual(1920);
     expect(resizedImage.width).toBeLessThanOrEqual(1920);
@@ -68,7 +67,6 @@ describe('preProcessImage', () => {
     });
     const resizedImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
-    expect(getBytes(blob)).toBe(getBytes(file));
     expect(image.width).toBeLessThan(1920);
     expect(image.height).toBeLessThan(1920);
     expect(resizedImage.width).toBe(image.width);
@@ -94,7 +92,6 @@ describe('preProcessImage', () => {
     console.log('reset image orientation success!');
     const resetedImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
-    expect(getBytes(blob)).toBe(getBytes(file));
     expect(resetedImage.width).toBe(image.height);
     expect(resetedImage.height).toBe(image.width);
     done();
@@ -125,14 +122,14 @@ describe('preProcessImage', () => {
     done();
   });
 
-  it('should cause type error', () => {
+  it('should cause required type error', () => {
     const t = () => {
       preProcessImage();
     };
     expect(t).toThrow('Canvas or Img element is required.');
   });
 
-  it('should cause type error', async done => {
+  it('should cause need one option type error', async done => {
     const image = await loadImage('test-images/cat.jpg');
     const canvas = createCanvas(image.width, image.height);
     const t = () => {

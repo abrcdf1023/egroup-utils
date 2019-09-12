@@ -14,13 +14,13 @@ import resetOrientation from './resetOrientation';
  * @param {Boolean} options.orientation provide image orientation to reset it
  */
 const preProcessImage = (canvas, img, options) => {
-  const { type = 'image/jpeg', quality = 1, maxWidth, maxHeight, orientation } =
+  const { type = 'image/jpeg', quality, maxWidth, maxHeight, orientation } =
     options || {};
   if (!canvas || !img) {
     throw TypeError('Canvas or Img element is required.');
   }
 
-  const isCompressImage = quality < 1;
+  const isCompressImage = typeof quality !== 'undefined';
   const isShrinkingImage =
     typeof maxWidth !== 'undefined' && typeof maxHeight !== 'undefined';
   const isResetOrientation = typeof orientation !== 'undefined';
