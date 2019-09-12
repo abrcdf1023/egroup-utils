@@ -3,57 +3,63 @@ import { createCanvas, loadImage } from 'canvas';
 import preProcessImage from './preProcessImage';
 
 // mock toBlob
-function toBlob(resolve, type, quality) {
-  this.toBuffer(
-    (err, result) => {
-      resolve(result);
-    },
-    type,
-    quality
-  );
+async function toBlob(resolve, type, quality) {
+  const buf = await this.toBuffer(type, { quality });
+  resolve(buf);
+}
+
+function getBytes(buf) {
+  return Math.round(Buffer.byteLength(buf) / 1000);
 }
 
 describe('preProcessImage', () => {
   it('should compress image', async done => {
-    const image = await loadImage('test-images/cat.jpg');
+    const file = await fs.readFileSync('test-images/cat.jpg');
+    const image = await loadImage(file);
     const canvas = createCanvas(image.width, image.height);
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
       quality: 0.8
     });
-    fs.writeFile(
-      'test-images/processed/cat-compress.jpg',
+    await fs.writeFileSync(
+      'test-images/processed/compressed.jpeg',
       blob,
-      'binary',
-      () => {
-        console.log('compress success!');
-      }
+      'binary'
     );
+    console.log('compress image success!');
     expect(blob).toBeInstanceOf(Buffer);
+    expect(getBytes(blob)).toBeLessThan(getBytes(file));
     done();
   });
 
   it('should resize image', async done => {
-    const image = await loadImage('test-images/cat.jpg');
+    const file = await fs.readFileSync('test-images/cat.jpg');
+    const image = await loadImage(file);
     const canvas = createCanvas(image.width, image.height);
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
       maxWidth: 1920,
       maxHeight: 1920
     });
-    fs.writeFile('test-images/processed/cat-resize.jpg', blob, 'binary', () => {
-      console.log('resize success!');
-    });
+    await fs.writeFileSync(
+      'test-images/processed/resized.jpeg',
+      blob,
+      'binary'
+    );
+    console.log('resize image success!');
     const resizedImage = await loadImage(blob);
-    expect(image.width >= 1920).toBe(true);
-    expect(image.height >= 1920).toBe(true);
-    expect(resizedImage.width <= 1920).toBe(true);
-    expect(resizedImage.height <= 1920).toBe(true);
+    expect(blob).toBeInstanceOf(Buffer);
+    expect(getBytes(blob)).toBeLessThan(getBytes(file));
+    expect(image.width).toBeGreaterThanOrEqual(1920);
+    expect(image.height).toBeGreaterThanOrEqual(1920);
+    expect(resizedImage.width).toBeLessThanOrEqual(1920);
+    expect(resizedImage.height).toBeLessThanOrEqual(1920);
     done();
   });
 
   it('should not resize image', async done => {
-    const image = await loadImage('test-images/cat2.jpeg');
+    const file = await fs.readFileSync('test-images/cat2.jpeg');
+    const image = await loadImage(file);
     const canvas = createCanvas(image.width, image.height);
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
@@ -61,15 +67,18 @@ describe('preProcessImage', () => {
       maxHeight: 1920
     });
     const resizedImage = await loadImage(blob);
-    expect(image.width < 1920).toBe(true);
-    expect(image.height < 1920).toBe(true);
-    expect(resizedImage.width === image.width).toBe(true);
-    expect(resizedImage.height === image.height).toBe(true);
+    expect(blob).toBeInstanceOf(Buffer);
+    expect(getBytes(blob)).toBe(getBytes(file));
+    expect(image.width).toBeLessThan(1920);
+    expect(image.height).toBeLessThan(1920);
+    expect(resizedImage.width).toBe(image.width);
+    expect(resizedImage.height).toBe(image.height);
     done();
   });
 
   it('should reset image orientation', async done => {
-    const image = await loadImage('test-images/up-down.jpg');
+    const file = await fs.readFileSync('test-images/up-down.jpg');
+    const image = await loadImage(file);
     const canvas = createCanvas(image.width, image.height);
     canvas.toBlob = toBlob;
     // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
@@ -77,12 +86,42 @@ describe('preProcessImage', () => {
     const blob = await preProcessImage(canvas, image, {
       orientation
     });
-    fs.writeFile('test-images/processed/up-down.jpg', blob, 'binary', () => {
-      console.log('reset orientation success!');
-    });
+    await fs.writeFileSync(
+      'test-images/processed/reseted.jpeg',
+      blob,
+      'binary'
+    );
+    console.log('reset image orientation success!');
     const resetedImage = await loadImage(blob);
-    expect(resetedImage.width === image.height).toBe(true);
-    expect(resetedImage.height === image.width).toBe(true);
+    expect(blob).toBeInstanceOf(Buffer);
+    expect(getBytes(blob)).toBe(getBytes(file));
+    expect(resetedImage.width).toBe(image.height);
+    expect(resetedImage.height).toBe(image.width);
+    done();
+  });
+
+  it('should compress and reset image orientation', async done => {
+    const file = await fs.readFileSync('test-images/up-down.jpg');
+    const image = await loadImage(file);
+    console.log(image);
+    const canvas = createCanvas(image.width, image.height);
+    canvas.toBlob = toBlob;
+    // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
+    const orientation = 6;
+    const blob = await preProcessImage(canvas, image, {
+      quality: 0.8,
+      orientation
+    });
+    await fs.writeFileSync(
+      'test-images/processed/reseted-compressed.jpeg',
+      blob,
+      'binary'
+    );
+    console.log('compress and reset image orientation success!');
+    const resetedImage = await loadImage(blob);
+    expect(getBytes(blob)).toBeLessThan(getBytes(file));
+    expect(resetedImage.width).toBe(image.height);
+    expect(resetedImage.height).toBe(image.width);
     done();
   });
 
