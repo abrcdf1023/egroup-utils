@@ -48,11 +48,23 @@ const preProcessImage = (canvas, img, options) => {
       }
 
       if (isResetOrientation) {
-        resetOrientation(canvas, ctx, imgWidth, imgHeight, orientation);
+        const [width, height] = resetOrientation(
+          ctx,
+          imgWidth,
+          imgHeight,
+          orientation
+        );
+        imgWidth = width;
+        imgHeight = height;
       }
+
+      // Set canvas height and width
+      canvas.width = imgWidth;
+      canvas.height = imgHeight;
 
       // Draw canvas.
       ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+
       // Convert back to blob.
       canvas.toBlob(resolve, type, quality);
     } catch (error) {

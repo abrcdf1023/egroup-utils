@@ -16,7 +16,7 @@ describe('preProcessImage', () => {
   it('should compress image', async done => {
     const file = await fs.readFileSync('test-images/cat.jpg');
     const image = await loadImage(file);
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
       quality: 0.8
@@ -35,7 +35,7 @@ describe('preProcessImage', () => {
   it('should resize image', async done => {
     const file = await fs.readFileSync('test-images/cat.jpg');
     const image = await loadImage(file);
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
       maxWidth: 1920,
@@ -59,7 +59,7 @@ describe('preProcessImage', () => {
   it('should not resize image', async done => {
     const file = await fs.readFileSync('test-images/cat2.jpeg');
     const image = await loadImage(file);
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     canvas.toBlob = toBlob;
     const blob = await preProcessImage(canvas, image, {
       maxWidth: 1920,
@@ -74,10 +74,10 @@ describe('preProcessImage', () => {
     done();
   });
 
-  it('should reset image orientation', async done => {
+  it('should reset image when orientation is 6', async done => {
     const file = await fs.readFileSync('test-images/up-down.jpg');
     const image = await loadImage(file);
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     canvas.toBlob = toBlob;
     // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
     const orientation = 6;
@@ -97,11 +97,27 @@ describe('preProcessImage', () => {
     done();
   });
 
+  it('should not reset image orientation', async done => {
+    const file = await fs.readFileSync('test-images/cat.jpg');
+    const image = await loadImage(file);
+    const canvas = createCanvas();
+    canvas.toBlob = toBlob;
+    // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
+    const orientation = 1;
+    const blob = await preProcessImage(canvas, image, {
+      orientation
+    });
+    const resetedImage = await loadImage(blob);
+    expect(blob).toBeInstanceOf(Buffer);
+    expect(resetedImage.width).toBe(image.width);
+    expect(resetedImage.height).toBe(image.height);
+    done();
+  });
+
   it('should compress and reset image orientation', async done => {
     const file = await fs.readFileSync('test-images/up-down.jpg');
     const image = await loadImage(file);
-    console.log(image);
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     canvas.toBlob = toBlob;
     // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
     const orientation = 6;
@@ -131,7 +147,7 @@ describe('preProcessImage', () => {
 
   it('should cause need one option type error', async done => {
     const image = await loadImage('test-images/cat.jpg');
-    const canvas = createCanvas(image.width, image.height);
+    const canvas = createCanvas();
     const t = () => {
       preProcessImage(canvas, image);
     };

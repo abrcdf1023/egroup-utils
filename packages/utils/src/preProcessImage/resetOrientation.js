@@ -1,24 +1,16 @@
 /**
  * To reset orientation of image.
- * @param {Node} canvas Canvas element
  * @param {Object} ctx Canvas ctx
  * @param {Number} imgWidth image width
  * @param {Number} imgHeight image height
  * @param {Number} orientation the orientation of image file
  */
 export default function resetOrientation(
-  canvas,
   ctx,
   imgWidth,
   imgHeight,
   orientation
 ) {
-  // set proper canvas dimensions before transform & export
-  if (4 < orientation && orientation < 9) {
-    canvas.width = imgHeight;
-    canvas.height = imgWidth;
-  }
-
   // transform context before drawing image
   switch (orientation) {
     case 2:
@@ -45,4 +37,10 @@ export default function resetOrientation(
     default:
       break;
   }
+
+  // set proper canvas dimensions before transform & export
+  if (4 < orientation && orientation < 9) {
+    return [imgHeight, imgWidth];
+  }
+  return [imgWidth, imgHeight];
 }
