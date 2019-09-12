@@ -1,6 +1,6 @@
+import fs from 'fs';
 import { createCanvas, loadImage } from 'canvas';
 import preProcessImage from './preProcessImage';
-import getOrientation from './getOrientation';
 
 // mock toBlob
 function toBlob(resolve, type, quality) {
@@ -21,6 +21,14 @@ describe('preProcessImage', () => {
     const blob = await preProcessImage(canvas, image, {
       quality: 0.8
     });
+    fs.writeFile(
+      'test-images/processed/cat-compress.jpg',
+      blob,
+      'binary',
+      () => {
+        console.log('compress success!');
+      }
+    );
     expect(blob).toBeInstanceOf(Buffer);
     done();
   });
@@ -32,6 +40,9 @@ describe('preProcessImage', () => {
     const blob = await preProcessImage(canvas, image, {
       maxWidth: 1920,
       maxHeight: 1920
+    });
+    fs.writeFile('test-images/processed/cat-resize.jpg', blob, 'binary', () => {
+      console.log('resize success!');
     });
     const resizedImage = await loadImage(blob);
     expect(image.width >= 1920).toBe(true);
@@ -65,6 +76,9 @@ describe('preProcessImage', () => {
     const orientation = 6;
     const blob = await preProcessImage(canvas, image, {
       orientation
+    });
+    fs.writeFile('test-images/processed/up-down.jpg', blob, 'binary', () => {
+      console.log('reset orientation success!');
     });
     const resetedImage = await loadImage(blob);
     expect(resetedImage.width === image.height).toBe(true);
