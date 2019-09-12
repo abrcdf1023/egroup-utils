@@ -1,5 +1,6 @@
 import React from 'react';
 import queryString from 'query-string';
+import usePrevious from '../usePrevious';
 
 export default function makeSearchDataList(startKey, sizeKey, options = {}) {
   const {
@@ -10,21 +11,17 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
     filter
   } = options;
   return function useSearchDataList({ history, location, fetchGet }) {
-    const ref = React.useRef();
     const search = React.useMemo(() => queryString.parse(location.search), [
       location.search
     ]);
+    const preSearch = usePrevious(search);
     const [payload, setPayload] = React.useState({
       ...defaultValues,
       ...search
     });
 
     React.useEffect(() => {
-      ref.current = search;
-    }, [search]);
-
-    React.useEffect(() => {
-      if (filter && !filter(ref.current, search)) return;
+      if (filter && !filter(preSearch, search)) return;
       fetchGet({
         ...defaultValues,
         ...search
@@ -33,7 +30,7 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
         ...defaultValues,
         ...search
       }));
-    }, [fetchGet, search]);
+    }, [fetchGet, preSearch, search]);
 
     const handleSearchChange = e => {
       const query = e.target.value;
