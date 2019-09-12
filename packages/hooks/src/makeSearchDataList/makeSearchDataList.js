@@ -6,9 +6,11 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
     defaultValues = {
       [startKey]: 0,
       [sizeKey]: 10
-    }
+    },
+    filter
   } = options;
   return function useSearchDataList({ history, location, fetchGet }) {
+    const ref = React.useRef();
     const search = React.useMemo(() => queryString.parse(location.search), [
       location.search
     ]);
@@ -18,6 +20,11 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
     });
 
     React.useEffect(() => {
+      ref.current = search;
+    }, [search]);
+
+    React.useEffect(() => {
+      if (filter && !filter(ref.current, search)) return;
       fetchGet({
         ...defaultValues,
         ...search
