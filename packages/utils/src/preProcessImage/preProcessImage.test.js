@@ -47,12 +47,12 @@ describe('preProcessImage', () => {
       'binary'
     );
     console.log('resize image success!');
-    const resizedImage = await loadImage(blob);
+    const outputImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
     expect(image.width).toBeGreaterThanOrEqual(1920);
     expect(image.height).toBeGreaterThanOrEqual(1920);
-    expect(resizedImage.width).toBeLessThanOrEqual(1920);
-    expect(resizedImage.height).toBeLessThanOrEqual(1920);
+    expect(outputImage.width).toBeLessThanOrEqual(1920);
+    expect(outputImage.height).toBeLessThanOrEqual(1920);
     done();
   });
 
@@ -65,12 +65,12 @@ describe('preProcessImage', () => {
       maxWidth: 1920,
       maxHeight: 1920
     });
-    const resizedImage = await loadImage(blob);
+    const outputImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
     expect(image.width).toBeLessThan(1920);
     expect(image.height).toBeLessThan(1920);
-    expect(resizedImage.width).toBe(image.width);
-    expect(resizedImage.height).toBe(image.height);
+    expect(outputImage.width).toBe(image.width);
+    expect(outputImage.height).toBe(image.height);
     done();
   });
 
@@ -90,10 +90,10 @@ describe('preProcessImage', () => {
       'binary'
     );
     console.log('reset image orientation success!');
-    const resetedImage = await loadImage(blob);
+    const outputImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
-    expect(resetedImage.width).toBe(image.height);
-    expect(resetedImage.height).toBe(image.width);
+    expect(outputImage.width).toBe(image.height);
+    expect(outputImage.height).toBe(image.width);
     done();
   });
 
@@ -107,10 +107,10 @@ describe('preProcessImage', () => {
     const blob = await preProcessImage(canvas, image, {
       orientation
     });
-    const resetedImage = await loadImage(blob);
+    const outputImage = await loadImage(blob);
     expect(blob).toBeInstanceOf(Buffer);
-    expect(resetedImage.width).toBe(image.width);
-    expect(resetedImage.height).toBe(image.height);
+    expect(outputImage.width).toBe(image.width);
+    expect(outputImage.height).toBe(image.height);
     done();
   });
 
@@ -131,10 +131,37 @@ describe('preProcessImage', () => {
       'binary'
     );
     console.log('compress and reset image orientation success!');
-    const resetedImage = await loadImage(blob);
+    const outputImage = await loadImage(blob);
     expect(getBytes(blob)).toBeLessThan(getBytes(file));
-    expect(resetedImage.width).toBe(image.height);
-    expect(resetedImage.height).toBe(image.width);
+    expect(outputImage.width).toBe(image.height);
+    expect(outputImage.height).toBe(image.width);
+    done();
+  });
+
+  it('should resize and reset image orientation', async done => {
+    const file = await fs.readFileSync('test-images/up-down.jpg');
+    const image = await loadImage(file);
+    const canvas = createCanvas();
+    canvas.toBlob = toBlob;
+    // https://storage.googleapis.com/go-attachment/4341/0/exif-orientations.png
+    const orientation = 6;
+    const blob = await preProcessImage(canvas, image, {
+      maxWidth: 1920,
+      maxHeight: 1920,
+      orientation
+    });
+    await fs.writeFileSync(
+      'test-images/processed/resized-reseted.jpeg',
+      blob,
+      'binary'
+    );
+    console.log('resize and reset image orientation success!');
+    const outputImage = await loadImage(blob);
+    expect(getBytes(blob)).toBeLessThan(getBytes(file));
+    expect(image.width).toBeGreaterThanOrEqual(1920);
+    expect(image.height).toBeGreaterThanOrEqual(1920);
+    expect(outputImage.width).toBeLessThanOrEqual(1920);
+    expect(outputImage.height).toBeLessThanOrEqual(1920);
     done();
   });
 

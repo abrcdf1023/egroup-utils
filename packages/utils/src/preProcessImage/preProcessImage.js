@@ -1,5 +1,4 @@
 import shrinkingImage from './shrinkingImage';
-import resetOrientation from './resetOrientation';
 
 /**
  * Compress and resize image and keep aspect ratio.
@@ -32,8 +31,15 @@ const preProcessImage = (canvas, img, options) => {
   return new Promise((resolve, reject) => {
     try {
       const ctx = canvas.getContext('2d');
-      let imgWidth = img.width;
-      let imgHeight = img.height;
+      const imgWidth = img.width;
+      const imgHeight = img.height;
+      let currentImgWidth;
+      let currentImgHeight;
+
+      canvas.width = imgWidth;
+      canvas.height = imgHeight;
+      currentImgWidth = imgWidth;
+      currentImgHeight = imgHeight;
 
       if (isShrinkingImage) {
         const [width, height] = shrinkingImage(
@@ -43,27 +49,49 @@ const preProcessImage = (canvas, img, options) => {
           maxWidth,
           maxHeight
         );
-        imgWidth = width;
-        imgHeight = height;
+        canvas.width = width;
+        canvas.height = height;
+        currentImgWidth = width;
+        currentImgHeight = height;
       }
 
       if (isResetOrientation) {
-        const [width, height] = resetOrientation(
-          ctx,
-          imgWidth,
-          imgHeight,
-          orientation
-        );
-        imgWidth = width;
-        imgHeight = height;
+        if (4 < orientation && orientation < 9) {
+          canvas.width = currentImgHeight;
+          canvas.height = currentImgWidth;
+          currentImgWidth = canvas.height;
+          currentImgHeight = canvas.width;
+        }
+        // transform context before drawing image
+        switch (orientation) {
+          case 2:
+            ctx.transform(-1, 0, 0, 1, currentImgWidth, 0);
+            break;
+          case 3:
+            ctx.transform(-1, 0, 0, -1, currentImgWidth, currentImgHeight);
+            break;
+          case 4:
+            ctx.transform(1, 0, 0, -1, 0, currentImgHeight);
+            break;
+          case 5:
+            ctx.transform(0, 1, 1, 0, 0, 0);
+            break;
+          case 6:
+            ctx.transform(0, 1, -1, 0, currentImgHeight, 0);
+            break;
+          case 7:
+            ctx.transform(0, -1, -1, 0, currentImgHeight, currentImgWidth);
+            break;
+          case 8:
+            ctx.transform(0, -1, 1, 0, 0, currentImgWidth);
+            break;
+          default:
+            break;
+        }
       }
 
-      // Set canvas height and width
-      canvas.width = imgWidth;
-      canvas.height = imgHeight;
-
       // Draw canvas.
-      ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+      ctx.drawImage(img, 0, 0, currentImgWidth, currentImgHeight);
 
       // Convert back to blob.
       canvas.toBlob(resolve, type, quality);
