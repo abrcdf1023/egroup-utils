@@ -1,4 +1,4 @@
-import shrinkingImage from './shrinkingImage';
+import calculateAspectRatioFit from './calculateAspectRatioFit';
 
 /**
  * Compress and resize image and keep aspect ratio.
@@ -42,13 +42,14 @@ const preProcessImage = (canvas, img, options) => {
       currentImgHeight = imgHeight;
 
       if (isShrinkingImage) {
-        const [width, height] = shrinkingImage(
-          canvas,
+        // Shrinking image
+        const { width, height } = calculateAspectRatioFit(
           imgWidth,
           imgHeight,
           maxWidth,
           maxHeight
         );
+        // Set canvas width and height.
         canvas.width = width;
         canvas.height = height;
         currentImgWidth = width;
