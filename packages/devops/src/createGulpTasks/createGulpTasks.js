@@ -5,14 +5,14 @@ const bom = require('gulp-bom');
 const rename = require('gulp-rename');
 const clean = require('gulp-clean');
 
-function createGulpTasks({ serverDir, buildFolder, buildJsp }) {
+function createGulpTasks({ serverDir, buildFolder, indexPath }) {
   /**
-   * html to jsp
+   * build index and it accepts jsp or html file type.
    */
-  gulp.task('toJSP', () => {
-    if (!buildJsp) return Promise.resolve('done');
-    const jspName = path.basename(buildJsp);
-    const jspDir = path.dirname(buildJsp);
+  gulp.task('buildIndex', () => {
+    if (!indexPath) return Promise.resolve('done');
+    const name = path.basename(indexPath);
+    const dir = path.dirname(indexPath);
     return (
       gulp
         .src('build/index.html')
@@ -26,8 +26,8 @@ function createGulpTasks({ serverDir, buildFolder, buildJsp }) {
         )
         // gulp bom is to conver files to utf-8
         .pipe(bom())
-        .pipe(rename(jspName))
-        .pipe(gulp.dest(`${serverDir}${jspDir}`))
+        .pipe(rename(name))
+        .pipe(gulp.dest(`${serverDir}${dir}`))
     );
   });
 
@@ -51,7 +51,7 @@ function createGulpTasks({ serverDir, buildFolder, buildJsp }) {
    * copy build to serverDir
    */
   gulp.task('copyBuild', () => {
-    if (!buildJsp) {
+    if (!indexPath) {
       return gulp
         .src('build/**/*')
         .pipe(gulp.dest(`${serverDir}${buildFolder}`));
@@ -64,7 +64,10 @@ function createGulpTasks({ serverDir, buildFolder, buildJsp }) {
   /**
    * production
    */
-  gulp.task('production', gulp.series(['toJSP', 'cleanBuild', 'copyBuild']));
+  gulp.task(
+    'production',
+    gulp.series(['buildIndex', 'cleanBuild', 'copyBuild'])
+  );
 }
 
 module.exports = createGulpTasks;
