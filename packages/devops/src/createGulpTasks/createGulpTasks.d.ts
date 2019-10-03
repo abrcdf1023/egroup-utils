@@ -1,7 +1,7 @@
 interface CreateGulpTasksConfig {
   serverDir: string;
   buildFolder: string;
-  buildJsp?: string;
+  indexPath?: string;
 }
 
 export default function createGulpTasks(config: CreateGulpTasksConfig): void;
