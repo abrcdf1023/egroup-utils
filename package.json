@@ -29,6 +29,8 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "start": "start-storybook -s ./public -p 9001",
+    "build-storybook": "build-storybook -s public",
     "test": "jest",
     "test:dev": "jest --watch",
     "build": "lerna run build",
@@ -59,6 +61,14 @@
     "packages/*"
   ],
   "dependencies": {
+    "@storybook/addon-actions": "^5.2.1",
+    "@storybook/addon-info": "^5.2.1",
+    "@storybook/addon-knobs": "^5.2.1",
+    "@storybook/addon-links": "^5.2.1",
+    "@storybook/addon-notes": "^5.2.1",
+    "@storybook/addon-storysource": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
+    "@storybook/react": "^5.2.1",
     "draft-js": "^0.11.0",
     "immutable": "^4.0.0-rc.12",
     "react": "^16.9.0",
