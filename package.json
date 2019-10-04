@@ -61,6 +61,10 @@
     "packages/*"
   ],
   "dependencies": {
+    "@e-group/material": "^3.9.0",
+    "@e-group/material-module": "^3.11.1",
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.4.3",
     "@storybook/addon-actions": "^5.2.1",
     "@storybook/addon-info": "^5.2.1",
     "@storybook/addon-knobs": "^5.2.1",
@@ -71,6 +75,7 @@
     "@storybook/react": "^5.2.1",
     "draft-js": "^0.11.0",
     "immutable": "^4.0.0-rc.12",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "redux": "^4.0.4",
