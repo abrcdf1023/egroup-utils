@@ -78,9 +78,11 @@
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router": "^5.1.2",
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-observable": "^1.1.0",
-    "rxjs": "^6.4.0"
+    "rxjs": "^6.4.0",
+    "storybook-react-router": "^1.0.8"
   }
 }

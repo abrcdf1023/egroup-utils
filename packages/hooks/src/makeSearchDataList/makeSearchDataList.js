@@ -1,40 +1,19 @@
 import React from 'react';
+import { useLocation } from 'react-router';
 import queryString from 'query-string';
-import usePrevious from '../usePrevious';
 
-export default function makeSearchDataList(startKey, sizeKey, options = {}) {
-  const {
-    defaultValues = {
-      [startKey]: 0,
-      [sizeKey]: 10
-    },
-    filter
-  } = options;
-  return function useSearchDataList({ history, location, fetchGet }) {
-    const search = React.useMemo(() => queryString.parse(location.search), [
-      location.search
-    ]);
-    const preSearch = usePrevious(search);
+function makeUsePayload(startKey, sizeKey, defaultValues) {
+  return function usePayload() {
+    const location = useLocation();
     const [payload, setPayload] = React.useState({
       ...defaultValues,
-      ...search
+      ...queryString.parse(location.search)
     });
-
-    React.useEffect(() => {
-      if (filter && !filter(preSearch, search)) return;
-      fetchGet({
-        ...defaultValues,
-        ...search
-      });
-      setPayload(value => ({
-        ...defaultValues,
-        ...search
-      }));
-    }, [fetchGet, preSearch, search]);
+    const [formPayload, setFormPayload] = React.useState();
 
     const handleSearchChange = e => {
       const query = e.target.value;
-      setPayload(value => ({
+      setFormPayload(value => ({
         ...value,
         query
       }));
@@ -42,14 +21,11 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
 
     const handleSearchSubmit = e => {
       e.preventDefault();
-      const newPayload = {
-        ...payload,
+      setPayload(value => ({
+        ...value,
+        ...formPayload,
         [startKey]: '0'
-      };
-      setPayload(newPayload);
-      history.push({
-        search: queryString.stringify(newPayload)
-      });
+      }));
     };
 
     const handleChangePage = (event, { page, rowsPerPage }) => {
@@ -58,9 +34,6 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
         [startKey]: page * rowsPerPage
       };
       setPayload(newPayload);
-      history.push({
-        search: queryString.stringify(newPayload)
-      });
     };
 
     const handleChangeRowsPerPage = (event, { page, rowsPerPage }) => {
@@ -70,9 +43,6 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
         [sizeKey]: rowsPerPage
       };
       setPayload(newPayload);
-      history.push({
-        search: queryString.stringify(newPayload)
-      });
     };
 
     return {
@@ -81,7 +51,55 @@ export default function makeSearchDataList(startKey, sizeKey, options = {}) {
       handleChangePage,
       handleChangeRowsPerPage,
       payload,
-      setPayload
+      setPayload,
+      formPayload,
+      setFormPayload
+    };
+  };
+}
+
+export default function makeSearchDataList(startKey, sizeKey, options = {}) {
+  const {
+    defaultValues = {
+      [startKey]: 0,
+      [sizeKey]: 10
+    }
+  } = options;
+
+  const usePayload = makeUsePayload(startKey, sizeKey, defaultValues);
+
+  return function useSearchDataList({ fetchGet, history }) {
+    const {
+      handleSearchChange,
+      handleSearchSubmit,
+      handleChangePage,
+      handleChangeRowsPerPage,
+      payload,
+      setPayload,
+      formPayload,
+      setFormPayload
+    } = usePayload();
+
+    React.useEffect(() => {
+      if (fetchGet) {
+        fetchGet(payload);
+      }
+      if (history) {
+        history.push({
+          search: queryString.stringify(payload)
+        });
+      }
+    }, [fetchGet, history, payload]);
+
+    return {
+      handleSearchChange,
+      handleSearchSubmit,
+      handleChangePage,
+      handleChangeRowsPerPage,
+      payload,
+      setPayload,
+      formPayload,
+      setFormPayload
     };
   };
 }
