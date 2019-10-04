@@ -5,6 +5,8 @@ node_js:
   - "lts/*"
 env:
   - CODECOV_TOKEN="963e67b7-bc01-476b-9a90-4bf55ea96365"
+install:
+  - npm install -g codecov
 # Script that is run before the script phase
 before_script:
   - yarn build-storybook
@@ -17,8 +19,6 @@ deploy:
   target_branch: gh-pages # Tell Travis to deploy on the gh-pages branch
   on:
     branch: master # Tell Travis to trigger a deploy only when we push to master
-install:
-  - npm install -g codecov
 script:
   - yarn
   - yarn test && codecov
