@@ -7,12 +7,14 @@ env:
   - CODECOV_TOKEN="963e67b7-bc01-476b-9a90-4bf55ea96365"
 install:
   - npm install -g codecov
-script:
+# Script that is run before the script phase
+before_script:
   - yarn
-  - yarn test && codecov
-# Script that is run after the script phase
-after_script:
   - yarn build-storybook
+script:
+  - yarn build
+  - yarn test
+  - codecov
 deploy:
   provider: pages # Tell Travis we want to deploy to Github Pages
   skip-cleanup: true 

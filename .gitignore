@@ -7,7 +7,7 @@ node_modules
 
 # testing
 coverage
-test-images/processed
+test-images/processed/*
 
 # production
 build
