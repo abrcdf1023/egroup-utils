@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 
-function makeUsePayload(startKey, sizeKey, defaultValues) {
+function makeUsePayload(fromKey, sizeKey, queryKey, defaultValues) {
   return function usePayload() {
     const location = useLocation();
     const [payload, setPayload] = React.useState({
@@ -15,7 +15,7 @@ function makeUsePayload(startKey, sizeKey, defaultValues) {
       const query = e.target.value;
       setFormPayload(value => ({
         ...value,
-        query
+        [queryKey]: query
       }));
     };
 
@@ -24,14 +24,14 @@ function makeUsePayload(startKey, sizeKey, defaultValues) {
       setPayload(value => ({
         ...value,
         ...formPayload,
-        [startKey]: '0'
+        [fromKey]: '0'
       }));
     };
 
     const handleChangePage = (event, { page, rowsPerPage }) => {
       const newPayload = {
         ...payload,
-        [startKey]: page * rowsPerPage
+        [fromKey]: page * rowsPerPage
       };
       setPayload(newPayload);
     };
@@ -39,7 +39,7 @@ function makeUsePayload(startKey, sizeKey, defaultValues) {
     const handleChangeRowsPerPage = (event, { page, rowsPerPage }) => {
       const newPayload = {
         ...payload,
-        [startKey]: '0',
+        [fromKey]: '0',
         [sizeKey]: rowsPerPage
       };
       setPayload(newPayload);
@@ -58,15 +58,18 @@ function makeUsePayload(startKey, sizeKey, defaultValues) {
   };
 }
 
-export default function makeSearchDataList(startKey, sizeKey, options = {}) {
+export default function makeSearchDataList(options) {
   const {
+    fromKey = 'from',
+    sizeKey = 'size',
+    queryKey = 'query',
     defaultValues = {
-      [startKey]: 0,
+      [fromKey]: 0,
       [sizeKey]: 10
     }
-  } = options;
+  } = options || {};
 
-  const usePayload = makeUsePayload(startKey, sizeKey, defaultValues);
+  const usePayload = makeUsePayload(fromKey, sizeKey, queryKey, defaultValues);
 
   return function useSearchDataList({ fetchGet, history }) {
     const {

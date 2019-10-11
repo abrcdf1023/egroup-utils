@@ -6,9 +6,14 @@ import makeSearchDataList from '@e-group/hooks/makeSearchDataList';
 
 import StoryRouter from 'storybook-react-router';
 import ListItem from '@material-ui/core/ListItem'
+import TextField from '@material-ui/core/TextField'
 import SearchDataList from '@e-group/material-module/SearchDataList';
 
-const useSearchDataList = makeSearchDataList('skip', 'take');
+const useSearchDataList = makeSearchDataList({
+  fromKey: "skip",
+  sizeKey: "take",
+  queryKey: "keyword",
+});
 
 const data = [
   {"id":"1","name":"name1"},
@@ -69,7 +74,7 @@ storiesOf('makeSearchDataList', module)
             <div>
               {JSON.stringify(payload, null, 4)}
             </div>
-            <input type="text" onChange={handleInputChange}/>
+            
             <SearchDataList
               onSubmit={handleSearchSubmit}
               title="列表"
@@ -78,6 +83,13 @@ storiesOf('makeSearchDataList', module)
                 onChange: handleSearchChange,
                 defaultValue: payload.query
               }}
+              toolsbar={
+                <TextField
+                  placeholder="customized search value"
+                  onChange={handleInputChange}
+                  fullWidth
+                />
+              }
               columns={['名稱']}
               data={data}
               renderColumns={renderColumns}
