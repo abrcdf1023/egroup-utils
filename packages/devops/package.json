@@ -1,6 +1,6 @@
 {
   "name": "@e-group/devops",
-  "version": "6.9.0",
+  "version": "6.11.1",
   "private": false,
   "dependencies": {
     "gulp": "^4.0.0",
