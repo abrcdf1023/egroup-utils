@@ -7,6 +7,17 @@ export default function useTabValue({ history, location, defaultValue = 0 }) {
   ]);
   const tabValue = Number(search.tab) || defaultValue;
 
+  const setTabValue = React.useCallback(
+    value => {
+      history.push({
+        search: queryString.stringify({
+          tab: value
+        })
+      });
+    },
+    [history]
+  );
+
   const handleChange = (event, newValue) => {
     history.push({
       search: queryString.stringify({
@@ -17,6 +28,7 @@ export default function useTabValue({ history, location, defaultValue = 0 }) {
 
   return {
     tabValue,
+    setTabValue,
     handleChange
   };
 }
