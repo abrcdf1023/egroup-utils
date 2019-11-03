@@ -15,8 +15,8 @@ export default function makeSearchDataList(options = {}) {
     const defaultScrollHeight =
       typeof document !== 'undefined' ? document.body.scrollHeight : null;
     const {
-      target = defaultTarget,
-      scrollHeight = defaultScrollHeight,
+      target = !disableDefaultTarget ? defaultTarget : undefined,
+      scrollHeight = !disableDefaultTarget ? defaultScrollHeight : undefined,
       defaultPage = 0,
       isLoading,
       maxPage
@@ -35,10 +35,7 @@ export default function makeSearchDataList(options = {}) {
     }, [isLoading, maxPage, scrollHeight, target]);
 
     React.useEffect(() => {
-      if (
-        disableDefaultTarget &&
-        (typeof target === 'undefined' || typeof scrollHeight === 'undefined')
-      )
+      if (typeof target === 'undefined' || typeof scrollHeight === 'undefined')
         return;
       /**
        * Event listener will resubscribe every time when arguments change.

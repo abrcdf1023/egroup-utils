@@ -90,8 +90,8 @@ storiesOf('makeUseInfiniteScroll', module)
         const [isLoading, setIsLoading] = React.useState(false)
         const [items, setItems] = React.useState(data)
         const [page, setPage] = useInfiniteScroll({
-          // target: boxEl.current,
-          // scrollHeight: boxEl.current && boxEl.current.scrollHeight,
+          target: boxEl.current,
+          scrollHeight: boxEl.current && boxEl.current.scrollHeight,
           isLoading,
           maxPage: 10
         });
