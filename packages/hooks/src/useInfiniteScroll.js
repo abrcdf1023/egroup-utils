@@ -1,10 +1,5 @@
 import React from 'react';
 
-const defaultTarget = typeof window !== 'undefined' ? window : null;
-
-const defaultScrollHeight =
-  typeof document !== 'undefined' ? document.body.scrollHeight : null;
-
 const getScrollPosition = ref => {
   if (typeof ref.scrollY === 'number') {
     return ref.innerHeight + ref.scrollY;
@@ -12,7 +7,13 @@ const getScrollPosition = ref => {
   return ref.scrollTop + ref.offsetHeight;
 };
 
+console.error(
+  'Error: useInfiniteScroll is depreciated and it will be removed in next major release. Please use makeUseInfiniteScroll instead and read doc for more example https://abrcdf1023.github.io/egroup-utils.'
+);
 export default function useInfiniteScroll(options = {}) {
+  const defaultTarget = typeof window !== 'undefined' ? window : null;
+  const defaultScrollHeight =
+    typeof document !== 'undefined' ? document.body.scrollHeight : null;
   const {
     target = defaultTarget,
     scrollHeight = defaultScrollHeight,
