@@ -15,6 +15,7 @@ addDecorator(withNotes);
 
 function loadStories() {
   require('../stories/makeSearchDataList.stories');
+  require('../stories/useInfiniteScroll.stories');
   // You can require as many stories as you need.
 }
 

@@ -1,11 +1,8 @@
 import React from 'react';
 
-export default function useInfiniteScroll({
-  defaultValue,
-  isLoading,
-  maxPage
-}) {
-  const [page, setPage] = React.useState(defaultValue || 0);
+export default function useInfiniteScroll(options = {}) {
+  const { defaultPage, isLoading, maxPage } = options;
+  const [page, setPage] = React.useState(defaultPage || 0);
 
   React.useEffect(() => {
     const handleScroll = () => {
