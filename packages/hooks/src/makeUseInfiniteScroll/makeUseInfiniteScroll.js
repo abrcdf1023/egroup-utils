@@ -8,7 +8,7 @@ const getScrollPosition = ref => {
 };
 
 export default function makeSearchDataList(options = {}) {
-  const { offset = 100 } = options;
+  const { offset = 100, disableDefaultTarget = false } = options;
 
   return function useInfiniteScroll(options = {}) {
     const defaultTarget = typeof window !== 'undefined' ? window : null;
@@ -35,6 +35,11 @@ export default function makeSearchDataList(options = {}) {
     }, [isLoading, maxPage, scrollHeight, target]);
 
     React.useEffect(() => {
+      if (
+        disableDefaultTarget &&
+        (typeof target === 'undefined' || typeof scrollHeight === 'undefined')
+      )
+        return;
       /**
        * Event listener will resubscribe every time when arguments change.
        * And this can avoid subscribe multiple listeners.
@@ -43,7 +48,7 @@ export default function makeSearchDataList(options = {}) {
       return () => {
         target.removeEventListener('scroll', handleScroll);
       };
-    }, [handleScroll, target]);
+    }, [handleScroll, scrollHeight, target]);
 
     return [page, setPage];
   };

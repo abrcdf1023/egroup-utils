@@ -17,14 +17,13 @@ const makeData = (number) => {
 
 const data = makeData(10)
 
-const useInfiniteScroll = makeUseInfiniteScroll({
-  offset: 500
-})
-
 storiesOf('makeUseInfiniteScroll', module)
   .add(
     'default',
     () => {
+      const useInfiniteScroll = makeUseInfiniteScroll({
+        offset: 500
+      })
       const Demo = () => {
         const [isLoading, setIsLoading] = React.useState(false)
         const [items, setItems] = React.useState(data)
@@ -34,7 +33,6 @@ storiesOf('makeUseInfiniteScroll', module)
         });
 
         const fetchItem = () => {
-          console.log('fetchItem')
           setIsLoading(true)
           setTimeout(() => {
             const item = {
@@ -84,13 +82,16 @@ storiesOf('makeUseInfiniteScroll', module)
   .add(
     'withDifferentTarget',
     () => {
+      const useInfiniteScroll = makeUseInfiniteScroll({
+        disableDefaultTarget: true
+      })
       const Demo = () => {
         const boxEl = React.useRef()
         const [isLoading, setIsLoading] = React.useState(false)
         const [items, setItems] = React.useState(data)
         const [page, setPage] = useInfiniteScroll({
-          target: boxEl.current,
-          scrollHeight: boxEl.current && boxEl.current.scrollHeight,
+          // target: boxEl.current,
+          // scrollHeight: boxEl.current && boxEl.current.scrollHeight,
           isLoading,
           maxPage: 10
         });
