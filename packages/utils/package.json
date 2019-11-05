@@ -1,6 +1,6 @@
 {
   "name": "@e-group/utils",
-  "version": "6.11.1",
+  "version": "6.12.3",
   "private": false,
   "dependencies": {
     "js-base64": "^2.5.1"
