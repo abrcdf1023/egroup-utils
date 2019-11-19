@@ -8,7 +8,7 @@ const getScrollPosition = ref => {
 };
 
 console.error(
-  'Error: useInfiniteScroll is depreciated and it will be removed in next major release. Please use makeUseInfiniteScroll instead and read doc for more example https://abrcdf1023.github.io/egroup-utils.'
+  'Error: useInfiniteScroll is depreciated and it will be removed in next major release. Please use makeInfiniteScroll instead and read doc for more example https://abrcdf1023.github.io/egroup-utils.'
 );
 export default function useInfiniteScroll(options = {}) {
   const defaultTarget = typeof window !== 'undefined' ? window : null;

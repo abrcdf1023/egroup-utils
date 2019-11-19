@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import makeUseInfiniteScroll from '@e-group/hooks/makeUseInfiniteScroll';
+import makeInfiniteScroll from '@e-group/hooks/makeInfiniteScroll';
 
 const makeData = (number) => {
   const result = []
@@ -17,11 +17,11 @@ const makeData = (number) => {
 
 const data = makeData(10)
 
-storiesOf('makeUseInfiniteScroll', module)
+storiesOf('makeInfiniteScroll', module)
   .add(
     'default',
     () => {
-      const useInfiniteScroll = makeUseInfiniteScroll({
+      const useInfiniteScroll = makeInfiniteScroll({
         offset: 500
       })
       const Demo = () => {
@@ -82,7 +82,7 @@ storiesOf('makeUseInfiniteScroll', module)
   .add(
     'withDifferentTarget',
     () => {
-      const useInfiniteScroll = makeUseInfiniteScroll({
+      const useInfiniteScroll = makeInfiniteScroll({
         disableDefaultTarget: true
       })
       const Demo = () => {
