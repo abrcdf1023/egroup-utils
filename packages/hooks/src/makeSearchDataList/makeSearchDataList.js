@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 
-function makeUsePayload(fromKey, sizeKey, queryKey, defaultValues) {
+function makePayload(fromKey, sizeKey, queryKey, defaultValues) {
   return function usePayload() {
     const location = useLocation();
     const [payload, setPayload] = React.useState({
@@ -69,7 +69,7 @@ export default function makeSearchDataList(options) {
     }
   } = options || {};
 
-  const usePayload = makeUsePayload(fromKey, sizeKey, queryKey, defaultValues);
+  const usePayload = makePayload(fromKey, sizeKey, queryKey, defaultValues);
 
   return function useSearchDataList({ fetchGet, history }) {
     const {
