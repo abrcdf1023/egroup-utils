@@ -3,14 +3,14 @@ import calculateAspectRatioFit from './calculateAspectRatioFit';
 /**
  * Compress and resize image and keep aspect ratio.
  *
- * @param {Node} canvas Canvas element
- * @param {Node} img Image element
- * @param {Object} options
- * @param {String} options.type ['image/jpeg'] compressed image type
- * @param {Number} options.quality [1] compressed image quality
- * @param {Number} options.maxWidth [1920] compressed image max width
- * @param {Number} options.maxHeight [1920] compressed image max height
- * @param {Boolean} options.orientation provide image orientation to reset it
+ * @param {node} canvas Canvas element
+ * @param {node} img Image element
+ * @param {object} options
+ * @param {string} options.type ['image/jpeg'] compressed image type
+ * @param {number} options.quality [1] compressed image quality
+ * @param {number} options.maxWidth [1920] compressed image max width
+ * @param {number} options.maxHeight [1920] compressed image max height
+ * @param {boolean} options.orientation provide image orientation to reset it
  */
 const preProcessImage = (canvas, img, options) => {
   const { type = 'image/jpeg', quality, maxWidth, maxHeight, orientation } =
