@@ -1,1 +1,1 @@
-export default function shortUsername(username: String): String;
+export default function shortUsername(username: string): string;

@@ -11,19 +11,19 @@ import createObservableApi from '../createObservableApi';
 
 export default function makeBasicFetchEpic({
   actionType,
-  debounceTime: time,
   apiName,
-  observableMap: customized$Map,
   fetchRequest,
-  handleTakeUntil,
   handleSuccess,
   handleFailure,
+  debounceTime: time,
+  observableMap: customized$Map,
+  handleTakeUntil,
   handleBeforeFetch,
   handleAfterFetch
 }) {
   const observableMap = customized$Map || switchMap;
   const getDebounceTime = time ? debounceTime(time) : tap(val => {});
-  return (action$, state$, dependencies) =>
+  return (action$, state$, dependencies = {}) =>
     action$.pipe(
       ofType(actionType),
       getDebounceTime,
@@ -42,7 +42,7 @@ export default function makeBasicFetchEpic({
         const { apis } = dependencies;
         if (!apis) {
           return throwError(
-            'Error: MakeBasicFetchEpic need setup apis dependencies.'
+            'Error: makeBasicFetchEpic need setup apis dependency.'
           );
         }
         return concat(
