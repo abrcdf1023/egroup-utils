@@ -7,6 +7,7 @@ import {
   debounceTime,
   tap
 } from 'rxjs/operators';
+import { findDeepValue } from './utils';
 import createObservableApi from '../createObservableApi';
 
 export default function makeBasicFetchEpic({
@@ -45,10 +46,11 @@ export default function makeBasicFetchEpic({
             'Error: makeBasicFetchEpic need setup apis dependency.'
           );
         }
+        const api = findDeepValue(apis, apiName);
         return concat(
           beforeFetch,
           of(fetchRequest()),
-          createObservableApi(apis[apiName](action.payload)).pipe(
+          createObservableApi(api(action.payload)).pipe(
             flatMap(response =>
               handleSuccess(response, { state$, action, ...dependencies })
             ),
