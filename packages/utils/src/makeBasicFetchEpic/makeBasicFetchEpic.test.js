@@ -25,43 +25,74 @@ const fetchGetUserEpic = makeBasicFetchEpic({
   apiName: 'fetchGetUser',
   fetchRequest: fetchGetUserRequest,
   handleSuccess: response => [fetchGetUserSuccess(response.data)],
-  handleFailure: (error, { state$, action }) =>
-    concat(of(fetchGetUserFailure(error)))
+  handleFailure: error => concat(of(fetchGetUserFailure(error)))
 });
 
-it('sholud create a basic fetch epic', () => {
-  testScheduler.run(({ hot, cold, expectObservable }) => {
-    const action$ = hot('-a', {
-      a: fetchGetUser({
-        id: 10
-      })
+describe('makeBasicFetchEpic', () => {
+  it('sholud handle success', () => {
+    testScheduler.run(({ hot, cold, expectObservable }) => {
+      const action$ = hot('-a', {
+        a: fetchGetUser({
+          id: 10
+        })
+      });
+      const state$ = null;
+      const response = {
+        status: 200,
+        data: ['a', 'b', 'c']
+      };
+      const dependencies = {
+        apis: {
+          fetchGetUser: ({ id }) =>
+            cold('-a', {
+              a: response
+            })
+        }
+      };
+
+      const output$ = fetchGetUserEpic(action$, state$, dependencies);
+      const expectedMarble = '-ab';
+      const expectedValues = {
+        a: {
+          type: FETCH_GET_USER_REQUEST
+        },
+        b: {
+          type: FETCH_GET_USER_SUCCESS,
+          payload: response.data
+        }
+      };
+
+      expectObservable(output$).toBe(expectedMarble, expectedValues);
     });
-    const state$ = null;
-    const response = {
-      status: 200,
-      data: ['a', 'b', 'c']
-    };
-    const dependencies = {
-      apis: {
-        fetchGetUser: ({ id }) =>
-          cold('-a', {
-            a: response
-          })
-      }
-    };
+  });
 
-    const output$ = fetchGetUserEpic(action$, state$, dependencies);
-    const expectedMarble = '-ab';
-    const expectedValues = {
-      a: {
-        type: FETCH_GET_USER_REQUEST
+  it('sholud throw need apis dependency error', done => {
+    const output$ = fetchGetUserEpic(of(fetchGetUser()));
+    output$.subscribe(
+      () => {
+        done(new Error('should not be called'));
       },
-      b: {
-        type: FETCH_GET_USER_SUCCESS,
-        payload: response.data
+      err => {
+        expect(err).toEqual(
+          'Error: makeBasicFetchEpic need setup apis dependency.'
+        );
+        done();
       }
-    };
+    );
+  });
 
-    expectObservable(output$).toBe(expectedMarble, expectedValues);
+  it('sholud throw api is not a function error', done => {
+    const output$ = fetchGetUserEpic(of(fetchGetUser()), null, {
+      apis: {}
+    });
+    output$.subscribe(
+      () => {
+        done(new Error('should not be called'));
+      },
+      err => {
+        expect(err).toEqual(new TypeError('api is not a function'));
+        done();
+      }
+    );
   });
 });
