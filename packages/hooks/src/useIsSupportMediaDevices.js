@@ -1,9 +1,7 @@
 import React from 'react';
-import ismobilejs from 'ismobilejs';
 import MobileDetect from 'mobile-detect';
 
 const md = new MobileDetect(window.navigator.userAgent);
-const isMobile = ismobilejs(window.navigator.userAgent);
 
 /**
  * To check user environment is supprot mediaDevices.
@@ -15,7 +13,7 @@ export default function useIsSupportMediaDevices() {
 
   React.useEffect(() => {
     if (isSupportMediaDevices) return;
-    if (isMobile.apple.device) {
+    if (md.os() === 'iOS') {
       if (md.version('iOS') < 11) {
         setInfo({
           title: '不支援此 iOS 版本',
