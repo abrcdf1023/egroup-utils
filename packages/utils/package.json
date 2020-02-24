@@ -2,6 +2,25 @@
   "name": "@e-group/utils",
   "version": "6.12.8",
   "private": false,
+  "author": "eGroup Team",
+  "description": "eGroup team utils that share across projects.",
+  "keywords": [
+    "eGroup",
+    "react",
+    "react-component",
+    "material design",
+    "material-ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:abrcdf1023/egroup-utils.git",
+    "directory": "packages/utils"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abrcdf1023/egroup-utils/issues"
+  },
+  "homepage": "https://abrcdf1023.github.io/egroup-utils",
   "dependencies": {
     "draft-js": "^0.11.2",
     "immutable": "^4.0.0-rc.12",
@@ -21,9 +40,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": "JerryP <egroup.jerrylee@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }

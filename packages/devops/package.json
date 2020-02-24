@@ -2,6 +2,23 @@
   "name": "@e-group/devops",
   "version": "6.11.1",
   "private": false,
+  "author": "eGroup Team",
+  "description": "eGroup team DevOps utils that share across projects.",
+  "keywords": [
+    "eGroup",
+    "gulp",
+    "devops"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:abrcdf1023/egroup-utils.git",
+    "directory": "packages/devops"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abrcdf1023/egroup-utils/issues"
+  },
+  "homepage": "https://abrcdf1023.github.io/egroup-utils",
   "dependencies": {
     "gulp": "^4.0.0",
     "gulp-bom": "^2.0.0",
@@ -21,9 +38,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": "JerryP <egroup.jerrylee@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
