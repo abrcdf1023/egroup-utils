@@ -1,5 +1,3 @@
-import WebsocketRegister from './WebsocketRegister';
-
 /**
  * This class is a surger to handle window beforeunload event.
  *
@@ -15,12 +13,12 @@ import WebsocketRegister from './WebsocketRegister';
  * @module facego-utils/Beforeunload
  */
 class Beforeunload {
-  register() {
-    this.onbeforeunload = e => {
-      // 監聽窗口關閉事件。
-      // 當窗口關閉時主動去關閉 websocket 連接，防止連接還沒斷開就關閉窗口否則 server 端會拋異常。
-      WebsocketRegister.unregisterAll();
-    };
+  register(options = {}) {
+    const { onbeforeunload } = options;
+    if (onbeforeunload) {
+      this.onbeforeunload = onbeforeunload;
+    }
+
     window.addEventListener('beforeunload', this.onbeforeunload);
   }
 
