@@ -9,8 +9,6 @@
  *
  * Beforeunload.unblock(); // unblock user exit browser.
  * ```
- *
- * @module facego-utils/Beforeunload
  */
 class Beforeunload {
   register(options = {}) {

@@ -6,10 +6,7 @@
   "description": "eGroup team utils that share across projects.",
   "keywords": [
     "eGroup",
-    "react",
-    "react-component",
-    "material design",
-    "material-ui"
+    "utils"
   ],
   "repository": {
     "type": "git",
