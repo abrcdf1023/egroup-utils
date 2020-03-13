@@ -1,6 +1,6 @@
 /*~ Write your module's methods and properties in this class */
 declare class Beforeunload {
-  register(options: Beforeunload.RegisterOptions): void;
+  register(options?: Beforeunload.RegisterOptions): void;
   block(): void;
   unblock(): void;
 }
