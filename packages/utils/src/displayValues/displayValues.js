@@ -4,7 +4,7 @@ import { isImmutable } from 'immutable';
  * To displayValues by schema.
  * @param {array<object>} schema Defined displayValues schema.
  * @param {object} data.value If value is undefined or empty array it'll return undefined.
- * @param {object} data.render If render function is exist it'll excute render function and return.
+ * @param {object} data.render If render function is exist it'll excute render function instead of renderEach.
  * @param {function(object)} renderEach Customized render function for each element.
  */
 export default function displayValues(schema, renderEach) {
