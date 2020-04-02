@@ -14,9 +14,10 @@ addDecorator(withInfo);
 addDecorator(withNotes);
 
 function loadStories() {
-  require('../stories/makeSearchDataList.stories');
-  require('../stories/useInfiniteScroll.stories');
   require('../stories/makeInfiniteScroll.stories');
+  require('../stories/makeSearchDataList.stories');
+  require('../stories/reduxFormUtils.stories');
+  require('../stories/useInfiniteScroll.stories');
   require('../stories/useTimeout.stories');
   // You can require as many stories as you need.
 }
