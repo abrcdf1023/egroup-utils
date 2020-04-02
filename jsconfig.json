@@ -3,7 +3,10 @@
     "jsx": "react",
     "baseUrl": "./packages",
     "paths": {
+      "@e-group/devops": ["./devops/src"],
       "@e-group/hooks": ["./hooks/src"],
+      "@e-group/testing-utils": ["./testing-utils/src"],
+      "@e-group/utils": ["./utils/src"]
     }
   }
 }

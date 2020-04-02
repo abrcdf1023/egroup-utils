@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   module: {
@@ -16,7 +16,13 @@ module.exports = {
   },
   resolve: {
     alias: {
+      '@e-group/devops': path.resolve(__dirname, '../packages/devops/src/'),
       '@e-group/hooks': path.resolve(__dirname, '../packages/hooks/src/'),
+      '@e-group/testing-utils': path.resolve(
+        __dirname,
+        '../packages/testing-utils/src/'
+      ),
+      '@e-group/utils': path.resolve(__dirname, '../packages/utils/src/')
     }
   }
 };
