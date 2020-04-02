@@ -1,54 +1,66 @@
-import { fromJS, List, isImmutable } from 'immutable';
+import { fromJS, List, isImmutable, Map } from 'immutable';
 
-export function makeFormatSingleSelect(options) {
-  return function formatSingleSelect(value, name) {
+/**
+ * Make react select redux form formatter.
+ * @param {*} options
+ * @param {array} options.labelPath
+ * @param {array} options.valuePath
+ */
+export function makeReactSelectFormatter(options) {
+  const { labelPath = ['label'], valuePath = ['value'] } = options;
+  return function formatter(value, name) {
     if (typeof value === 'string' || typeof value === 'number') {
-      return fromJS(options.filter(el => el.value === value)[0]);
+      return fromJS({
+        label: value,
+        value
+      });
+    }
+    if (Map.isMap(value)) {
+      return fromJS({
+        label: value.getIn(labelPath),
+        value: value.getIn(valuePath)
+      });
+    }
+    if (List.isList(value)) {
+      return value.map(el => {
+        if (typeof el === 'string' || typeof el === 'number') {
+          return fromJS({
+            label: el,
+            value: el
+          });
+        }
+        return fromJS({
+          label: el.getIn(labelPath),
+          value: el.getIn(valuePath)
+        });
+      });
     }
     return value;
   };
 }
 
-export function formatSingleSelect(value, name) {
-  if (typeof value === 'string' || typeof value === 'number') {
-    return fromJS({
-      label: value,
-      value
-    });
-  }
-  return value;
-}
-
-export function formatMultiSelect(value, name) {
-  if (List.isList(value)) {
-    return value.map(el =>
-      fromJS({
-        label: el,
-        value: el
-      })
-    );
-  }
-  return value;
-}
-
-export function normalizeSingleSelect(
-  value,
-  previousValue,
-  allValues,
-  previousAllValues,
-  name
-) {
-  if (isImmutable(value)) return value.get('value');
-  return value;
-}
-
-export function normalizeMultiSelect(
-  value,
-  previousValue,
-  allValues,
-  previousAllValues,
-  name
-) {
-  if (isImmutable(value)) return value.map(el => el.get('value'));
-  return value;
+/**
+ * Make react select redux form normalizer.
+ * @param {*} options
+ * @param {array} options.valuePath
+ */
+export function makeReactSelectNormalizer(options) {
+  const { valuePath = ['value'] } = options;
+  return function normalizer(
+    value,
+    previousValue,
+    allValues,
+    previousAllValues,
+    name
+  ) {
+    if (isImmutable(value)) {
+      if (Map.isMap(value)) {
+        return value.getIn(valuePath);
+      }
+      if (List.isList(value)) {
+        return value.map(el => el.getIn(valuePath));
+      }
+    }
+    return value;
+  };
 }
