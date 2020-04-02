@@ -39,7 +39,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "rimraf": "^2.6.3"
+    "rimraf": "^3.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
