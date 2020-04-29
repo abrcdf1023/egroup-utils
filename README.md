@@ -8,3 +8,5 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/abrcdf1023/egroup-utils.svg)](http://isitmaintained.com/project/abrcdf1023/egroup-utils "Percentage of issues still open")
 
 eGroup team's client development utils
+
+[doc](https://egroupai.github.io/egroup-utils)
