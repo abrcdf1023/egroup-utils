@@ -7,7 +7,7 @@ const getScrollPosition = ref => {
   return ref.scrollTop + ref.offsetHeight;
 };
 
-export default function makeSearchDataList(options = {}) {
+export default function makeInfiniteScroll(options = {}) {
   const { offset = 100, disableDefaultTarget = false } = options;
 
   return function useInfiniteScroll(options = {}) {
