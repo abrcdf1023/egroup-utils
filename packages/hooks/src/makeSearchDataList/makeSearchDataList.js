@@ -1,62 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router';
-import queryString from 'query-string';
-
-function makePayload(fromKey, sizeKey, queryKey, defaultValues) {
-  return function usePayload() {
-    const location = useLocation();
-    const [payload, setPayload] = React.useState({
-      ...defaultValues,
-      ...queryString.parse(location.search)
-    });
-    const [formPayload, setFormPayload] = React.useState();
-
-    const handleSearchChange = e => {
-      const query = e.target.value;
-      setFormPayload(value => ({
-        ...value,
-        [queryKey]: query
-      }));
-    };
-
-    const handleSearchSubmit = e => {
-      e.preventDefault();
-      setPayload(value => ({
-        ...value,
-        ...formPayload,
-        [fromKey]: '0'
-      }));
-    };
-
-    const handleChangePage = (event, { page, rowsPerPage }) => {
-      const newPayload = {
-        ...payload,
-        [fromKey]: page * rowsPerPage
-      };
-      setPayload(newPayload);
-    };
-
-    const handleChangeRowsPerPage = (event, { page, rowsPerPage }) => {
-      const newPayload = {
-        ...payload,
-        [fromKey]: '0',
-        [sizeKey]: rowsPerPage
-      };
-      setPayload(newPayload);
-    };
-
-    return {
-      handleSearchChange,
-      handleSearchSubmit,
-      handleChangePage,
-      handleChangeRowsPerPage,
-      payload,
-      setPayload,
-      formPayload,
-      setFormPayload
-    };
-  };
-}
+import makePayload from './makePayload';
 
 export default function makeSearchDataList(options) {
   const {
@@ -71,7 +14,7 @@ export default function makeSearchDataList(options) {
 
   const usePayload = makePayload(fromKey, sizeKey, queryKey, defaultValues);
 
-  return function useSearchDataList({ fetchGet, history }) {
+  return function useSearchDataList({ fetchGet }) {
     const {
       handleSearchChange,
       handleSearchSubmit,
@@ -87,12 +30,7 @@ export default function makeSearchDataList(options) {
       if (fetchGet) {
         fetchGet(payload);
       }
-      if (history) {
-        history.push({
-          search: queryString.stringify(payload)
-        });
-      }
-    }, [fetchGet, history, payload]);
+    }, [fetchGet, payload]);
 
     return {
       handleSearchChange,

@@ -26,26 +26,24 @@ const data = [{ id: '1', name: 'name1' }, { id: '2', name: 'name2' }];
 storiesOf('makeSearchDataList', module)
   .addDecorator(StoryRouter())
   .add('default', () => {
-    const Demo = withRouter(({ location, history }) => {
+    const Demo = withRouter(() => {
       const [text, setText] = React.useState('');
       const {
         handleSearchChange,
         handleSearchSubmit,
         handleChangePage,
         handleChangeRowsPerPage,
-        setFormPayload,
         setPayload,
         payload
       } = useSearchDataList({
         fetchGet: React.useCallback(payload => {
           setText(val => (val += 'dispatch action ! <br/>'));
-        }, []),
-        history
+        }, [])
       });
 
       const handleInputChange = e => {
         const value = e.target.value;
-        setFormPayload(val => ({
+        setPayload(val => ({
           ...val,
           input: value
         }));
@@ -69,7 +67,6 @@ storiesOf('makeSearchDataList', module)
       return (
         <React.Fragment>
           <h1 dangerouslySetInnerHTML={{ __html: text }} />
-          <h1>{location.search}</h1>
           <div>{JSON.stringify(payload, null, 4)}</div>
 
           <SearchDataList
