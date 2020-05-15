@@ -12,6 +12,7 @@
  */
 class Beforeunload {
   block(options) {
+    if (this.onbeforeunload) return;
     const { dialogText } = options || {};
     this.onbeforeunload = e => {
       // Cancel the event as stated by the standard.
@@ -24,7 +25,9 @@ class Beforeunload {
   }
 
   unblock() {
+    if (!this.onbeforeunload) return;
     window.removeEventListener('beforeunload', this.onbeforeunload);
+    this.onbeforeunload = undefined;
   }
 }
 
