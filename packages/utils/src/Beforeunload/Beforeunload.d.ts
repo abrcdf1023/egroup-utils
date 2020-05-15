@@ -1,7 +1,6 @@
 /*~ Write your module's methods and properties in this class */
 declare class Beforeunload {
-  register(options?: Beforeunload.RegisterOptions): void;
-  block(): void;
+  block(options?: Beforeunload.BlockOptions): void;
   unblock(): void;
 }
 
@@ -14,8 +13,8 @@ declare class Beforeunload {
  *~   import * as x from '[~THE MODULE~]'; // WRONG! DO NOT DO THIS!
  */
 declare namespace Beforeunload {
-  export interface RegisterOptions {
-    onbeforeunload?: () => void;
+  export interface BlockOptions {
+    dialogText?: string;
   }
 }
 

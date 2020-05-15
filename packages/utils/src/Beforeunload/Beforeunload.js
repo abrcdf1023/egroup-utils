@@ -3,36 +3,28 @@
  *
  * Example .
  * ```javascript
- * Beforeunload.block(); // block user exit browser.
+ * beforeunload.block(); // block user exit browser.
  *
  * doSomething()
  *
- * Beforeunload.unblock(); // unblock user exit browser.
+ * beforeunload.unblock(); // unblock user exit browser.
  * ```
  */
 class Beforeunload {
-  register(options = {}) {
-    const { onbeforeunload } = options;
-    if (onbeforeunload) {
-      this.onbeforeunload = onbeforeunload;
-    }
-
-    window.addEventListener('beforeunload', this.onbeforeunload);
-  }
-
-  block() {
+  block(options) {
+    const { dialogText } = options || {};
     this.onbeforeunload = e => {
       // Cancel the event as stated by the standard.
       e.preventDefault();
       // Chrome requires returnValue to be set.
-      e.returnValue = '';
+      e.returnValue = dialogText;
+      return dialogText;
     };
     window.addEventListener('beforeunload', this.onbeforeunload);
   }
 
   unblock() {
     window.removeEventListener('beforeunload', this.onbeforeunload);
-    this.register();
   }
 }
 
