@@ -1,4 +1,4 @@
-import { Collection } from "immutable";
+import { Collection } from 'immutable';
 
 interface SuccessConfig {
   setData(newState: Collection<any, any>, action: any): Collection<any, any>;

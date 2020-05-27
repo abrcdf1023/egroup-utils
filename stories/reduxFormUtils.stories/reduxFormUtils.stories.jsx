@@ -6,14 +6,14 @@ import {
   makeReactSelectFormatter,
   makeReactSelectNormalizer,
   formatSelectOptions
-} from '@e-group/utils/reduxFormUtils';
-import { store } from '../redux/configureStore';
+} from '@e-group/utils/immutable/reduxFormUtils';
+import { store } from '../redux/immutable/configureStore';
 
 import { Provider } from 'react-redux';
 import { Field } from 'redux-form/immutable';
-import ReactSelectField from './ReactSelectField';
 import Grid from '@material-ui/core/Grid';
-import ReduxForm from '../components/ReduxForm';
+import ReactSelectField from '@e-group/material-form/immutable/ReactSelectField';
+import ReduxForm from '../components/immutable/ReduxForm';
 import Highlight from '../components/Highlight';
 
 export const options = [

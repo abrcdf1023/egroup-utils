@@ -1,5 +1,3 @@
-import { isImmutable } from 'immutable';
-
 /**
  * To displayValues by schema.
  * @param {array<object>} schema Defined displayValues schema.
@@ -9,7 +7,7 @@ import { isImmutable } from 'immutable';
  */
 export default function displayValues(schema, renderEach) {
   return schema.map((item, index) => {
-    const plainValue = isImmutable(item.value) ? item.value.toJS() : item.value;
+    const plainValue = item.value;
     const valueType = typeof plainValue;
     if (valueType === 'boolean' && !plainValue) {
       return undefined;

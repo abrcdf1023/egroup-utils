@@ -1,11 +1,11 @@
-import { Map } from "immutable";
-import createFetchReducer from "./createFetchReducer";
+import { Map } from 'immutable';
+import createFetchReducer from './createFetchReducer';
 
-const FETCH_GET_MEMBER = "FETCH_GET_MEMBER";
-const FETCH_GET_MEMBER_REQUEST = "FETCH_GET_MEMBER_REQUEST";
-const FETCH_GET_MEMBER_CANCEL = "FETCH_GET_MEMBER_CANCEL";
-const FETCH_GET_MEMBER_SUCCESS = "FETCH_GET_MEMBER_SUCCESS";
-const FETCH_GET_MEMBER_FAILURE = "FETCH_GET_MEMBER_FAILURE";
+const FETCH_GET_MEMBER = 'FETCH_GET_MEMBER';
+const FETCH_GET_MEMBER_REQUEST = 'FETCH_GET_MEMBER_REQUEST';
+const FETCH_GET_MEMBER_CANCEL = 'FETCH_GET_MEMBER_CANCEL';
+const FETCH_GET_MEMBER_SUCCESS = 'FETCH_GET_MEMBER_SUCCESS';
+const FETCH_GET_MEMBER_FAILURE = 'FETCH_GET_MEMBER_FAILURE';
 
 const fetchReducer = createFetchReducer({
   take: FETCH_GET_MEMBER,
@@ -17,14 +17,14 @@ const fetchReducer = createFetchReducer({
 
 // To mock date please read this issue
 // https://github.com/facebook/jest/issues/2234
-const DATE_TO_USE = new Date("2016");
+const DATE_TO_USE = new Date('2016');
 const _Date = Date;
 global.Date = jest.fn(() => DATE_TO_USE);
 global.Date.UTC = _Date.UTC;
 global.Date.parse = _Date.parse;
 global.Date.now = _Date.now;
 
-it("should return initialState", () => {
+it('should return initialState', () => {
   const takeAction = {
     type: FETCH_GET_MEMBER
   };
@@ -36,7 +36,7 @@ it("should return initialState", () => {
   );
 });
 
-it("should handle request action", () => {
+it('should handle request action', () => {
   const requestAction = {
     type: FETCH_GET_MEMBER_REQUEST
   };
@@ -48,7 +48,7 @@ it("should handle request action", () => {
   );
 });
 
-it("should handle cancel action", () => {
+it('should handle cancel action', () => {
   const cancelAction = {
     type: FETCH_GET_MEMBER_CANCEL
   };
@@ -60,11 +60,11 @@ it("should handle cancel action", () => {
   );
 });
 
-it("should handle success action", () => {
+it('should handle success action', () => {
   const successAction = {
     type: FETCH_GET_MEMBER_SUCCESS,
     payload: Map({
-      foo: "bar"
+      foo: 'bar'
     })
   };
   expect(fetchReducer(undefined, successAction)).toEqual(
@@ -73,13 +73,13 @@ it("should handle success action", () => {
       isError: false,
       latestUpdated: new Date().getTime(),
       data: Map({
-        foo: "bar"
+        foo: 'bar'
       })
     })
   );
 });
 
-it("should handle failure action", () => {
+it('should handle failure action', () => {
   const failureAction = {
     type: FETCH_GET_MEMBER_FAILURE,
     payload: new Error()
