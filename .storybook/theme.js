@@ -4,5 +4,5 @@ export default create({
   base: 'light',
 
   brandTitle: 'eGroup Utils',
-  brandUrl: 'https://abrcdf1023.github.io/egroup-utils',
+  brandUrl: 'https://eGroupAI.github.io/egroup-utils'
 });

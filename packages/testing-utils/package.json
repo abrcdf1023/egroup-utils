@@ -10,14 +10,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:abrcdf1023/egroup-utils.git",
+    "url": "git@github.com:eGroupAI/egroup-utils.git",
     "directory": "packages/testing-utils"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abrcdf1023/egroup-utils/issues"
+    "url": "https://github.com/eGroupAI/egroup-utils/issues"
   },
-  "homepage": "https://abrcdf1023.github.io/egroup-utils",
+  "homepage": "https://eGroupAI.github.io/egroup-utils",
   "dependencies": {
     "rxjs": "^6.5.3"
   },
