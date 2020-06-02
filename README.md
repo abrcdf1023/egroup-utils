@@ -1,6 +1,6 @@
 # @e-group utils root
 
-[![Build Status](https://travis-ci.com/eGroupAI/egroup-utils.svg?branch=master)](https://travis-ci.com/eGroupAI/egroup-utils)
+[![Build Status](https://travis-ci.org/eGroupAI/egroup-utils.svg?branch=master)](https://travis-ci.org/eGroupAI/egroup-utils)
 [![codecov](https://codecov.io/gh/eGroupAI/egroup-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/eGroupAI/egroup-utils)
 [![BCH compliance](https://bettercodehub.com/edge/badge/eGroupAI/egroup-utils?branch=master)](https://bettercodehub.com/)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=eGroupAI/egroup-utils)](https://dependabot.com)
