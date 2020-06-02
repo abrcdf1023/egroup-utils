@@ -2,9 +2,9 @@ cache: yarn
 language:
   node_js
 node_js:
-  - 10.16.3
+  - "lts/*"
 env:
-  - CODECOV_TOKEN="963e67b7-bc01-476b-9a90-4bf55ea96365"
+  - CODECOV_TOKEN="5941d0ee-c5ce-44c1-a7a4-ee17ab3b80d1"
 install:
   - npm install -g codecov
 # Script that is run before the script phase
