@@ -1,8 +1,0 @@
-component_depth: 5
-languages:
-- javascript
-- typescript
-exclude:
-- /stories/.*
-- /.storybook/.*
-- /scripts/.*
