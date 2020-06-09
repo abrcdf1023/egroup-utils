@@ -24,7 +24,12 @@ const fetchGetUserEpic = makeBasicFetchEpic({
   actionType: FETCH_GET_USER,
   apiName: 'fetchGetUser',
   fetchRequest: fetchGetUserRequest,
-  handleSuccess: response => [fetchGetUserSuccess(response.data)],
+  handleSuccess: (response, { action }) => {
+    if (action.payload && action.payload.callback) {
+      action.payload.callback();
+    }
+    return [fetchGetUserSuccess(response.data)];
+  },
   handleFailure: error => concat(of(fetchGetUserFailure(error)))
 });
 
@@ -94,5 +99,56 @@ describe('makeBasicFetchEpic', () => {
         done();
       }
     );
+  });
+
+  const apis = {
+    fetchGetUser: () =>
+      new Promise(resolve => {
+        resolve();
+      })
+  };
+
+  it('sholud excute callback after success', done => {
+    const output$ = fetchGetUserEpic(
+      of(
+        fetchGetUser({
+          callback: () => {
+            done();
+          }
+        })
+      ),
+      null,
+      {
+        apis
+      }
+    );
+    output$.subscribe();
+  });
+
+  it('sholud not have error with array payload', done => {
+    const output$ = fetchGetUserEpic(of(fetchGetUser([])), null, {
+      apis
+    });
+    output$.subscribe(() => {
+      done();
+    });
+  });
+
+  it('sholud not have error with string payload', done => {
+    const output$ = fetchGetUserEpic(of(fetchGetUser('foo')), null, {
+      apis
+    });
+    output$.subscribe(() => {
+      done();
+    });
+  });
+
+  it('sholud not have error with number payload', done => {
+    const output$ = fetchGetUserEpic(of(fetchGetUser(100)), null, {
+      apis
+    });
+    output$.subscribe(() => {
+      done();
+    });
   });
 });

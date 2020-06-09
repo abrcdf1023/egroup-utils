@@ -47,10 +47,20 @@ export default function makeBasicFetchEpic({
           );
         }
         const api = findDeepValue(apis, apiName);
+        let apiPayload = action.payload;
+        if (
+          action.payload &&
+          typeof action.payload === 'object' &&
+          !Array.isArray(action.payload)
+        ) {
+          // Destructuring `callback` automatically it's used to execute method after api finish.
+          const { callback, ...payload } = action.payload;
+          apiPayload = payload;
+        }
         return concat(
           beforeFetch,
           of(fetchRequest()),
-          createObservableApi(api(action.payload)).pipe(
+          createObservableApi(api(apiPayload)).pipe(
             flatMap(response =>
               handleSuccess(response, { state$, action, ...dependencies })
             ),
