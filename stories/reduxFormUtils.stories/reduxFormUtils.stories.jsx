@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import {
   makeReactSelectFormatter,
   makeReactSelectNormalizer,
-  formatSelectOptions
+  parseReactSelectOptions
 } from '@e-group/utils/immutable/reduxFormUtils';
 import { store } from '../redux/immutable/configureStore';
 
@@ -109,7 +109,7 @@ const Demo = () => {
             normalize={makeReactSelectNormalizer({
               disableReturnStringValue: true
             })}
-            options={formatSelectOptions({
+            options={parseReactSelectOptions({
               labelPath: ['userName'],
               valuePath: ['userId'],
               options: options3
@@ -158,7 +158,7 @@ const Demo = () => {
             normalize={makeReactSelectNormalizer({
               disableReturnStringValue: true
             })}
-            options={formatSelectOptions({
+            options={parseReactSelectOptions({
               labelPath: ['userName'],
               valuePath: ['userId'],
               options: options3

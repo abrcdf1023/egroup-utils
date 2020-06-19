@@ -2,6 +2,7 @@ import { fromJS, List, isImmutable, Map } from 'immutable';
 
 /**
  * If formatter value is string or boolean get the correct option format for react select.
+ * Option format example, { value: 'foo', label: 'bar' }.
  */
 function getFormattedSelectOption({
   value,
@@ -111,12 +112,12 @@ export function makeReactSelectNormalizer(options = {}) {
 }
 
 /**
- * Format select options for react select
+ * Parse react options for react select.
  * @param {*} options
  * @param {array} options.labelPath
  * @param {array} options.valuePath
  */
-export function formatSelectOptions(options = {}) {
+export function parseReactSelectOptions(options = {}) {
   const { labelPath = [], valuePath = [], options: selectOptions } = options;
   return selectOptions.map(el => ({
     ...el,
