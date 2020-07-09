@@ -14,7 +14,11 @@ export default function getIn(obj, paths, defaultValue) {
     const key = paths[i];
 
     if (i === paths.length - 1) {
-      result = cloneDeep(copy[key]);
+      if (copy[key]) {
+        result = cloneDeep(copy[key]);
+      } else {
+        result = cloneDeep(defaultValue);
+      }
     } else {
       if (!copy[key]) {
         result = cloneDeep(defaultValue);

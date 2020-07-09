@@ -4,7 +4,9 @@ describe('getIn', () => {
   it('should get defaultValue', () => {
     const obj = {};
     const result = getIn(obj, ['foo', 'bar'], 'defaultValue');
+    const result2 = getIn(obj, ['foo'], {});
     expect(result).toEqual('defaultValue');
+    expect(result2).toEqual({});
   });
 
   it('should get value in obj', () => {
