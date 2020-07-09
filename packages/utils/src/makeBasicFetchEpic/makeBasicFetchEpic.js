@@ -62,11 +62,16 @@ export default function makeBasicFetchEpic({
           of(fetchRequest()),
           createObservableApi(api(apiPayload)).pipe(
             flatMap(response =>
-              handleSuccess(response, { state$, action, ...dependencies })
+              handleSuccess(response, {
+                action$,
+                state$,
+                action,
+                ...dependencies
+              })
             ),
             cancelRequest,
             catchError(error =>
-              handleFailure(error, { state$, action, ...dependencies })
+              handleFailure(error, { action$, state$, action, ...dependencies })
             )
           ),
           afterFetch

@@ -5,6 +5,8 @@ import { ActionsObservable, StateObservable, Epic } from 'redux-observable';
 export interface Options<D = any> {
   action$: ActionsObservable;
   state$: StateObservable;
+  apiErrorsHandler?: D;
+  action?: D;
   apis?: D;
   schema?: D;
 }
