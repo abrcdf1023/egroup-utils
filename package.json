@@ -27,6 +27,7 @@
     "lint-staged": "^8.2.0",
     "prettier": "^1.18.2",
     "redux-actions": "^2.6.5",
+    "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "typescript": "^3.5.3"
   },
@@ -78,8 +79,11 @@
     "@storybook/addons": "^5.2.1",
     "@storybook/react": "^5.2.1",
     "clsx": "^1.1.0",
+    "draft-js": "^0.11.6",
     "highlight": "^0.2.4",
     "immutable": "^4.0.0-rc.12",
+    "js-base64": "^3.3.3",
+    "mobile-detect": "^1.4.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -89,6 +93,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.3.2",
     "redux-immutable": "^4.0.0",
+    "redux-observable": "^1.2.0",
     "storybook-react-router": "^1.0.8"
   }
 }

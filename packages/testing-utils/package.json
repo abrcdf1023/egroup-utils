@@ -32,9 +32,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "rimraf": "^2.6.3"
-  },
   "engines": {
     "node": ">=8.0.0"
   }

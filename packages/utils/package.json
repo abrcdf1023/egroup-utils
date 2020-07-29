@@ -18,15 +18,6 @@
     "url": "https://github.com/eGroupAI/egroup-utils/issues"
   },
   "homepage": "https://eGroupAI.github.io/egroup-utils",
-  "dependencies": {
-    "draft-js": "^0.11.2",
-    "immutable": "^4.0.0-rc.12",
-    "js-base64": "^2.5.1",
-    "mobile-detect": "^1.4.4",
-    "redux-actions": "^2.6.5",
-    "redux-observable": "^1.2.0",
-    "rxjs": "^6.5.3"
-  },
   "scripts": {
     "test": "jest",
     "clean": "rimraf build",
@@ -38,8 +29,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "rimraf": "^2.6.3"
+  "peerDependencies": {
+    "draft-js": "^0.11.2",
+    "immutable": "^4.0.0-rc.12",
+    "js-base64": "^3.3.3",
+    "mobile-detect": "^1.4.4",
+    "redux-actions": "^2.6.5",
+    "redux-observable": "^1.2.0",
+    "rxjs": "^6.5.3"
   },
   "engines": {
     "node": ">=8.0.0"
