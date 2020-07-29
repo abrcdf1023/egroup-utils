@@ -40,5 +40,8 @@
   },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "safe-json-stringify": "^1.2.0"
   }
 }
