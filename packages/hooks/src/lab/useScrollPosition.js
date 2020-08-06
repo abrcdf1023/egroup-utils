@@ -18,15 +18,14 @@ function getScrollPosition(options = {}) {
  * @param {*} wait
  */
 export default function useScrollPosition(effect, deps, element, wait) {
-  const position = React.useRef(getScrollPosition());
   const { current: store } = React.useRef({
     throttleTimeout: null
   });
 
   const callBack = () => {
     const currPos = getScrollPosition({ element });
-    effect({ prevPos: position.current, currPos, element });
-    position.current = currPos;
+    effect({ prevPos: store.prevPos, currPos, element });
+    store.prevPos = currPos;
     store.throttleTimeout = null;
   };
 
