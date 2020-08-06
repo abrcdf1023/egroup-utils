@@ -6,17 +6,12 @@ import useScrollPosition from '@e-group/hooks/lab/useScrollPosition';
 const Demo = () => {
   const [top, setTop] = React.useState(0);
   const [isShow, setIsShow] = React.useState(false);
-  const el1Ref = React.useRef();
-  const el2Ref = React.useRef();
+  const elRef = React.useRef();
 
-  useScrollPosition(
-    ({ prevPos, currPos }) => {
-      const scrollDistance = prevPos.y - currPos.y;
-      setTop(val => val + scrollDistance);
-    },
-    [],
-    el1Ref
-  );
+  useScrollPosition(({ prevPos, currPos }) => {
+    const scrollDistance = prevPos.y - currPos.y;
+    setTop(val => val + scrollDistance);
+  }, []);
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
@@ -24,7 +19,7 @@ const Demo = () => {
       setIsShow(isShow);
     },
     [],
-    el2Ref
+    elRef
   );
 
   return (
@@ -36,7 +31,7 @@ const Demo = () => {
       </div>
       <div style={{ height: 1000 }}>
         <div
-          ref={el2Ref}
+          ref={elRef}
           style={{ opacity: isShow ? 1 : 0, transition: 'all 2s' }}
         >
           Hi!, I'm fading when you scroll over me.
