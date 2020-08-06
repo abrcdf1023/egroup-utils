@@ -18,6 +18,7 @@ function loadStories() {
   require('../stories/makeSearchDataList.stories');
   require('../stories/reduxFormUtils.stories');
   require('../stories/useInterval.stories');
+  require('../stories/useScrollPosition.stories');
   require('../stories/useTimeout.stories');
   // You can require as many stories as you need.
 }

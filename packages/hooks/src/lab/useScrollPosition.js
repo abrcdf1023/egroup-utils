@@ -1,7 +1,6 @@
 import React from 'react';
 
-function getScrollPosition(options = {}) {
-  const { element } = options;
+function getScrollPosition(element) {
   const target = Boolean(element && element.current)
     ? element.current
     : document.body;
@@ -18,14 +17,14 @@ function getScrollPosition(options = {}) {
  * @param {*} wait
  */
 export default function useScrollPosition(effect, deps, element, wait) {
-  const prevPos = React.useRef(getScrollPosition({ element }));
+  const position = React.useRef(getScrollPosition(element));
   const { current: store } = React.useRef({
-    prevPos,
+    prevPos: position.current,
     throttleTimeout: null
   });
 
   const callBack = () => {
-    const currPos = getScrollPosition({ element });
+    const currPos = getScrollPosition(element);
     effect({ prevPos: store.prevPos, currPos, element });
     store.prevPos = currPos;
     store.throttleTimeout = null;
