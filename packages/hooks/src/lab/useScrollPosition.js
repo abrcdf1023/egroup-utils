@@ -25,7 +25,7 @@ export default function useScrollPosition(effect, deps, element, wait) {
 
   const callBack = () => {
     const currPos = getScrollPosition({ element });
-    effect({ prevPos: position.current, currPos });
+    effect({ prevPos: position.current, currPos, element });
     position.current = currPos;
     store.throttleTimeout = null;
   };
