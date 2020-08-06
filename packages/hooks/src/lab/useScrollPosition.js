@@ -45,7 +45,9 @@ export default function useScrollPosition(effect, deps, element, wait) {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      store.throttleTimeout && clearTimeout(store.throttleTimeout);
+      if (store.throttleTimeout) {
+        clearTimeout(store.throttleTimeout);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
