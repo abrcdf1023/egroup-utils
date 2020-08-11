@@ -11,6 +11,8 @@ test-images/processed/*
 
 # production
 build
+storybook-static
+*.d.ts
 
 # misc
 .DS_Store

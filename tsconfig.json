@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "sourceMap": true,
+    "allowJs": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDirs": ["packages", "stories"],
+    "baseUrl": "packages",
+    "paths": {
+      "@e-group/devops/*": ["devops/src/*"],
+      "@e-group/hooks/*": ["hooks/src/*"],
+      "@e-group/testing-utils/*": ["testing-utils/src/*"],
+      "@e-group/utils/*": ["utils/src/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "packages/devops/src/*",
+    "packages/hooks/src/*",
+    "packages/testing-utils/src/*",
+    "packages/utils/src/*"
+  ],
+  "exclude": ["node_modules", "scripts"]
+}
