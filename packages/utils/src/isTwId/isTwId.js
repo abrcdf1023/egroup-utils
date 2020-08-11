@@ -1,10 +1,7 @@
-const isString = id => typeof id === 'string';
+export const isTwIdFormatValid = id => /^[A-Z][1,2,8,9]\d{8}$/.test(id);
 
-const isLengthValid = id => id.length === 10;
-
-const isTwIdFormatValid = id => /^[A-Z][12][0-9]{8}$/.test(id);
-
-const isResidentPermitIdFormatValid = id => /^[A-Z][ABCD][0-9]{8}$/.test(id);
+export const isResidentPermitIdFormatValid = id =>
+  /^[A-Z][A,B,C,D]\d{8}$/.test(id);
 
 /**
  * 把對應的英文字母轉換成二位數字
@@ -63,7 +60,7 @@ const checkNumberIsValid = (remainder, checkNumber) => {
  * 身分證字號規則 http://web.fg.tp.edu.tw/~anny/idtest.htm
  * @param {String} id
  */
-const isTwIdValid = id => {
+export const isTwId = id => {
   if (!isTwIdFormatValid(id)) return false;
   const firstValue = getFirstValue(id[0]);
   const idTailSum = getSum(id.slice(1, 9));
@@ -76,7 +73,7 @@ const isTwIdValid = id => {
  * 居留證號碼規則 http://web.fg.tp.edu.tw/~anny/idtest.htm
  * @param {String} id
  */
-const isResidentPermitIdValid = id => {
+export const isResidentPermitId = id => {
   if (!isResidentPermitIdFormatValid(id)) return false;
   const firstValue = getFirstValue(id[0]);
   const secondNumberString = String(parseLetterToNumber(id[1]));
@@ -86,9 +83,3 @@ const isResidentPermitIdValid = id => {
   const checkNumber = Number(id.slice(-1));
   return checkNumberIsValid(remainder, checkNumber);
 };
-
-export default function isTwId(id) {
-  if (!isString(id)) return false;
-  if (!isLengthValid(id)) return false;
-  return isTwIdValid(id) || isResidentPermitIdValid(id);
-}
