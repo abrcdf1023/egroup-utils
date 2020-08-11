@@ -3,9 +3,9 @@ import {
   isResidentPermitId,
   isTwIdFormatValid,
   isResidentPermitIdFormatValid
-} from './isTwId';
+} from './twIdValidator';
 
-describe('isTwId', () => {
+describe('twIdValidator', () => {
   it('should pass with TW Id', () => {
     expect(isTwId('A123456789')).toBe(true);
     expect(isTwId('B134863148')).toBe(true);
