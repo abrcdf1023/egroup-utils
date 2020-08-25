@@ -5,7 +5,14 @@ import {
   StateObservable,
   Epic
 } from 'redux-observable';
-import { throwError, of, concat, Observable, OperatorFunction } from 'rxjs';
+import {
+  throwError,
+  of,
+  concat,
+  Observable,
+  OperatorFunction,
+  ObservableInput
+} from 'rxjs';
 import {
   mergeMap,
   switchMap,
@@ -21,7 +28,7 @@ export type ObservableAction = ActionsObservable<Action<any>>;
 export type ObservableState = StateObservable<any>;
 
 export interface Dependencies {
-  apiErrorsHandler?: <T>() => Observable<T>;
+  apiErrorsHandler?: () => Observable<any>;
   action?: Action<any>;
   apis?: any;
   schema?: any;
@@ -35,19 +42,19 @@ export interface MakeBasicFetchEpicOptions {
   actionType: string;
   apiName: string;
   fetchRequest: ActionFunctionAny<Action<any>>;
-  handleSuccess: <T>(response: any, options: Options) => Observable<T>;
-  handleFailure: <T>(error: any, options: Options) => Observable<T>;
+  handleSuccess: (response: any, options: Options) => ObservableInput<any>;
+  handleFailure: (error: any, options: Options) => ObservableInput<any>;
   debounceTime?: number;
   observableMap?: typeof switchMap | typeof mergeMap;
-  handleTakeUntil?: <T>(action$: ObservableAction) => OperatorFunction<T, any>;
-  handleBeforeFetch?: <T>(
+  handleTakeUntil?: (action$: ObservableAction) => OperatorFunction<any, any>;
+  handleBeforeFetch?: (
     action: Action<any>,
     dependencies: Dependencies
-  ) => Observable<T>;
-  handleAfterFetch?: <T>(
+  ) => Observable<any>;
+  handleAfterFetch?: (
     action: Action<any>,
     dependencies: Dependencies
-  ) => Observable<T>;
+  ) => Observable<any>;
 }
 
 export default function makeBasicFetchEpic({

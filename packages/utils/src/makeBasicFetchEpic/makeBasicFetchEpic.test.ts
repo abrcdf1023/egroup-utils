@@ -3,7 +3,12 @@ import { of, concat } from 'rxjs';
 import { createAction } from 'redux-actions';
 
 import makeBasicFetchEpic from './makeBasicFetchEpic';
+import { ActionsObservable } from 'redux-observable';
 
+/**
+ * ActionsObservable type error solution.
+ * https://github.com/redux-observable/redux-observable/issues/620
+ */
 const testScheduler = new TestScheduler((actual, expected) => {
   expect(actual).toEqual(expected);
 });
@@ -36,11 +41,12 @@ const fetchGetUserEpic = makeBasicFetchEpic({
 describe('makeBasicFetchEpic', () => {
   it('sholud handle success', () => {
     testScheduler.run(({ hot, cold, expectObservable }) => {
-      const action$ = hot('-a', {
+      const actionInput$ = hot('-a', {
         a: fetchGetUser({
           id: 10
         })
       });
+      const action$ = new ActionsObservable(actionInput$);
       const state$ = null;
       const response = {
         status: 200,
@@ -72,7 +78,8 @@ describe('makeBasicFetchEpic', () => {
   });
 
   it('sholud throw need apis dependency error', done => {
-    const output$ = fetchGetUserEpic(of(fetchGetUser()));
+    const action$ = new ActionsObservable(of(fetchGetUser()));
+    const output$ = fetchGetUserEpic(action$, null, {});
     output$.subscribe(
       () => {
         done(new Error('should not be called'));
@@ -87,7 +94,8 @@ describe('makeBasicFetchEpic', () => {
   });
 
   it('sholud throw api is not a function error', done => {
-    const output$ = fetchGetUserEpic(of(fetchGetUser()), null, {
+    const action$ = new ActionsObservable(of(fetchGetUser()));
+    const output$ = fetchGetUserEpic(action$, null, {
       apis: {}
     });
     output$.subscribe(
@@ -109,24 +117,23 @@ describe('makeBasicFetchEpic', () => {
   };
 
   it('sholud excute callback after success', done => {
-    const output$ = fetchGetUserEpic(
-      of(
-        fetchGetUser({
-          callback: () => {
-            done();
-          }
-        })
-      ),
-      null,
-      {
-        apis
-      }
+    const actionInput$ = of(
+      fetchGetUser({
+        callback: () => {
+          done();
+        }
+      })
     );
+    const action$ = new ActionsObservable(actionInput$);
+    const output$ = fetchGetUserEpic(action$, null, {
+      apis
+    });
     output$.subscribe();
   });
 
   it('sholud not have error with array payload', done => {
-    const output$ = fetchGetUserEpic(of(fetchGetUser([])), null, {
+    const action$ = new ActionsObservable(of(fetchGetUser([])));
+    const output$ = fetchGetUserEpic(action$, null, {
       apis
     });
     output$.subscribe(() => {
@@ -135,7 +142,8 @@ describe('makeBasicFetchEpic', () => {
   });
 
   it('sholud not have error with string payload', done => {
-    const output$ = fetchGetUserEpic(of(fetchGetUser('foo')), null, {
+    const action$ = new ActionsObservable(of(fetchGetUser('foo')));
+    const output$ = fetchGetUserEpic(action$, null, {
       apis
     });
     output$.subscribe(() => {
@@ -144,7 +152,8 @@ describe('makeBasicFetchEpic', () => {
   });
 
   it('sholud not have error with number payload', done => {
-    const output$ = fetchGetUserEpic(of(fetchGetUser(100)), null, {
+    const action$ = new ActionsObservable(of(fetchGetUser(100)));
+    const output$ = fetchGetUserEpic(action$, null, {
       apis
     });
     output$.subscribe(() => {
