@@ -48,8 +48,7 @@ class Validator {
         max
       })
     ) {
-      this.errors[this.name] =
-        message || `Text length can't exceed ${max} chars.`;
+      this.errors[this.name] = message;
     }
     return this;
   }
