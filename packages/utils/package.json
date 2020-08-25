@@ -32,13 +32,15 @@
   },
   "peerDependencies": {
     "@types/redux-actions": "^2.6.1",
+    "@types/validator": "^13.1.0",
     "draft-js": "^0.11.2",
     "immutable": "^4.0.0-rc.12",
     "js-base64": "^3.3.3",
     "mobile-detect": "^1.4.4",
     "redux-actions": "^2.6.5",
     "redux-observable": "^1.2.0",
-    "rxjs": "^6.5.3"
+    "rxjs": "^6.5.3",
+    "validator": "^13.1.1"
   },
   "engines": {
     "node": ">=8.0.0"

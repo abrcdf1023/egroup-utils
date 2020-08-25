@@ -31,7 +31,6 @@
     "prettier": "^1.18.2",
     "redux-actions": "^2.6.5",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4",
     "typescript": "^3.9.7"
   },
   "scripts": {
@@ -85,6 +84,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-select": "^3.0.19",
     "@types/redux-actions": "^2.6.1",
+    "@types/validator": "^13.1.0",
     "clsx": "^1.1.0",
     "draft-js": "^0.11.6",
     "highlight": "^0.2.4",
@@ -101,6 +101,8 @@
     "redux-form": "^8.3.2",
     "redux-immutable": "^4.0.0",
     "redux-observable": "^1.2.0",
-    "storybook-react-router": "^1.0.8"
+    "rxjs": "^6.6.2",
+    "storybook-react-router": "^1.0.8",
+    "validator": "^13.1.1"
   }
 }
