@@ -28,22 +28,22 @@ export type ObservableAction = ActionsObservable<Action<any>>;
 export type ObservableState = StateObservable<any>;
 
 export interface Dependencies {
-  apiErrorsHandler?: () => Observable<any>;
-  action?: Action<any>;
+  apiErrorsHandler?: any;
   apis?: any;
   schema?: any;
 }
-export interface Options extends Dependencies {
+export interface HandlerArgs extends Dependencies {
   action$: ObservableAction;
   state$: ObservableState;
+  action: Action<any>;
 }
 
 export interface MakeBasicFetchEpicOptions {
   actionType: string;
   apiName: string;
   fetchRequest: ActionFunctionAny<Action<any>>;
-  handleSuccess: (response: any, options: Options) => ObservableInput<any>;
-  handleFailure: (error: any, options: Options) => ObservableInput<any>;
+  handleSuccess: (response: any, args: HandlerArgs) => ObservableInput<any>;
+  handleFailure: (error: any, args: HandlerArgs) => ObservableInput<any>;
   debounceTime?: number;
   observableMap?: typeof switchMap | typeof mergeMap;
   handleTakeUntil?: (action$: ObservableAction) => OperatorFunction<any, any>;
