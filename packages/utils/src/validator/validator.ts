@@ -3,7 +3,7 @@ import isLength from 'validator/lib/isLength';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone, { MobilePhoneLocale } from 'validator/lib/isMobilePhone';
 
-export type ValidatorValue = string | Date;
+export type ValidatorValue = string | Date | undefined | null;
 class Validator {
   errors: object;
   name: string;
