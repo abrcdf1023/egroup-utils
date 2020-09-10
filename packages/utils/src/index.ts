@@ -5,3 +5,4 @@ export { default as createObservableApi } from './createObservableApi';
 export * from './createObservableApi';
 export { default as validator } from './validator';
 export * from './validator';
+export * from './dateUtils';
