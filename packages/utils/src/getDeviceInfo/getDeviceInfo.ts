@@ -33,4 +33,5 @@ export default function getDeviceInfo() {
       outcome.push({ key: `version(${propKey})`, val: version });
     }
   });
+  return outcome;
 }
