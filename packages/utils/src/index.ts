@@ -8,3 +8,7 @@ export * from './validator';
 export * from './dateUtils';
 export { default as getDeviceInfo } from './getDeviceInfo';
 export * from './getDeviceInfo';
+export { default as getIn } from './getIn';
+export * from './getIn';
+export { default as hasIn } from './hasIn';
+export * from './hasIn';

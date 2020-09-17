@@ -3,7 +3,7 @@
  * @param {any} obj
  * @param {Array<String>} paths
  */
-export default function hasIn(obj, paths) {
+export default function hasIn(obj: any, paths: (string | number)[]) {
   if (!obj) return;
   let copy = obj;
   let result = false;
