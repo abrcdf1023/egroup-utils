@@ -6,10 +6,14 @@ import cloneDeep from 'lodash.clonedeep';
  * @param {Array<String>} paths
  * @param {any} defaultValue
  */
-export default function getIn(obj, paths, defaultValue) {
+export default function getIn(
+  obj: any,
+  paths: (string | number)[],
+  defaultValue?: any
+) {
   if (!obj) return;
   let copy = obj;
-  let result;
+  let result: any;
   for (let i = 0; i < paths.length; i++) {
     const key = paths[i];
 

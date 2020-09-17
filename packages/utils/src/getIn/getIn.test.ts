@@ -13,11 +13,22 @@ describe('getIn', () => {
     const obj = {
       foo: {
         zpp: 'zpp',
-        bar: 'bar'
+        bar: 'bar',
+        zoo: ['zoo1', 'zoo2'],
+        goo: [
+          'goo1',
+          {
+            gooO: 'gooWoW'
+          }
+        ]
       }
     };
     const result = getIn(obj, ['foo', 'zpp']);
+    const result2 = getIn(obj, ['foo', 'zoo', 0]);
+    const result3 = getIn(obj, ['foo', 'goo', 1, 'gooO']);
     expect(result).toEqual('zpp');
+    expect(result2).toEqual('zoo1');
+    expect(result3).toEqual('gooWoW');
   });
 
   it('should not have side effect', () => {
