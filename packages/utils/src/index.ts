@@ -12,3 +12,5 @@ export { default as getIn } from './getIn';
 export * from './getIn';
 export { default as hasIn } from './hasIn';
 export * from './hasIn';
+export { default as setIn } from './setIn';
+export * from './setIn';

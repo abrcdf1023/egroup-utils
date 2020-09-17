@@ -9,6 +9,31 @@ describe('setIn', () => {
         bar: 'value'
       }
     });
+    const obj2 = {};
+    setIn(obj2, ['foo', 'bar', 0], 'value');
+    expect(obj2).toEqual({
+      foo: {
+        bar: {
+          0: 'value'
+        }
+      }
+    });
+    const obj3 = { x: { y: [] } };
+    setIn(obj3, ['x', 'y', 0], 'value');
+    expect(obj3).toEqual({
+      x: {
+        y: ['value']
+      }
+    });
+    const obj4 = {};
+    setIn(obj4, ['x', 0, 'y'], 'value');
+    expect(obj4).toEqual({
+      x: {
+        0: {
+          y: 'value'
+        }
+      }
+    });
   });
 
   it('should set value in obj', () => {

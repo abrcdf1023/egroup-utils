@@ -4,7 +4,11 @@
  * @param {Array<String>} paths
  * @param {any} value
  */
-export default function setIn(obj, paths, value) {
+export default function setIn(
+  obj: any,
+  paths: (string | number)[],
+  value: any
+) {
   if (!obj) return;
   let copy = obj;
   for (let i = 0; i < paths.length; i++) {
